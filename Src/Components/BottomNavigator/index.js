@@ -22,7 +22,7 @@ class Bottom extends Component {
     }
     else if (value === 2) {
       this.setState({ navigatinUpdate: value })
-      // this.props.navigation.navigate('Trade')
+      this.props.navigation.navigate('NutrionLog')
     }
     else if (value === 3) {
       this.setState({ navigatinUpdate: value })

@@ -24,5 +24,10 @@ const images = {
   food: require('../assests/Icons/food.png'),
   settings: require('../assests/Icons/settings.png'),
   profileUser: require('../assests/Icons/profileUser.png'),
+  clock: require('../assests/Icons/clock.png'),
+
+  doc: require('../assests/Icons/doc.png'),
+  plus: require('../assests/Icons/plus.png'),
+  delete: require('../assests/Icons/delete.png'),
 };
 export default images;
