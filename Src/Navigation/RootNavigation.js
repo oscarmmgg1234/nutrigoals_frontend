@@ -4,7 +4,7 @@ import UserStack from './UserStack';
 import ProfileStack from './ProfileStack';
 import InstagramStack from './InstagramStack';
 import NutrionStack from './NutrionStack';
-
+import AsyncStorage from '@react-native-community/async-storage';
 const AppNavigator = createSwitchNavigator(
   {
     AuthStack: AuthStack,
@@ -14,7 +14,9 @@ const AppNavigator = createSwitchNavigator(
     NutrionStack: NutrionStack,
   },
   {
-    initialRouteName: 'AuthStack',
+    initialRouteName: AsyncStorage.getItem('LoggedInStatus')
+      ? 'UserStack'
+      : 'AuthStack',
   },
 );
 export default createAppContainer(AppNavigator);

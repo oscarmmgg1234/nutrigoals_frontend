@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   View,
   Text,
@@ -12,6 +13,8 @@ import Styles from './Styles';
 import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
+import {LoginCall} from '../../../http_config/server_call_func';
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +25,17 @@ class Login extends Component {
       passwordFocus: false,
     };
   }
+
+  loginValidator = (username, password) => {
+    let result = LoginCall(username, password);
+    if (result == true) {
+      AsyncStorage.setItem('LoggedInStatus', true);
+      this.props.navigation.navigate('Home');
+    } else {
+      alert('Wrong Username/Password');
+    }
+  };
+
   focusEmail = () => {
     this.setState({emailFocus: !this.state.emailFocus});
   };
@@ -104,9 +118,9 @@ class Login extends Component {
 
               <TouchableOpacity
                 style={Styles.buttonContainer}
-                onPress={() => {
-                  this.props.navigation.navigate('Home');
-                }}>
+                onPress={() =>
+                  this.loginValidator(this.state.email, this.state.password)
+                }>
                 <Text style={Styles.buttonText}>{Constants.LOGIN}</Text>
               </TouchableOpacity>
 

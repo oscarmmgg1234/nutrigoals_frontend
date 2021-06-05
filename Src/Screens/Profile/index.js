@@ -16,6 +16,7 @@ import * as Constants from '../../Constants';
 import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
 import BottomWrapper from '../../Components/BottomNavigator';
+import AsyncStorage from "@react-native-community/async-storage";
 
 class Profile extends Component {
   constructor(props) {
@@ -147,6 +148,7 @@ class Profile extends Component {
               <TouchableOpacity
                 style={Styles.buttonContainer}
                 onPress={() => {
+                  AsyncStorage.setItem('LoggedInStatus', false);
                   this.props.navigation.navigate('Login');
                 }}>
                 <Text style={Styles.buttonText}>{Constants.SIGNOUT}</Text>
