@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  TextInput
+  TextInput,
+  FlatList
 } from 'react-native';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import Styles from './Styles';
@@ -30,12 +31,74 @@ class NutrionLog extends Component {
         {
           name: 'Egg'
         },
-       
+        {
+          name: 'add'
+        },
+
 
       ],
       quantity: '',
       calory: ''
     };
+  }
+  showBreakfast = (value, index) => {
+    const { imageProfile, storyData, quantity, calory } = this.state
+    return (
+      <>
+        {
+          value.name != 'add' ?
+            < View style={Styles.showbackGroundContent1}>
+              <View style={Styles.boxHeader}>
+                <Image source={Images.delete} style={{ width: 20, height: 20 }} />
+                <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500' }}>{value.name}</Text>
+                <Text>{''}</Text>
+              </View>
+
+              <View style={Styles.quantityWrapper}>
+                <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500' }}>{'Qty: '}</Text>
+                <TextInput
+                  style={Styles.InputStyles}
+                  placeholder={'1'}
+                  placeholderTextColor={Colors.White}
+                  value={quantity}
+                  onChangeText={(value) => { this.setState({ quantity: value }) }}
+                />
+                <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', color: '#62FF68', marginLeft: 5 }}>{'Of'}</Text>
+                <TextInput
+                  style={Styles.InputStyles1}
+                  placeholder={'1 cup(60ml)'}
+                  placeholderTextColor={Colors.White}
+                  value={calory}
+                  onChangeText={(value) => { this.setState({ calory: value }) }}
+                />
+
+              </View>
+              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 20 }}>{'Calories/kcal : 200'}</Text>
+              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Carbs/g : 20'}</Text>
+              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Fat/g : 2'}</Text>
+              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Protein/g : 4'}</Text>
+              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Sodium/mg : 800'}</Text>
+              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Sugar/g : 10'}</Text>
+
+
+            </View>
+            :
+            <TouchableOpacity>
+              <View style={Styles.showbackGroundContent}>
+                <Text
+                  style={{ fontSize: 17, fontWeight: '500', color: Colors.White }}>
+                  {'Add Food Element'}</Text>
+                <Image source={Images.plus} style={{ width: 35, height: 30, marginTop: 15 }} />
+
+                <Text
+                  style={{ fontSize: 17, fontWeight: '500', color: Colors.White, marginTop: 25 }}>
+                  {'Or scan it'}</Text>
+                <Image source={Images.doc} style={{ width: 35, height: 30, marginTop: 10 }} />
+              </View>
+            </TouchableOpacity>
+        }
+      </>
+    )
   }
 
   render() {
@@ -122,137 +185,37 @@ class NutrionLog extends Component {
               {/* Breakfast */}
 
               <Text style={Styles.inputTextStyle1}>{'Breakfast:'}</Text>
-
-              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <View style={Styles.headerContentWrapper}>
-                  <View style={Styles.headerContent}>
-                    {
-                      storyData.length > 0 && storyData.map((value) => {
-                        return (
-                          <>
-                            <View style={Styles.showbackGroundContent1}>
-                              <View style={Styles.boxHeader}>
-                                <Image source={Images.delete} style={{ width: 20, height: 20 }} />
-                                <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500' }}>{value.name}</Text>
-                                <Text>{''}</Text>
-                              </View>
-
-                              <View style={Styles.quantityWrapper}>
-                                <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500' }}>{'Qty: '}</Text>
-                                <TextInput
-                                  style={Styles.InputStyles}
-                                  placeholder={'1'}
-                                  placeholderTextColor={Colors.White}
-                                  value={quantity}
-                                  onChangeText={(value) => { this.setState({ quantity: value }) }}
-                                />
-                                <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', color: '#62FF68', marginLeft: 5 }}>{'Of'}</Text>
-                                <TextInput
-                                  style={Styles.InputStyles1}
-                                  placeholder={'1 cup(60ml)'}
-                                  placeholderTextColor={Colors.White}
-                                  value={calory}
-                                  onChangeText={(value) => { this.setState({ calory: value }) }}
-                                />
-
-                              </View>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 20 }}>{'Calories/kcal : 200'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Carbs/g : 20'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Fat/g : 2'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Protein/g : 4'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Sodium/mg : 800'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Sugar/g : 10'}</Text>
-
-
-                            </View>
-                          </>
-                        )
-                      })
-                    }
-                    <TouchableOpacity>
-                      <View style={Styles.showbackGroundContent}>
-                        <Text
-                          style={{ fontSize: 17, fontWeight: '500', color: Colors.White }}>
-                          {'Add Food Element'}</Text>
-                        <Image source={Images.plus} style={{ width: 35, height: 30, marginTop: 15 }} />
-
-                        <Text
-                          style={{ fontSize: 17, fontWeight: '500', color: Colors.White, marginTop: 25 }}>
-                          {'Or scan it'}</Text>
-                        <Image source={Images.doc} style={{ width: 35, height: 30, marginTop: 10 }} />
-                      </View>
-                    </TouchableOpacity>
-                  </View>
+              <View style={Styles.headerContentWrapper}>
+                <View style={Styles.headerContent}>
+                  <FlatList
+                    showsHorizontalScrollIndicator={false}
+                    horizontal={true}
+                    data={storyData}
+                    renderItem={({ item }) => this.showBreakfast(item)}
+                  />
                 </View>
+              </View>
 
-              </ScrollView>
+
 
 
               {/* Dinner:  */}
               <Text style={Styles.inputTextStyle1}>{'Dinner:'}</Text>
 
-              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <View style={Styles.headerContentWrapper}>
-                  <View style={Styles.headerContent}>
-                    {
-                      storyData.length > 0 && storyData.map((value) => {
-                        return (
-                          <>
-                            <View style={Styles.showbackGroundContent1}>
-                              <View style={Styles.boxHeader}>
-                                <Image source={Images.delete} style={{ width: 20, height: 20 }} />
-                                <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500' }}>{value.name}</Text>
-                                <Text>{''}</Text>
-                              </View>
-                              <View style={Styles.quantityWrapper}>
-                                <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500' }}>{'Qty: '}</Text>
-                                <TextInput
-                                  style={Styles.InputStyles}
-                                  placeholder={'1'}
-                                  placeholderTextColor={Colors.White}
-                                  value={quantity}
-                                  onChangeText={(value) => { this.setState({ quantity: value }) }}
-                                />
-                                <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', color: '#62FF68', marginLeft: 5 }}>{'Of'}</Text>
-                                <TextInput
-                                  style={Styles.InputStyles1}
-                                  placeholder={'1 cup(60ml)'}
-                                  placeholderTextColor={Colors.White}
-                                  value={calory}
-                                  onChangeText={(value) => { this.setState({ calory: value }) }}
-                                />
 
-                              </View>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 20 }}>{'Calories/kcal : 200'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Carbs/g : 20'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Fat/g : 2'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Protein/g : 4'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Sodium/mg : 800'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Sugar/g : 10'}</Text>
+              <View style={Styles.headerContentWrapper}>
+                <View style={Styles.headerContent}>
 
-
-                            </View>
-                          </>
-                        )
-                      })
-                    }
-                    <TouchableOpacity>
-                      <View style={Styles.showbackGroundContent}>
-                        <Text
-                          style={{ fontSize: 17, fontWeight: '500', color: Colors.White }}>
-                          {'Add Food Element'}</Text>
-                        <Image source={Images.plus} style={{ width: 35, height: 30, marginTop: 15 }} />
-
-                        <Text
-                          style={{ fontSize: 17, fontWeight: '500', color: Colors.White, marginTop: 25 }}>
-                          {'Or scan it'}</Text>
-                        <Image source={Images.doc} style={{ width: 35, height: 30, marginTop: 10 }} />
-                      </View>
-                    </TouchableOpacity>
-                  </View>
+                  <FlatList
+                    showsHorizontalScrollIndicator={false}
+                    horizontal={true}
+                    data={storyData}
+                    renderItem={({ item }) => this.showBreakfast(item)}
+                  />
                 </View>
+              </View>
 
-              </ScrollView>
+
 
 
 
@@ -261,68 +224,18 @@ class NutrionLog extends Component {
               <Text style={Styles.inputTextStyle1}>{'Snacks:'}</Text>
 
 
-              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                <View style={Styles.headerContentWrapper}>
-                  <View style={Styles.headerContent}>
-                    {
-                      storyData.length > 0 && storyData.map((value) => {
-                        return (
-                          <>
-                            <View style={Styles.showbackGroundContent1}>
-                              <View style={Styles.boxHeader}>
-                                <Image source={Images.delete} style={{ width: 20, height: 20 }} />
-                                <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500' }}>{value.name}</Text>
-                                <Text>{''}</Text>
-                              </View>
-                              <View style={Styles.quantityWrapper}>
-                                <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500' }}>{'Qty: '}</Text>
-                                <TextInput
-                                  style={Styles.InputStyles}
-                                  placeholder={'1'}
-                                  placeholderTextColor={Colors.White}
-                                  value={quantity}
-                                  onChangeText={(value) => { this.setState({ quantity: value }) }}
-                                />
-                                <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', color: '#62FF68', marginLeft: 5 }}>{'Of'}</Text>
-                                <TextInput
-                                  style={Styles.InputStyles1}
-                                  placeholder={'1 cup(60ml)'}
-                                  placeholderTextColor={Colors.White}
-                                  value={calory}
-                                  onChangeText={(value) => { this.setState({ calory: value }) }}
-                                />
+              <View style={Styles.headerContentWrapper}>
+                <View style={Styles.headerContent}>
+                  <FlatList
+                    showsHorizontalScrollIndicator={false}
+                    horizontal={true}
+                    data={storyData}
+                    renderItem={({ item }) => this.showBreakfast(item)}
+                  />
 
-                              </View>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 20 }}>{'Calories/kcal : 200'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Carbs/g : 20'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Fat/g : 2'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Protein/g : 4'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Sodium/mg : 800'}</Text>
-                              <Text style={{ color: Colors.White, fontSize: 18, fontWeight: '500', marginTop: 7 }}>{'Sugar/g : 10'}</Text>
-
-
-                            </View>
-                          </>
-                        )
-                      })
-                    }
-                    <TouchableOpacity>
-                      <View style={Styles.showbackGroundContent}>
-                        <Text
-                          style={{ fontSize: 17, fontWeight: '500', color: Colors.White }}>
-                          {'Add Food Element'}</Text>
-                        <Image source={Images.plus} style={{ width: 35, height: 30, marginTop: 15 }} />
-
-                        <Text
-                          style={{ fontSize: 17, fontWeight: '500', color: Colors.White, marginTop: 25 }}>
-                          {'Or scan it'}</Text>
-                        <Image source={Images.doc} style={{ width: 35, height: 30, marginTop: 10 }} />
-                      </View>
-                    </TouchableOpacity>
-                  </View>
                 </View>
+              </View>
 
-              </ScrollView>
 
 
 

@@ -7,7 +7,8 @@ import {
   ScrollView,
   Image,
   TextInput,
-  ImageBackground
+  ImageBackground,
+  FlatList
 } from 'react-native';
 import { GradientCircularProgress } from "react-native-circular-gradient-progress";
 import Styles from './Styles';
@@ -65,6 +66,16 @@ class Instagram extends Component {
       ],
     };
   }
+  showProfileWrapper = (value) => {
+    return (
+      <>
+        <View style={Styles.storyWrapper}>
+          <Image source={Images.Profile} style={Styles.headerContentInner} />
+          <Text style={Styles.storyText}>{value.name}</Text>
+        </View>
+      </>
+    )
+  }
 
   render() {
     const { toogleOn, imageProfile, storyData, storyIntagram } = this.state
@@ -87,25 +98,17 @@ class Instagram extends Component {
           </View>
           <Text style={Styles.inputTextStyle1}>{'Highlights:'}</Text>
 
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View style={Styles.headerContentWrapper}>
-              <View style={Styles.headerContent}>
-                {
-                  storyData.length > 0 && storyData.map((value) => {
-                    return (
-                      <>
-                        <View style={Styles.storyWrapper}>
-                          <Image source={Images.Profile} style={Styles.headerContentInner} />
-                          <Text style={Styles.storyText}>{value.name}</Text>
-                        </View>
-                      </>
-                    )
-                  })
-                }
-              </View>
-            </View>
 
-          </ScrollView>
+          <View style={Styles.headerContentWrapper}>
+            <View style={Styles.headerContent}>
+              <FlatList
+                showsHorizontalScrollIndicator={false}
+                horizontal={true}
+                data={storyData}
+                renderItem={({ item }) => this.showProfileWrapper(item)}
+              />
+            </View>
+          </View>
 
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={Styles.mainDataWrapper}>

@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   headerContentWrapper: {
     marginTop: 15,
-    marginBottom: 70
+    marginBottom: 20
   },
   headerContent: {
     flexDirection: 'row',
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.White,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    marginTop: '10%',
+    marginTop: '5%',
     // marginBottom: 25/
   },
   listMainWrapper: {
