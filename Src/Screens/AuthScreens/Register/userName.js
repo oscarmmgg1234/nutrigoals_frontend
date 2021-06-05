@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  TextInput
+  TextInput,
 } from 'react-native';
 import Styles from './Styles';
 import * as Constants from '../../../Constants';
@@ -19,30 +19,37 @@ class RegisterUserName extends Component {
     this.state = {
       userName: '',
       userFocus: false,
-
     };
   }
   focusEmail = () => {
-    this.setState({ userFocus: !this.state.userFocus })
-  }
-
+    this.setState({userFocus: !this.state.userFocus});
+  };
 
   render() {
-    const { userName, userFocus, } = this.state
+    const {userName, userFocus} = this.state;
     return (
       <>
         <SafeAreaView style={Styles.safeViewStyle}>
           <ScrollView>
-
             <View style={Styles.mainContainer}>
               <Text style={Styles.headerText}>{Constants.SELECT_USERNAME}</Text>
             </View>
 
             <View style={Styles.emailMainContainer}>
-
               {/* User Name */}
               <Text style={Styles.inputTextStyle}>{Constants.USERNAME}</Text>
-              <View style={[Styles.emailWrapper, { borderColor: userName.length > 0 ? '#62FF68' : userFocus ? Colors.buttonColor : Colors.backgroundColor }]}>
+              <View
+                style={[
+                  Styles.emailWrapper,
+                  {
+                    borderColor:
+                      userName.length > 0
+                        ? '#62FF68'
+                        : userFocus
+                        ? Colors.buttonColor
+                        : Colors.backgroundColor,
+                  },
+                ]}>
                 <TextInput
                   style={Styles.emailInput}
                   value={userName}
@@ -50,27 +57,26 @@ class RegisterUserName extends Component {
                   placeholderTextColor={Colors.primary}
                   onFocus={this.focusEmail}
                   onBlur={this.focusEmail}
-                  autoCapitalize='none'
+                  autoCapitalize="none"
                   onChangeText={(value) => {
-                    this.setState({ userName: value })
+                    this.setState({userName: value});
                   }}
                 />
-                {
-                  userName.length > 0 &&
-                  < Image source={Images.check} style={Styles.checkImage} />
-                }
+                {userName.length > 0 && (
+                  <Image source={Images.check} style={Styles.checkImage} />
+                )}
               </View>
             </View>
 
-            <TouchableOpacity style={Styles.buttonContainer}
-              onPress={() => { this.props.navigation.navigate('Login') }}
-            >
+            <TouchableOpacity
+              style={Styles.buttonContainer}
+              onPress={() => {
+                this.props.navigation.navigate('Login');
+              }}>
               <Text style={Styles.buttonText}>{Constants.FINISH_SIGNUP}</Text>
             </TouchableOpacity>
-
-
           </ScrollView>
-        </SafeAreaView >
+        </SafeAreaView>
       </>
     );
   }

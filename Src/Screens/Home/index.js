@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   View,
   Text,
@@ -6,16 +6,15 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  TextInput
+  TextInput,
 } from 'react-native';
-import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import Styles from './Styles';
 import * as Constants from '../../Constants';
 import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
 import BottomWrapper from '../../Components/BottomNavigator';
-import { GradientCircularProgress } from "react-native-circular-gradient-progress";
-
+import {GradientCircularProgress} from 'react-native-circular-gradient-progress';
 
 class Home extends Component {
   constructor(props) {
@@ -24,19 +23,18 @@ class Home extends Component {
       imageProfile: '',
       storyData: [
         {
-          name: 'Protein'
+          name: 'Protein',
         },
         {
-          name: 'Fat'
+          name: 'Fat',
         },
         {
-          name: 'Carbohydrates'
+          name: 'Carbohydrates',
         },
         {
-          name: 'Sugar'
+          name: 'Sugar',
         },
-
-      ]
+      ],
     };
   }
   selectImage = () => {
@@ -47,7 +45,7 @@ class Home extends Component {
       },
     };
 
-    launchImageLibrary(options, response => {
+    launchImageLibrary(options, (response) => {
       if (response.didCancel) {
         // console.log('User cancelled photo picker');
         //dispatch(TASKS.hideLoader());
@@ -59,17 +57,16 @@ class Home extends Component {
       } else {
         // let source = { uri: response.uri };
         // You can also display the image using data:
-        const { fileName, type, uri, fileSize } = response;
+        const {fileName, type, uri, fileSize} = response;
 
         // `${utilities.BASE_URL}register`
-        this.setState({ imageProfile: uri })
+        this.setState({imageProfile: uri});
         // dispatch(TASKS.hideLoader());
-
       }
     });
-  }
+  };
   render() {
-    const { imageProfile, storyData } = this.state
+    const {imageProfile, storyData} = this.state;
     return (
       <>
         <SafeAreaView style={Styles.safeViewStyle1} />
@@ -77,10 +74,13 @@ class Home extends Component {
           <View style={Styles.headerWrapper}>
             <View style={Styles.headerContainer}>
               <TouchableOpacity onPress={this.selectImage}>
-                <Image source={imageProfile ? { uri: imageProfile } : Images.Profile} style={Styles.profileStyle} />
+                <Image
+                  source={imageProfile ? {uri: imageProfile} : Images.Profile}
+                  style={Styles.profileStyle}
+                />
               </TouchableOpacity>
               <Text style={Styles.homeText}>{'Home'}</Text>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity>
                   <Image source={Images.search} style={Styles.sideImage} />
                 </TouchableOpacity>
@@ -94,7 +94,7 @@ class Home extends Component {
               <TouchableOpacity>
                 <Image source={Images.arrow_left} style={Styles.sideImage} />
               </TouchableOpacity>
-              <View style={{ flexDirection: 'row', marginLeft: -10 }}>
+              <View style={{flexDirection: 'row', marginLeft: -10}}>
                 <TouchableOpacity>
                   <Image source={Images.calendar} style={Styles.sideImage} />
                 </TouchableOpacity>
@@ -103,33 +103,50 @@ class Home extends Component {
               <TouchableOpacity>
                 <Image source={Images.arrow_right} style={Styles.sideImage1} />
               </TouchableOpacity>
-
             </View>
           </View>
           <ScrollView>
-            <View style={{
-              marginTop: 10,
-              marginBottom: 20
-            }}>
+            <View
+              style={{
+                marginTop: 10,
+                marginBottom: 20,
+              }}>
               <Text style={Styles.inputTextStyle1}>{' Calories:'}</Text>
               {/* showProgressSingle */}
               <View style={Styles.showProgressSingle}>
-                <View style={{
-                  flexDirection: 'row', width: '90%',
-                  alignSelf: 'center', justifyContent: 'space-around',
-                  marginTop: 20
-                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '90%',
+                    alignSelf: 'center',
+                    justifyContent: 'space-around',
+                    marginTop: 20,
+                  }}>
                   <View>
                     <Text style={Styles.firstText}>{'Recieved'}</Text>
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                    <View style={{flexDirection: 'row', marginTop: 10}}>
                       <Text style={Styles.firstText1}>{'1645'}</Text>
-                      <Text style={[Styles.firstText, { marginLeft: 7, marginTop: 3 }]}>{'/ 2030 Kcal'}</Text>
+                      <Text
+                        style={[
+                          Styles.firstText,
+                          {marginLeft: 7, marginTop: 3},
+                        ]}>
+                        {'/ 2030 Kcal'}
+                      </Text>
                     </View>
 
-                    <Text style={[Styles.firstText, { marginTop: 20 }]}>{'Spent'}</Text>
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                    <Text style={[Styles.firstText, {marginTop: 20}]}>
+                      {'Spent'}
+                    </Text>
+                    <View style={{flexDirection: 'row', marginTop: 10}}>
                       <Text style={Styles.firstText1}>{'105'}</Text>
-                      <Text style={[Styles.firstText, { marginLeft: 7, marginTop: 3 }]}>{'Kcal'}</Text>
+                      <Text
+                        style={[
+                          Styles.firstText,
+                          {marginLeft: 7, marginTop: 3},
+                        ]}>
+                        {'Kcal'}
+                      </Text>
                     </View>
                   </View>
 
@@ -140,43 +157,45 @@ class Home extends Component {
                     emptyColor={Colors.cancel}
                     size={100}
                     progress={60}
-                  >
+                    stokeWidth={1}>
                     <Text style={Styles.totalText}>{'Total'}</Text>
                     <Text style={Styles.totalText1}>{'1540'}</Text>
                     <Text style={Styles.totalText2}>{'Kcal'}</Text>
                   </GradientCircularProgress>
-
                 </View>
               </View>
               {/* Tracked Macros */}
 
               <Text style={Styles.inputTextStyle1}>{' Tracked Macros:'}</Text>
 
-              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}>
                 <View style={Styles.headerContentWrapper}>
                   <View style={Styles.headerContent}>
-                    {
-                      storyData.length > 0 && storyData.map((value) => {
+                    {storyData.length > 0 &&
+                      storyData.map((value) => {
                         return (
                           <>
-                            <View style={Styles.showbackGroundContent}>
-
-                            </View>
+                            <View style={Styles.showbackGroundContent} />
                           </>
-                        )
-                      })
-                    }
+                        );
+                      })}
                     <View style={Styles.showbackGroundContent}>
                       <Text
-                        style={{ fontSize: 13, fontWeight: '500', color: Colors.primary }}>
-                        {'Add Trace Elements'}</Text>
-                        {/* <View style={{}}>
+                        style={{
+                          fontSize: 13,
+                          fontWeight: '500',
+                          color: Colors.primary,
+                        }}>
+                        {'Add Trace Elements'}
+                      </Text>
+                      {/* <View style={{}}>
 
                         </View> */}
                     </View>
                   </View>
                 </View>
-
               </ScrollView>
 
               {/* Weight */}
@@ -185,17 +204,10 @@ class Home extends Component {
 
               {/* Water */}
 
-
               <Text style={Styles.inputTextStyle1}>{' Water:'}</Text>
-
-
-
             </View>
           </ScrollView>
-          <BottomWrapper
-            navigation={this.props.navigation}
-            page={1}
-          />
+          <BottomWrapper navigation={this.props.navigation} page={1} />
         </SafeAreaView>
       </>
     );

@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions, Platform } from 'react-native';
+import {StyleSheet, Dimensions, Platform} from 'react-native';
 import Colors from '../../Styles/Colors';
 
 const widthScreen = Dimensions.get('window').width;
@@ -9,10 +9,10 @@ const styles = StyleSheet.create({
     width: widthScreen / 1.1,
     borderRadius: 25,
     height: 70,
-    justifyContent: "center",
+    justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    marginBottom: Platform.OS == 'ios' ? 0 : 15
+    marginBottom: Platform.OS == 'ios' ? 0 : 15,
   },
   bottomContainerWrapper: {
     flexDirection: 'row',
@@ -27,21 +27,20 @@ const styles = StyleSheet.create({
   imagesStyle: {
     width: 50,
     height: 50,
-    marginTop: 10
+    marginTop: 10,
   },
   bottomText: {
     fontSize: 11,
     marginTop: 5,
     color: '#52575C',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   bottomText1: {
     fontSize: 15,
     marginTop: 3,
     marginLeft: 10,
     color: '#52575C',
-    textAlign: 'center'
-  }
-
+    textAlign: 'center',
+  },
 });
 export default styles;

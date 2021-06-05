@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  TextInput
+  TextInput,
 } from 'react-native';
 import Styles from './Styles';
 import * as Constants from '../../../Constants';
@@ -25,47 +25,64 @@ class Register extends Component {
       nameFocus: false,
       confirmFocus: false,
       confirm_password: '',
-      passworMatcher: false
+      passworMatcher: false,
     };
   }
   focusEmail = () => {
-    this.setState({ emailFocus: !this.state.emailFocus })
-  }
+    this.setState({emailFocus: !this.state.emailFocus});
+  };
   focusPassword = () => {
-    this.setState({ passwordFocus: !this.state.passwordFocus })
-  }
+    this.setState({passwordFocus: !this.state.passwordFocus});
+  };
   focusName = () => {
-    this.setState({ nameFocus: !this.state.nameFocus })
-  }
+    this.setState({nameFocus: !this.state.nameFocus});
+  };
   focusConfirmPassword = () => {
-    this.setState({ confirmFocus: !this.state.confirmFocus })
-  }
+    this.setState({confirmFocus: !this.state.confirmFocus});
+  };
   nextPage = () => {
-    const { password, confirm_password } = this.state
+    const {password, confirm_password} = this.state;
     if (password != confirm_password) {
-      this.setState({ passworMatcher: !this.state.passworMatcher })
+      this.setState({passworMatcher: !this.state.passworMatcher});
+    } else {
+      this.setState({passworMatcher: false});
+      this.props.navigation.navigate('RegisterUserName');
     }
-    else {
-      this.setState({ passworMatcher: false })
-      this.props.navigation.navigate('RegisterUserName')
-    }
-  }
+  };
   render() {
-    const { name, email, emailFocus, password, passwordFocus,
-      nameFocus, confirm_password, confirmFocus, passworMatcher } = this.state
+    const {
+      name,
+      email,
+      emailFocus,
+      password,
+      passwordFocus,
+      nameFocus,
+      confirm_password,
+      confirmFocus,
+      passworMatcher,
+    } = this.state;
     return (
       <>
         <SafeAreaView style={Styles.safeViewStyle}>
           <ScrollView>
-
             <View style={Styles.mainContainer}>
               <Text style={Styles.headerText}>{Constants.SIGNUP}</Text>
 
               <View style={Styles.emailMainContainer}>
-
                 {/* Name */}
                 <Text style={Styles.inputTextStyle}>{Constants.NAME}</Text>
-                <View style={[Styles.emailWrapper, { borderColor: name.length > 0 ? '#62FF68' : nameFocus ? Colors.buttonColor : Colors.backgroundColor }]}>
+                <View
+                  style={[
+                    Styles.emailWrapper,
+                    {
+                      borderColor:
+                        name.length > 0
+                          ? '#62FF68'
+                          : nameFocus
+                          ? Colors.buttonColor
+                          : Colors.backgroundColor,
+                    },
+                  ]}>
                   <TextInput
                     style={Styles.emailInput}
                     value={name}
@@ -73,20 +90,30 @@ class Register extends Component {
                     placeholderTextColor={Colors.primary}
                     onFocus={this.focusName}
                     onBlur={this.focusName}
-                    autoCapitalize='none'
+                    autoCapitalize="none"
                     onChangeText={(value) => {
-                      this.setState({ name: value })
+                      this.setState({name: value});
                     }}
                   />
-                  {
-                    name.length > 0 &&
-                    < Image source={Images.check} style={Styles.checkImage} />
-                  }
+                  {name.length > 0 && (
+                    <Image source={Images.check} style={Styles.checkImage} />
+                  )}
                 </View>
 
                 {/* Email */}
                 <Text style={Styles.inputTextStyle1}>{Constants.EMAIL}</Text>
-                <View style={[Styles.emailWrapper, { borderColor: email.length > 0 ? '#62FF68' : emailFocus ? Colors.buttonColor : Colors.backgroundColor }]}>
+                <View
+                  style={[
+                    Styles.emailWrapper,
+                    {
+                      borderColor:
+                        email.length > 0
+                          ? '#62FF68'
+                          : emailFocus
+                          ? Colors.buttonColor
+                          : Colors.backgroundColor,
+                    },
+                  ]}>
                   <TextInput
                     style={Styles.emailInput}
                     value={email}
@@ -94,24 +121,31 @@ class Register extends Component {
                     placeholderTextColor={Colors.primary}
                     onFocus={this.focusEmail}
                     onBlur={this.focusEmail}
-                    autoCapitalize='none'
+                    autoCapitalize="none"
                     onChangeText={(value) => {
-                      this.setState({ email: value })
+                      this.setState({email: value});
                     }}
                   />
-                  {
-                    email.length > 0 &&
-                    < Image source={Images.check} style={Styles.checkImage} />
-                  }
+                  {email.length > 0 && (
+                    <Image source={Images.check} style={Styles.checkImage} />
+                  )}
                 </View>
-
 
                 {/* Password */}
                 <Text style={Styles.inputTextStyle1}>{Constants.PASSWORD}</Text>
-                <View style={[Styles.emailWrapper, {
-                  borderColor: passworMatcher ? '#FF4343' : password.length > 0 ? '#62FF68'
-                    : passwordFocus ? Colors.buttonColor : Colors.backgroundColor
-                }]}>
+                <View
+                  style={[
+                    Styles.emailWrapper,
+                    {
+                      borderColor: passworMatcher
+                        ? '#FF4343'
+                        : password.length > 0
+                        ? '#62FF68'
+                        : passwordFocus
+                        ? Colors.buttonColor
+                        : Colors.backgroundColor,
+                    },
+                  ]}>
                   <TextInput
                     style={Styles.emailInput}
                     value={password}
@@ -120,27 +154,37 @@ class Register extends Component {
                     secureTextEntry={true}
                     onFocus={this.focusPassword}
                     onBlur={this.focusPassword}
-                    autoCapitalize='none'
+                    autoCapitalize="none"
                     onChangeText={(value) => {
-                      this.setState({ password: value })
+                      this.setState({password: value});
                     }}
                   />
-                  {
-                    passworMatcher ?
-                      < Image source={Images.cross} style={Styles.checkImage} />
-                      :
-                      password.length > 0 &&
-                      < Image source={Images.check} style={Styles.checkImage} />
-                  }
+                  {passworMatcher ? (
+                    <Image source={Images.cross} style={Styles.checkImage} />
+                  ) : (
+                    password.length > 0 && (
+                      <Image source={Images.check} style={Styles.checkImage} />
+                    )
+                  )}
                 </View>
 
-
                 {/* Confirm Password */}
-                <Text style={Styles.inputTextStyle1}>{Constants.CONFIRM_PASSWORD}</Text>
-                <View style={[Styles.emailWrapper, {
-                  borderColor: passworMatcher ? '#FF4343' :
-                    confirm_password.length > 0 ? '#62FF68' : confirmFocus ? Colors.buttonColor : Colors.backgroundColor
-                }]}>
+                <Text style={Styles.inputTextStyle1}>
+                  {Constants.CONFIRM_PASSWORD}
+                </Text>
+                <View
+                  style={[
+                    Styles.emailWrapper,
+                    {
+                      borderColor: passworMatcher
+                        ? '#FF4343'
+                        : confirm_password.length > 0
+                        ? '#62FF68'
+                        : confirmFocus
+                        ? Colors.buttonColor
+                        : Colors.backgroundColor,
+                    },
+                  ]}>
                   <TextInput
                     style={Styles.emailInput}
                     value={confirm_password}
@@ -149,33 +193,29 @@ class Register extends Component {
                     secureTextEntry={true}
                     onFocus={this.focusConfirmPassword}
                     onBlur={this.focusConfirmPassword}
-                    autoCapitalize='none'
+                    autoCapitalize="none"
                     onChangeText={(value) => {
-                      this.setState({ confirm_password: value })
+                      this.setState({confirm_password: value});
                     }}
                   />
-                  {
-                    passworMatcher ?
-                      < Image source={Images.cross} style={Styles.checkImage} />
-                      :
-                      confirm_password.length > 0 &&
-                      < Image source={Images.check} style={Styles.checkImage} />
-                  }
+                  {passworMatcher ? (
+                    <Image source={Images.cross} style={Styles.checkImage} />
+                  ) : (
+                    confirm_password.length > 0 && (
+                      <Image source={Images.check} style={Styles.checkImage} />
+                    )
+                  )}
                 </View>
-
               </View>
 
-              <TouchableOpacity style={Styles.buttonContainer}
-                onPress={this.nextPage}
-              >
+              <TouchableOpacity
+                style={Styles.buttonContainer}
+                onPress={this.nextPage}>
                 <Text style={Styles.buttonText}>{Constants.NEXT}</Text>
               </TouchableOpacity>
-
-
             </View>
-
           </ScrollView>
-        </SafeAreaView >
+        </SafeAreaView>
       </>
     );
   }

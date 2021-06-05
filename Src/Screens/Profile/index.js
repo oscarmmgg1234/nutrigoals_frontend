@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   View,
   Text,
@@ -7,23 +7,22 @@ import {
   ScrollView,
   Image,
   TextInput,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import ToggleSwitch from 'toggle-switch-react-native';
-import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import Styles from './Styles';
 import * as Constants from '../../Constants';
 import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
 import BottomWrapper from '../../Components/BottomNavigator';
 
-
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       toogleOn: true,
-      imageProfile: ''
+      imageProfile: '',
     };
   }
   selectImage = () => {
@@ -34,7 +33,7 @@ class Profile extends Component {
       },
     };
 
-    launchImageLibrary(options, response => {
+    launchImageLibrary(options, (response) => {
       if (response.didCancel) {
         // console.log('User cancelled photo picker');
         //dispatch(TASKS.hideLoader());
@@ -46,17 +45,16 @@ class Profile extends Component {
       } else {
         // let source = { uri: response.uri };
         // You can also display the image using data:
-        const { fileName, type, uri, fileSize } = response;
+        const {fileName, type, uri, fileSize} = response;
 
         // `${utilities.BASE_URL}register`
-        this.setState({ imageProfile: uri })
+        this.setState({imageProfile: uri});
         // dispatch(TASKS.hideLoader());
-
       }
     });
-  }
+  };
   render() {
-    const { toogleOn, imageProfile } = this.state
+    const {toogleOn, imageProfile} = this.state;
     return (
       <>
         <SafeAreaView style={Styles.safeViewStyle1} />
@@ -64,23 +62,26 @@ class Profile extends Component {
           <View style={Styles.headerWrapper}>
             <View style={Styles.headerContainer}>
               <Text style={Styles.homeText}>{'Oscarmmgg'}</Text>
-              <View >
+              <View>
                 <Text style={Styles.darkModeText}>{'Dark Mode:'}</Text>
                 <ToggleSwitch
-                  style={{ marginTop: 10 }}
+                  style={{marginTop: 10}}
                   isOn={toogleOn}
                   onColor="#62FF68"
                   offColor={Colors.White}
-                  size='large'
-                  onToggle={isOn => { this.setState({ toogleOn: isOn }) }}
+                  size="large"
+                  onToggle={(isOn) => {
+                    this.setState({toogleOn: isOn});
+                  }}
                 />
               </View>
             </View>
           </View>
           <ScrollView>
             <TouchableOpacity onPress={this.selectImage}>
-              <ImageBackground source={imageProfile ? { uri: imageProfile } : Images.Profile}
-                imageStyle={{ borderRadius: 110 }}
+              <ImageBackground
+                source={imageProfile ? {uri: imageProfile} : Images.Profile}
+                imageStyle={{borderRadius: 110}}
                 style={Styles.profileStyle}>
                 <View style={Styles.editIconContainer}>
                   <Image source={Images.edit} style={Styles.editIcon} />
@@ -89,10 +90,9 @@ class Profile extends Component {
             </TouchableOpacity>
 
             <View style={Styles.profileMain}>
-
               {/* Profile */}
               <View style={Styles.listWrapper}>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{flexDirection: 'row'}}>
                   <Image source={Images.profileUser} style={Styles.userImage} />
                   <Text style={Styles.listText}>{'Profile '}</Text>
                 </View>
@@ -102,7 +102,7 @@ class Profile extends Component {
 
               {/* Setting */}
               <View style={Styles.listWrapper}>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{flexDirection: 'row'}}>
                   <Image source={Images.settings} style={Styles.userImage} />
                   <Text style={Styles.listText}>{'Settings '}</Text>
                 </View>
@@ -112,7 +112,7 @@ class Profile extends Component {
 
               {/* Goals */}
               <View style={Styles.listWrapper}>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{flexDirection: 'row'}}>
                   <Image source={Images.data} style={Styles.userImage} />
                   <Text style={Styles.listText}>{'Goals '}</Text>
                 </View>
@@ -121,19 +121,22 @@ class Profile extends Component {
               <View style={Styles.seperator} />
 
               {/* Food */}
-              <View style={Styles.listWrapper}>
-                <View style={{ flexDirection: 'row' }}>
-                  <Image source={Images.food} style={Styles.userImage} />
-                  <Text style={Styles.listText}>{'My  Foods, Recipes, Meals '}</Text>
+              <TouchableOpacity>
+                <View style={Styles.listWrapper}>
+                  <View style={{flexDirection: 'row'}}>
+                    <Image source={Images.food} style={Styles.userImage} />
+                    <Text style={Styles.listText}>
+                      {'My  Foods, Recipes, Meals '}
+                    </Text>
+                  </View>
+                  <Image source={Images.chevron} style={Styles.userImage1} />
                 </View>
-                <Image source={Images.chevron} style={Styles.userImage1} />
-              </View>
-              <View style={Styles.seperator} />
-
+                <View style={Styles.seperator} />
+              </TouchableOpacity>
 
               {/* Remainder */}
               <View style={Styles.listWrapper}>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{flexDirection: 'row'}}>
                   <Image source={Images.alarm} style={Styles.userImage} />
                   <Text style={Styles.listText}>{'Reminders '}</Text>
                 </View>
@@ -141,19 +144,16 @@ class Profile extends Component {
               </View>
               <View style={Styles.seperator} />
 
-
-              <TouchableOpacity style={Styles.buttonContainer}
-                onPress={() => { this.props.navigation.navigate('Login') }}
-              >
+              <TouchableOpacity
+                style={Styles.buttonContainer}
+                onPress={() => {
+                  this.props.navigation.navigate('Login');
+                }}>
                 <Text style={Styles.buttonText}>{Constants.SIGNOUT}</Text>
               </TouchableOpacity>
-
             </View>
           </ScrollView>
-          <BottomWrapper
-            navigation={this.props.navigation}
-            page={4}
-          />
+          <BottomWrapper navigation={this.props.navigation} page={4} />
         </SafeAreaView>
       </>
     );

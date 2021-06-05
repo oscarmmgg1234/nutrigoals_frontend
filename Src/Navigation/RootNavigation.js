@@ -1,4 +1,4 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import AuthStack from './AuthStack';
 import UserStack from './UserStack';
 import ProfileStack from './ProfileStack';
@@ -11,7 +11,7 @@ const AppNavigator = createSwitchNavigator(
     UserStack: UserStack,
     ProfileStack: ProfileStack,
     InstagramStack: InstagramStack,
-    NutrionStack: NutrionStack
+    NutrionStack: NutrionStack,
   },
   {
     initialRouteName: 'AuthStack',
