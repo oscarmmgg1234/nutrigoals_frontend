@@ -23,21 +23,29 @@ class Login extends Component {
       emailFocus: false,
       password: '',
       passwordFocus: false,
+      loggedInStatus: '',
     };
   }
 
-  next() {
-    AsyncStorage.setItem('LoggedInStatus', true);
-    this.props.navigation.navigate('Home');
+  async next() {
+    await AsyncStorage.setItem('LoggedInStatus', '1').then(() => {
+      this.props.navigation.navigate('Home');
+    });
   }
 
   loginValidator = () => {
     AuthSeverCall.post('/login', {
       username: this.state.email,
       password: this.state.password,
-    }).then((res) => {
-
-    });
+    })
+      .then((res) => {
+        if (res.data.valid === true) {
+          this.next();
+        } else {
+          alert('wrong username/password');
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   focusEmail = () => {

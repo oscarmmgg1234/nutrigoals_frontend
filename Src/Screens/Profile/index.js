@@ -28,7 +28,7 @@ class Profile extends Component {
   }
 
   signOuty = () => {
-    AsyncStorage.setItem('LoggedInStatus', false);
+    AsyncStorage.setItem('LoggedInStatus', '0');
     this.props.navigation.navigate('Login');
   };
 

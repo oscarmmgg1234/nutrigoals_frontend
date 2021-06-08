@@ -6,7 +6,19 @@ import InstagramStack from './InstagramStack';
 import NutrionStack from './NutrionStack';
 import AsyncStorage from '@react-native-community/async-storage';
 
-let status = AsyncStorage.getItem('LoggedInStatus');
+let status;
+async function initScreen() {
+  status = await AsyncStorage.getItem('LoggedInStatus');
+}
+function getScreen() {
+  initScreen();
+  if (status === '1') {
+    return 'UserStack';
+  } else {
+    return 'AuthStack';
+  }
+}
+
 const AppNavigator = createSwitchNavigator(
   {
     AuthStack: AuthStack,
@@ -16,7 +28,7 @@ const AppNavigator = createSwitchNavigator(
     NutrionStack: NutrionStack,
   },
   {
-    initialRouteName: status ? 'AuthStack' : 'UserStack',
+    initialRouteName: getScreen(),
   },
 );
 export default createAppContainer(AppNavigator);
