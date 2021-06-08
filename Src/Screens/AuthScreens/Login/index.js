@@ -13,7 +13,7 @@ import Styles from './Styles';
 import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
-import {LoginCall} from '../../../http_config/server_call_func';
+import {AuthSeverCall} from '../../../http_config/axios_config';
 
 class Login extends Component {
   constructor(props) {
@@ -26,14 +26,18 @@ class Login extends Component {
     };
   }
 
-  loginValidator = (username, password) => {
-    let result = LoginCall(username, password);
-    if (result == true) {
-      AsyncStorage.setItem('LoggedInStatus', true);
-      this.props.navigation.navigate('Home');
-    } else {
-      alert('Wrong Username/Password');
-    }
+  next() {
+    AsyncStorage.setItem('LoggedInStatus', true);
+    this.props.navigation.navigate('Home');
+  }
+
+  loginValidator = () => {
+    AuthSeverCall.post('/login', {
+      username: this.state.email,
+      password: this.state.password,
+    }).then((res) => {
+
+    });
   };
 
   focusEmail = () => {
@@ -118,8 +122,9 @@ class Login extends Component {
 
               <TouchableOpacity
                 style={Styles.buttonContainer}
-                onPress={() =>
-                  this.loginValidator(this.state.email, this.state.password)
+                onPress={
+                  this.loginValidator
+                  //this.loginValidator(this.state.email, this.state.password)
                 }>
                 <Text style={Styles.buttonText}>{Constants.LOGIN}</Text>
               </TouchableOpacity>

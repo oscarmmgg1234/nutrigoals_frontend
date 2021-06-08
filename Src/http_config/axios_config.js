@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const AuthSeverCall = axios.create({
-  baseURL: 'http://52.13.191.118:5000',
+  baseURL: 'http://52.13.191.118',
 });
 
 export const APITokenCall = axios.create({baseURL: 'http://35.83.99.147:5000'});

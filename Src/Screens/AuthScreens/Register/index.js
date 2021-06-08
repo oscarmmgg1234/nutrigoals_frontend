@@ -13,6 +13,7 @@ import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
 
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +47,11 @@ class Register extends Component {
       this.setState({passworMatcher: !this.state.passworMatcher});
     } else {
       this.setState({passworMatcher: false});
-      this.props.navigation.navigate('RegisterUserName');
+      this.props.navigation.navigate('RegisterUserName', {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password,
+      });
     }
   };
   render() {

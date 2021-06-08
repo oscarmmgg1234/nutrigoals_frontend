@@ -16,7 +16,7 @@ import * as Constants from '../../Constants';
 import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
 import BottomWrapper from '../../Components/BottomNavigator';
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Profile extends Component {
   constructor(props) {
@@ -26,6 +26,12 @@ class Profile extends Component {
       imageProfile: '',
     };
   }
+
+  signOuty = () => {
+    AsyncStorage.setItem('LoggedInStatus', false);
+    this.props.navigation.navigate('Login');
+  };
+
   selectImage = () => {
     const options = {
       quality: 0.1,
@@ -148,8 +154,7 @@ class Profile extends Component {
               <TouchableOpacity
                 style={Styles.buttonContainer}
                 onPress={() => {
-                  AsyncStorage.setItem('LoggedInStatus', false);
-                  this.props.navigation.navigate('Login');
+                  this.signOuty();
                 }}>
                 <Text style={Styles.buttonText}>{Constants.SIGNOUT}</Text>
               </TouchableOpacity>

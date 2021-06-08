@@ -12,6 +12,11 @@ import Styles from './Styles';
 import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
+import {
+  registerUser,
+  registerUserCredentials,
+  checkUsernameStatus,
+} from '../../../http_config/server_call_func';
 
 class RegisterUserName extends Component {
   constructor(props) {
@@ -19,10 +24,50 @@ class RegisterUserName extends Component {
     this.state = {
       userName: '',
       userFocus: false,
+      name: '',
+      password: '',
+      email: '',
+      userNameError: false,
     };
   }
+  componentDidMount() {
+    this.setState({
+      name: this.props.navigation.getParam('name'),
+      email: this.props.navigation.getParam('email'),
+      password: this.props.navigation.getParam('password'),
+    });
+  }
+
   focusEmail = () => {
     this.setState({userFocus: !this.state.userFocus});
+  };
+
+  UsernameStatus = () => {
+
+      registerUser(this.state.userName, this.state.name, this.state.email);
+      registerUserCredentials(this.state.userName, this.state.password);
+      //this.props.navigation.navigate('Login');
+
+  };
+
+  //useEffect to check for availabilty
+
+  emailWrapperColor = () => {
+    let result;
+    if (this.state.userName.length > 0) {
+      if (this.state.userNameError === true) {
+        return '#FF4343';
+      } else {
+        result = '#62FF68';
+      }
+    } else {
+      if (this.state.userFocus === true) {
+        result = Colors.buttonColor;
+      } else {
+        result = Colors.backgroundColor;
+      }
+    }
+    return result;
   };
 
   render() {
@@ -42,12 +87,12 @@ class RegisterUserName extends Component {
                 style={[
                   Styles.emailWrapper,
                   {
-                    borderColor:
-                      userName.length > 0
+                    borderColor: this.emailWrapperColor(),
+                    /*userName.length > 0
                         ? '#62FF68'
                         : userFocus
                         ? Colors.buttonColor
-                        : Colors.backgroundColor,
+                        : Colors.backgroundColor,*/
                   },
                 ]}>
                 <TextInput
@@ -70,9 +115,7 @@ class RegisterUserName extends Component {
 
             <TouchableOpacity
               style={Styles.buttonContainer}
-              onPress={() => {
-                this.props.navigation.navigate('Login');
-              }}>
+              onPress={() => this.UsernameStatus()}>
               <Text style={Styles.buttonText}>{Constants.FINISH_SIGNUP}</Text>
             </TouchableOpacity>
           </ScrollView>
