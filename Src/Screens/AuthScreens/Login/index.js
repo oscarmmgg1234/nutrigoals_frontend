@@ -14,6 +14,7 @@ import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
 import {AuthSeverCall} from '../../../http_config/axios_config';
+import SplashScreen from 'react-native-splash-screen';
 
 class Login extends Component {
   constructor(props) {
@@ -25,6 +26,9 @@ class Login extends Component {
       passwordFocus: false,
       loggedInStatus: '',
     };
+  }
+  componentDidMount() {
+    SplashScreen.hide();
   }
 
   async next() {
