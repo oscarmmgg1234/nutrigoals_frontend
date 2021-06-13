@@ -1,10 +1,12 @@
 import {createStackNavigator} from 'react-navigation-stack';
 import Login from '../Screens/AuthScreens/Login';
+import LoginSplash from "../Screens/AuthScreens/Login/LoginSplash";
 import Register from '../Screens/AuthScreens/Register';
 import RegisterUserName from '../Screens/AuthScreens/Register/userName';
 
 const AuthStack = createStackNavigator(
   {
+    LoginSplash: {screen: LoginSplash},
     Login: {screen: Login},
     Register: {screen: Register},
     RegisterUserName: {screen: RegisterUserName},

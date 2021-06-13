@@ -14,7 +14,7 @@ import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
 import {AuthSeverCall} from '../../../http_config/axios_config';
-import SplashScreen from 'react-native-splash-screen';
+
 
 class Login extends Component {
   constructor(props) {
@@ -27,9 +27,7 @@ class Login extends Component {
       loggedInStatus: '',
     };
   }
-  componentDidMount() {
-    SplashScreen.hide();
-  }
+
 
   async next() {
     await AsyncStorage.setItem('LoggedInStatus', '1').then(() => {

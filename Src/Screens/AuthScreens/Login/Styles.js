@@ -129,5 +129,56 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
   },
+  logoImage: {
+    width: widthScreen / 2,
+    height: 50,
+    marginTop: '10%',
+    zIndex: 20,
+  },
+  loginSContainer: {
+    backgroundColor: Colors.backgroundColor,
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+  },
+  LoginSButton: {
+    width: widthScreen / 1.25,
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.buttonColor,
+    marginTop: '5%',
+    alignSelf: 'center',
+    borderRadius: 20,
+  },
+  BackgroundImage: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+  },
+  LoginScreenDim: {
+    display: 'flex',
+    flexDirection: "column",
+    alignItems: "center",
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'rgba(0,0,0,0.6)',
+  },
+  LoginSplashText: {
+    marginTop: 20,
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: 17,
+    fontWeight: '400',
+
+},
+  LoginSplashText2: {
+    marginTop: '80%',
+    color: 'rgba(255,255,255,0.9)',
+    fontSize: 30,
+    fontWeight: 'bold',
+
+  }
 });
 export default styles;

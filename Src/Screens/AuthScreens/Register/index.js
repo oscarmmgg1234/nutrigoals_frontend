@@ -13,7 +13,6 @@ import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
 
-
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -212,12 +211,18 @@ class Register extends Component {
                   )}
                 </View>
               </View>
-
-              <TouchableOpacity
-                style={Styles.buttonContainer}
-                onPress={this.nextPage}>
-                <Text style={Styles.buttonText}>{Constants.NEXT}</Text>
-              </TouchableOpacity>
+              <View style={Styles.buttonContainerView}>
+                <TouchableOpacity
+                  style={Styles.buttonContainer2}
+                  onPress={() => this.props.navigation.navigate('Login')}>
+                  <Text style={Styles.buttonText}>Back</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={Styles.buttonContainer2}
+                  onPress={this.nextPage}>
+                  <Text style={Styles.buttonText}>{Constants.NEXT}</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
         </SafeAreaView>
