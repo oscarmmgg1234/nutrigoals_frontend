@@ -15,6 +15,7 @@ import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
 import BottomWrapper from '../../Components/BottomNavigator';
 import {GradientCircularProgress} from 'react-native-circular-gradient-progress';
+import SplashScreen from 'react-native-splash-screen';
 
 class Home extends Component {
   constructor(props) {
@@ -37,6 +38,10 @@ class Home extends Component {
       ],
     };
   }
+  componentDidMount() {
+    SplashScreen.hide();
+  }
+
   selectImage = () => {
     const options = {
       quality: 0.1,

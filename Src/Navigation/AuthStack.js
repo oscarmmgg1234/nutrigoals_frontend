@@ -13,6 +13,7 @@ const AuthStack = createStackNavigator(
   },
   {
     navigationOptions: {
+      initialRouteName: 'LoginSplash',
       header: null,
       gesturesEnabled: false,
       cardStack: {gesturesEnabled: false},

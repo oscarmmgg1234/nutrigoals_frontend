@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -15,7 +15,6 @@ import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
 import {AuthSeverCall} from '../../../http_config/axios_config';
 
-
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -28,9 +27,8 @@ class Login extends Component {
     };
   }
 
-
   async next() {
-    await AsyncStorage.setItem('LoggedInStatus', '1').then(() => {
+    await AsyncStorage.setItem('@loggedInStatus', '1').then(() => {
       this.props.navigation.navigate('Home');
     });
   }
@@ -133,7 +131,7 @@ class Login extends Component {
               <TouchableOpacity
                 style={Styles.buttonContainer}
                 onPress={
-                  this.loginValidator
+                  this.loginValidator()
                   //this.loginValidator(this.state.email, this.state.password)
                 }>
                 <Text style={Styles.buttonText}>{Constants.LOGIN}</Text>

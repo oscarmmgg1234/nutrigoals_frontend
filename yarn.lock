@@ -1273,6 +1273,13 @@
     "@types/yargs" "^16.0.0"
     "chalk" "^4.0.0"
 
+"@react-native-async-storage/async-storage@^1.15.4":
+  "integrity" "sha512-4AYehLH39B9a8UXCMf3ieOK+G61wGMP72ikx6/XSMA0DUnvx0PgaeaT2Wyt06kTrDTy8edewKnbrbeqwaM50TQ=="
+  "resolved" "https://registry.npmjs.org/@react-native-async-storage/async-storage/-/async-storage-1.15.5.tgz"
+  "version" "1.15.5"
+  dependencies:
+    "deep-assign" "^3.0.0"
+
 "@react-native-community/art@^1.1.2":
   "integrity" "sha512-a+ZcRGl/BzLa89yi33Mbn5SHavsEXqKUMdbfLf3U8MDLElndPqUetoJyGkv63+BcPO49UMWiQRP1YUz6/zfJ+A=="
   "resolved" "https://registry.npmjs.org/@react-native-community/art/-/art-1.2.0.tgz"
@@ -1281,13 +1288,6 @@
     "art" "^0.10.3"
     "invariant" "^2.2.4"
     "prop-types" "^15.7.2"
-
-"@react-native-community/async-storage@^1.12.1":
-  "integrity" "sha512-70WGaH3PKYASi4BThuEEKMkyAgE9k7VytBqmgPRx3MzJx9/MkspwqJGmn3QLCgHLIFUgF1pit2mWICbRJ3T3lg=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/async-storage/-/async-storage-1.12.1.tgz"
-  "version" "1.12.1"
-  dependencies:
-    "deep-assign" "^3.0.0"
 
 "@react-native-community/cli-debugger-ui@^5.0.1":
   "integrity" "sha512-5gGKaaXYOVE423BUqxIfvfAVSj5Cg1cU/TpGbeg/iqpy2CfqyWqJB3tTuVUbOOiOvR5wbU8tti6pIi1pchJ+oA=="
@@ -1370,7 +1370,7 @@
   dependencies:
     "ora" "^3.4.0"
 
-"@react-native-community/cli@^5.0.1-alpha.1":
+"@react-native-community/cli@^5.0.1", "@react-native-community/cli@^5.0.1-alpha.1":
   "integrity" "sha512-9VzSYUYSEqxEH5Ib2UNSdn2eyPiYZ4T7Y79o9DKtRBuSaUIwbCUdZtIm+UUjBpLS1XYBkW26FqL8/UdZDmQvXw=="
   "resolved" "https://registry.npmjs.org/@react-native-community/cli/-/cli-5.0.1.tgz"
   "version" "5.0.1"
@@ -6075,7 +6075,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@>=0.42.0", "react-native@>=0.47.1", "react-native@>=0.50.0", "react-native@>=0.55", "react-native@>=0.57", "react-native@>=0.57.0", "react-native@>=0.59", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@0.61.x", "react-native@0.64.2":
+"react-native@*", "react-native@^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || 1000.0.0", "react-native@>=0.42.0", "react-native@>=0.47.1", "react-native@>=0.50.0", "react-native@>=0.55", "react-native@>=0.57", "react-native@>=0.57.0", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@0.61.x", "react-native@0.64.2":
   "integrity" "sha512-Ty/fFHld9DcYsFZujXYdeVjEhvSeQcwuTGXezyoOkxfiGEGrpL/uwUZvMzwShnU4zbbTKDu2PAm/uwuOittRGA=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.64.2.tgz"
   "version" "0.64.2"
@@ -6154,7 +6154,7 @@
     "react-is" "^16.8.6"
     "scheduler" "^0.19.1"
 
-"react@*", "react@^16.13.1", "react@^16.8", "react@^16.8.0 || ^17.0.0", "react@>=16.0", "react@16.x", "react@17.0.1":
+"react@*", "react@^16.13.1", "react@^16.8.0 || ^17.0.0", "react@>=16.0", "react@16.x", "react@17.0.1":
   "integrity" "sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.1.tgz"
   "version" "17.0.1"

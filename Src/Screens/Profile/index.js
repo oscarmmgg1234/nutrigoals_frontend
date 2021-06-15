@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
   Text,
@@ -16,7 +17,6 @@ import * as Constants from '../../Constants';
 import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
 import BottomWrapper from '../../Components/BottomNavigator';
-import AsyncStorage from '@react-native-community/async-storage';
 
 class Profile extends Component {
   constructor(props) {
@@ -27,9 +27,10 @@ class Profile extends Component {
     };
   }
 
-  signOuty = () => {
-    AsyncStorage.setItem('LoggedInStatus', '0');
-    this.props.navigation.navigate('Login');
+  signOuty = async () => {
+    await AsyncStorage.setItem('@loggedInStatus', '0').then(() => {
+      this.props.navigation.navigate('LoginSplash');
+    });
   };
 
   selectImage = () => {

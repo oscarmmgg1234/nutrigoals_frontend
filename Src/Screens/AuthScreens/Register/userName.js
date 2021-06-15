@@ -43,11 +43,9 @@ class RegisterUserName extends Component {
   };
 
   UsernameStatus = () => {
-
-      registerUser(this.state.userName, this.state.name, this.state.email);
-      registerUserCredentials(this.state.userName, this.state.password);
-      //this.props.navigation.navigate('Login');
-
+    registerUser(this.state.userName, this.state.name, this.state.email);
+    registerUserCredentials(this.state.userName, this.state.password);
+    this.props.navigation.navigate('Login');
   };
 
   //useEffect to check for availabilty
