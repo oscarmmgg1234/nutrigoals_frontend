@@ -16,24 +16,38 @@ import Images from '../../Styles/Images';
 import BottomWrapper from '../../Components/BottomNavigator';
 import {GradientCircularProgress} from 'react-native-circular-gradient-progress';
 import SplashScreen from 'react-native-splash-screen';
+import {Value} from 'react-native-reanimated';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       imageProfile: '',
-      storyData: [
+      macroData: [
         {
           name: 'Protein',
+          macroGoal: 100,
+          macroCurrent: 50,
         },
         {
           name: 'Fat',
+          macroGoal: 100,
+          macroCurrent: 2,
         },
         {
           name: 'Carbohydrates',
+          macroGoal: 100,
+          macroCurrent: 10,
         },
         {
           name: 'Sugar',
+          macroGoal: 100,
+          macroCurrent: 32,
+        },
+        {
+          name: 'Sodium',
+          macroGoal: 100,
+          macroCurrent: 89,
         },
       ],
     };
@@ -70,8 +84,31 @@ class Home extends Component {
       }
     });
   };
+
+  addTraceMacro(value) {
+    this.setState({
+      macroData: [
+        ...this.state.macroData,
+        {
+          name: value.name,
+          macroGoal: value.macroGoal,
+          macroCurrent: value.macroCurrent,
+        },
+      ],
+    });
+  }
+  deleteTraceElement(position) {
+    const newStateArray = this.state.macroData.map((item, index) => {
+      if (item.name !== position) {
+        return item;
+      }
+    });
+    this.setState({macroData: [newStateArray]});
+    this.state.macroData.map((item) => alert(item.name));
+  }
+
   render() {
-    const {imageProfile, storyData} = this.state;
+    const {imageProfile, macroData} = this.state;
     return (
       <>
         <SafeAreaView style={Styles.safeViewStyle1} />
@@ -175,26 +212,79 @@ class Home extends Component {
 
               <ScrollView
                 horizontal={true}
-                showsHorizontalScrollIndicator={false}>
+                showsHorizontalScrollIndicator={false}
+                style={{marginLeft: 16}}>
                 <View style={Styles.headerContentWrapper}>
                   <View style={Styles.headerContent}>
-                    {storyData.length > 0 &&
-                      storyData.map((value) => {
+                    {macroData.length > 0 &&
+                      macroData.map((value) => {
                         return (
                           <>
-                            <View style={Styles.showbackGroundContent} />
+                            <View style={Styles.showbackGroundContent}>
+                              <Text
+                                style={{
+                                  color: Colors.grey,
+                                  fontSize: 10,
+                                  marginBottom: 2,
+                                }}>
+                                {value.name}
+                              </Text>
+                              <View style={Styles.macroProgressTextContainer}>
+                                <Text style={Styles.macroProgressText}>
+                                  {value.macroCurrent + ' '}
+                                </Text>
+                                <Text style={Styles.macroProgressText1}>
+                                  {' / '}
+                                  {value.macroGoal}
+                                  {'g'}
+                                </Text>
+                              </View>
+                              <GradientCircularProgress
+                                startColor={'#18acbb'}
+                                middleColor={'#4abb0b'}
+                                endColor={'#4abb0b'}
+                                emptyColor={Colors.cancel}
+                                size={50}
+                                progress={
+                                  (value.macroCurrent / value.macroGoal) * 100
+                                }
+                                stokeWidth={1}>
+                                <Text style={Styles.totalTextMacro}>
+                                  {(value.macroCurrent / value.macroGoal) * 100}
+                                  %
+                                </Text>
+                              </GradientCircularProgress>
+                              <TouchableOpacity
+                                onPress={() =>
+                                  this.deleteTraceElement('Sodium')
+                                }>
+                                <Image
+                                  source={require('../../assests/Icons/delete.png')}
+                                  style={{width: 12, height: 12, marginTop: 10}}
+                                />
+                              </TouchableOpacity>
+                            </View>
                           </>
                         );
                       })}
                     <View style={Styles.showbackGroundContent}>
-                      <Text
-                        style={{
-                          fontSize: 13,
-                          fontWeight: '500',
-                          color: Colors.primary,
-                        }}>
-                        {'Add Trace Elements'}
-                      </Text>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.addTraceMacro({
+                            name: 'fat',
+                            macroGoal: 100,
+                            macroCurrent: 40,
+                          })
+                        }>
+                        <Text
+                          style={{
+                            fontSize: 13,
+                            fontWeight: '500',
+                            color: Colors.primary,
+                          }}>
+                          {'Add Trace Elements'}
+                        </Text>
+                      </TouchableOpacity>
                       {/* <View style={{}}>
 
                         </View> */}

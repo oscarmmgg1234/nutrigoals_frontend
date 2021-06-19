@@ -45,7 +45,7 @@ class Login extends Component {
           alert('wrong username/password');
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert('Network Error'));
   };
 
   focusEmail = () => {
@@ -131,7 +131,7 @@ class Login extends Component {
               <TouchableOpacity
                 style={Styles.buttonContainer}
                 onPress={
-                  this.loginValidator()
+                  () => this.loginValidator()
                   //this.loginValidator(this.state.email, this.state.password)
                 }>
                 <Text style={Styles.buttonText}>{Constants.LOGIN}</Text>

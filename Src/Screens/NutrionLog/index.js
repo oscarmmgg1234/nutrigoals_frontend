@@ -72,7 +72,7 @@ class NutrionLog extends Component {
                   color: Colors.White,
                   fontSize: 18,
                   fontWeight: '500',
-                  color: '#62FF68',
+
                   marginLeft: 5,
                 }}>
                 {'Of'}

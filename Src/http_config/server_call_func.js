@@ -11,7 +11,7 @@ const saltRounds = 5;
 {
   /*auth server calls*/
 }
-
+AuthSeverCall.defaults.timeout = 700;
 export const checkUsernameStatus = (username) => {
   let result;
   AuthSeverCall.get('/usernameStatus', {username: username}).then(function (
