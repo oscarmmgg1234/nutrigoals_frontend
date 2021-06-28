@@ -172,7 +172,8 @@ class Register extends Component {
                     )
                   )}
                 </View>
-
+                {this.state.password.length <= 6  ? <Text style = {Styles.buttonText}>Minimum Password Length: 6</Text> : null}
+                {this.state.password.includes('!') ? null: <Text style = {Styles.buttonText}>Atleast one special character: !,?,% etc ...</Text>  } 
                 {/* Confirm Password */}
                 <Text style={Styles.inputTextStyle1}>
                   {Constants.CONFIRM_PASSWORD}
