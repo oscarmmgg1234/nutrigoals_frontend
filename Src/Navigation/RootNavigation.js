@@ -15,7 +15,7 @@ const AppNavigator = createSwitchNavigator(
     NutrionStack: NutrionStack,
   },
   {
-    initialRouteName: 'UserStack',
+    initialRouteName: 'AuthStack',
   },
 );
 // AsyncStorage.getItem('@loggedInStatus') === '1'

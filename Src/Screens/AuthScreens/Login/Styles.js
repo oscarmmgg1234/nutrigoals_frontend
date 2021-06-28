@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions, Platform} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import Colors from '../../../Styles/Colors';
 const widthScreen = Dimensions.get('window').width;
 const styles = StyleSheet.create({
@@ -130,10 +130,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   logoImage: {
-    width: Platform.OS === 'ios' ? widthScreen / 1.5 : widthScreen / 2,
-    height: Platform.OS === 'ios' ? 60 : 50,
+    width: widthScreen / 2,
+    height: 50,
     marginTop: '10%',
-    zIndex: 20,
   },
   loginSContainer: {
     backgroundColor: Colors.backgroundColor,
@@ -174,7 +173,7 @@ const styles = StyleSheet.create({
 
 },
   LoginSplashText2: {
-    marginTop: '120%',
+    marginTop: '95%',
     color: 'rgba(255,255,255,0.9)',
     fontSize: 30,
     fontWeight: 'bold',
