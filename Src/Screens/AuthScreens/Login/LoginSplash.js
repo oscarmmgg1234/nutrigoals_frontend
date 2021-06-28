@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View, StatusBar} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Styles from './Styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -13,7 +13,12 @@ export default class LoginSplash extends React.Component {
   }
 
   render() {
-    return (
+    return (<>
+      <StatusBar 
+      hidden={true}
+      />
+
+      
       <View style={Styles.loginSContainer}>
         <Image
           source={require('../../../assests/logo/workOut.jpg')}
@@ -35,6 +40,7 @@ export default class LoginSplash extends React.Component {
           </TouchableOpacity>
         </View>
       </View>
+      </>
     );
   }
 }

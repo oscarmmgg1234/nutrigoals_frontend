@@ -9,6 +9,7 @@ import {
   TextInput,
   ImageBackground,
   FlatList,
+  StatusBar
 } from 'react-native';
 import {GradientCircularProgress} from 'react-native-circular-gradient-progress';
 import Styles from './Styles';
@@ -80,6 +81,10 @@ class Instagram extends Component {
     const {toogleOn, imageProfile, storyData, storyIntagram} = this.state;
     return (
       <>
+      <StatusBar 
+      barStyle={'light-content'}
+      hidden={false}
+      />
         <SafeAreaView style={Styles.safeViewStyle1} />
         <SafeAreaView style={Styles.safeViewStyle}>
           <View style={Styles.headerWrapper}>

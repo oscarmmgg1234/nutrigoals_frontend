@@ -8,6 +8,7 @@ import {
   ScrollView,
   Image,
   TextInput,
+  StatusBar
 } from 'react-native';
 import Styles from './Styles';
 import * as Constants from '../../../Constants';
@@ -58,6 +59,10 @@ class Login extends Component {
     const {email, emailFocus, password, passwordFocus} = this.state;
     return (
       <>
+      <StatusBar 
+      barStyle={'light-content'}
+      hidden={false}
+      />
         <SafeAreaView style={Styles.safeViewStyle}>
           <ScrollView>
             <View style={Styles.mainContainer}>

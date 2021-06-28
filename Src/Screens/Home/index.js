@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   TextInput,
+  StatusBar
 } from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import Styles from './Styles';
@@ -111,6 +112,10 @@ class Home extends Component {
     const {imageProfile, macroData} = this.state;
     return (
       <>
+      <StatusBar 
+      barStyle={'light-content'}
+      hidden={false}
+      />
         <SafeAreaView style={Styles.safeViewStyle1} />
         <SafeAreaView style={Styles.safeViewStyle}>
           <View style={Styles.headerWrapper}>

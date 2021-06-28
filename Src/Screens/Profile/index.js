@@ -9,6 +9,7 @@ import {
   Image,
   TextInput,
   ImageBackground,
+  StatusBar
 } from 'react-native';
 import ToggleSwitch from 'toggle-switch-react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
@@ -65,6 +66,10 @@ class Profile extends Component {
     const {toogleOn, imageProfile} = this.state;
     return (
       <>
+      <StatusBar 
+      barStyle={'light-content'}
+      hidden={false}
+      />
         <SafeAreaView style={Styles.safeViewStyle1} />
         <SafeAreaView style={Styles.safeViewStyle}>
           <View style={Styles.headerWrapper}>
