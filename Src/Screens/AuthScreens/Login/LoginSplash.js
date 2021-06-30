@@ -1,24 +1,36 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Image, Text, TouchableOpacity, View, StatusBar} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Styles from './Styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {context} from '../../../setup'
+
+
+
+
+
 
 export default class LoginSplash extends React.Component {
   constructor(props) {
     super(props);
+    
+
+
   }
   componentDidMount() {
     SplashScreen.hide();
+    
   }
-
-  render() {
+  
+  render() { 
+  
     return (<>
       <StatusBar 
       hidden={true}
       />
 
-      
+     
+       
       <View style={Styles.loginSContainer}>
         <Image
           source={require('../../../assests/logo/workOut.jpg')}
@@ -30,7 +42,7 @@ export default class LoginSplash extends React.Component {
             style={Styles.logoImage}
           />
           <Text style={Styles.LoginSplashText}>
-            The app to help you achieve your fitness goals
+            The app to help you achieve your fitness goals {context.name} {context.id}
           </Text>
           <Text style={Styles.LoginSplashText2}>Lets first Log you in!</Text>
           <TouchableOpacity
@@ -40,6 +52,7 @@ export default class LoginSplash extends React.Component {
           </TouchableOpacity>
         </View>
       </View>
+      
       </>
     );
   }
