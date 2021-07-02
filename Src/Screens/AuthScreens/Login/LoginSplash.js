@@ -42,7 +42,7 @@ export default class LoginSplash extends React.Component {
             style={Styles.logoImage}
           />
           <Text style={Styles.LoginSplashText}>
-            The app to help you achieve your fitness goals {context.name} {context.id}
+            The app to help you achieve your fitness goals
           </Text>
           <Text style={Styles.LoginSplashText2}>Lets first Log you in!</Text>
           <TouchableOpacity

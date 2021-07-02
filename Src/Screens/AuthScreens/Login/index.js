@@ -15,6 +15,7 @@ import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
 import {AuthSeverCall} from '../../../http_config/axios_config';
+import { app_context} from '../../../setup';
 
 class Login extends Component {
   constructor(props) {
@@ -29,7 +30,11 @@ class Login extends Component {
   }
 
   async next() {
-    await AsyncStorage.setItem('@loggedInStatus', '1').then(() => {
+    await AsyncStorage.setItem('@authStatus', '1').then(() => {
+      {<app_context.Consumer>
+        {app_context => {app_context.updateUsername(stringify(this.state.email))}}
+        {app_context => {app_context.updateAuthStatus('1')}}
+      </app_context.Consumer>}
       this.props.navigation.navigate('Home');
     });
   }
@@ -137,7 +142,7 @@ class Login extends Component {
                 style={Styles.buttonContainer}
                 onPress={
                   () => this.loginValidator()
-                  //this.loginValidator(this.state.email, this.state.password)
+              
                 }>
                 <Text style={Styles.buttonText}>{Constants.LOGIN}</Text>
               </TouchableOpacity>

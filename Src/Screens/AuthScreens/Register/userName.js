@@ -17,6 +17,7 @@ import {
   registerUserCredentials,
   checkUsernameStatus,
 } from '../../../http_config/server_call_func';
+import { app_context } from '../../../setup';
 
 class RegisterUserName extends Component {
   constructor(props) {
@@ -43,6 +44,9 @@ class RegisterUserName extends Component {
   };
 
   UsernameStatus = () => {
+    {<app_context.Consumer>
+      {app_context => {app_context.updateUsername(stringify(this.state.userName))}}
+    </app_context.Consumer>}
     registerUser(this.state.userName, this.state.name, this.state.email);
     registerUserCredentials(this.state.userName, this.state.password);
     this.props.navigation.navigate('Login');
