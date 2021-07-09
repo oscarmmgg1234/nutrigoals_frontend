@@ -286,6 +286,19 @@ class NutrionLog extends Component {
                   />
                 </View>
               </View>
+              {/* Lunch: */}
+              <Text style={Styles.inputTextStyle1}>{'Lunch:'}</Text>
+
+                  <View style={Styles.headerContentWrapper}>
+                    <View style={Styles.headerContent}>
+                      <FlatList
+                        showsHorizontalScrollIndicator={false}
+                        horizontal={true}
+                        data={storyData}
+                        renderItem={({item}) => this.showBreakfast(item)}
+                      />
+                    </View>
+                  </View>
 
               {/* Dinner:  */}
               <Text style={Styles.inputTextStyle1}>{'Dinner:'}</Text>
