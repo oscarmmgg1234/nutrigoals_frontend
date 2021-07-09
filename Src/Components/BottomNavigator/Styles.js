@@ -6,18 +6,17 @@ const widthScreen = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   bottomContainer: {
     backgroundColor: '#292942',
-    width: widthScreen / 1.1,
-    borderRadius: 25,
-    height: 70,
+    width: widthScreen,
+    height: 55,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    marginBottom: Platform.OS == 'ios' ? 0 : 15,
+    
   },
   bottomContainerWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '90%',
+    width: '100%',
     alignSelf: 'center',
     // height: 50,
     // marginTop: 10,
@@ -25,8 +24,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#292942',
   },
   imagesStyle: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     marginTop: 10,
   },
   bottomText: {
