@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     borderRadius: 15
   },
   buttonIncrement: {
-    width: 35,
+    width: 45,
     height: 35,
     backgroundColor: '#3E3E58',
     borderRadius: 35,

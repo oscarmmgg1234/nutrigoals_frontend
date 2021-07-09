@@ -145,5 +145,48 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 15,
   },
+  weightContainer: {
+    width: "90%",
+    height: 180,
+    borderRadius: 40,
+    backgroundColor: Colors.ok,
+    alignSelf: 'center'
+  },
+  weightContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: "100%",
+    height: 180,
+    borderRadius: 40,
+    alignItems: 'center',
+    marginBottom: 40,
+    marginTop: 17
+  },
+  chartContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: "83%",
+    height: 200,
+    borderRadius: 40,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  buttonIncrement: {
+    width: 45,
+    height: 35,
+    backgroundColor: '#3E3E58',
+    borderRadius: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+
+    elevation: 3,
+  }
 });
 export default styles;

@@ -368,7 +368,7 @@ class NutrionLog extends Component {
                         style={[
                           Styles.buttonIncrement,
                           {
-                            marginTop: 30,
+                            marginTop: 45,
                           },
                         ]}>
                         <Text
@@ -387,11 +387,11 @@ class NutrionLog extends Component {
                       progress={0.6}
                       style={{
                         transform: [{rotate: '-90deg'}],
-                        height: 30,
+                        height: 40,
                         marginTop: 38,
-                        width: 100,
+                        width: 120,
                       }}
-                      height={30}
+                      height={40}
                       color={'#18acbb'}
                       borderRadius={25}
                     />

@@ -7,7 +7,9 @@ import {
   ScrollView,
   Image,
   TextInput,
-  StatusBar
+  StatusBar,
+  Dimensions,
+  TouchableNativeFeedbackBase
 } from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import Styles from './Styles';
@@ -17,13 +19,20 @@ import Images from '../../Styles/Images';
 import BottomWrapper from '../../Components/BottomNavigator';
 import {GradientCircularProgress} from 'react-native-circular-gradient-progress';
 import SplashScreen from 'react-native-splash-screen';
-import {Value} from 'react-native-reanimated';
+import {color, Value} from 'react-native-reanimated';
+import {LineChart} from 'react-native-chart-kit'
+import * as Progress from 'react-native-progress';
+
+//compare http and asynctorage username and if not same update async user data http for userData only not theme or other data => having current user data in servers will allow synchronization beetween devices possible
+
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       imageProfile: '',
+      waterData: {value: 8},
+      graphData: {graphLabels: ["S", "M", "T", "W", "T", "F", "S"], graphDataP: [80,20,30,40,50,60,70]},
       macroData: [
         {
           name: 'Protein',
@@ -52,9 +61,28 @@ class Home extends Component {
         },
       ],
     };
+
+
   }
   componentDidMount() {
     SplashScreen.hide();
+    
+  }
+
+  incrementWaterLevelView(){
+
+    let old = this.state.waterData.value;
+    if(old < 15){
+    this.setState({waterData: {value: old + 1}})
+    }
+  }
+
+  decrementWaterLevelView(){
+    
+    let old = this.state.waterData.value;
+    if(old > 0){
+    this.setState({waterData: {value: old - 1}})
+    }
   }
 
   selectImage = () => {
@@ -120,6 +148,7 @@ class Home extends Component {
         <SafeAreaView style={Styles.safeViewStyle}>
           <View style={Styles.headerWrapper}>
             <View style={Styles.headerContainer}>
+        
               <TouchableOpacity onPress={this.selectImage}>
                 <Image
                   source={imageProfile ? {uri: imageProfile} : Images.Profile}
@@ -301,10 +330,140 @@ class Home extends Component {
               {/* Weight */}
 
               <Text style={Styles.inputTextStyle1}>{' Weight:'}</Text>
+              <View style={Styles.weightContainer }>
+                <View style={Styles.chartContainer}>
+                <LineChart data={{
+                  
+                        labels: this.state.graphData.graphLabels,
+                        datasets: [
+                          {
+                            data: this.state.graphData.graphDataP,
+                            strokeWidth: 2,
+                            color: (opacity = 1) => `rgba(122,228,187, ${opacity})`,
+                          
+                          },
+                        ],
+                        legend: ["Performance / Weekly"]
+                      }}
+                      width={Dimensions.get("window").width / 1.2} // from react-native
+                      height={180}
+                      yAxisSuffix="%"
+                      yAxisInterval={10} // optional, defaults to 1
+                      withInnerLines={false}
+                      withDots={true}
+                      fromZero={true}
+                      
+                      
+                      chartConfig={{
+                        backgroundColor: Colors.ok,
+                        backgroundGradientFrom: Colors.ok,
+                        decimalPlaces: 0,
+                    
+                        backgroundGradientTo: Colors.ok,
+                        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                        labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                        style: {
+                          borderRadius: 16,
+                        
+                        },
+                    
+                        propsForDots: {
+                          r: "3",
+                          color: (opacity = 1) => `rgba(122,228,187, ${opacity})`
+                        }
+                      }}
+                      bezier
+                      style={{
+                        marginBottom: 8,
+                        borderRadius: 20
+                      }}
+                    />
+                </View>
+              </View>
 
-              {/* Water */}
-
+              {/* Water */} 
               <Text style={Styles.inputTextStyle1}>{' Water:'}</Text>
+              <View style={Styles.showProgressSingle}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '90%',
+                    alignSelf: 'center',
+                    justifyContent: 'space-around',
+                    marginTop: 20,
+                  }}>
+                  <View>
+                    <Text style={Styles.firstText}>{'Recieved'}</Text>
+                    <View style={{flexDirection: 'row', marginTop: 10}}>
+                      <Text style={Styles.firstText1}>{this.state.waterData.value}</Text>
+                      <Text
+                        style={[
+                          Styles.firstText,
+                          {marginLeft: 7, marginTop: 3},
+                        ]}>
+                        { '/ 15 Cups'}
+                      </Text>
+                    </View>
+
+                    <View style={{flexDirection: 'row', marginTop: 30}}>
+                      <Image
+                        source={Images.clock}
+                        style={{width: 20, height: 20}}
+                      />
+                      <Text style={[Styles.firstText, {marginLeft: 7}]}>
+                        {'Last Drunk 9:34 AM'}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View style={{flexDirection: 'row', marginRight: -50}}>
+                    <View>
+                      <TouchableOpacity style={Styles.buttonIncrement} onPress={()=>this.incrementWaterLevelView()}>
+                        <Text
+                          style={{
+                            color: Colors.White,
+                            fontWeight: '600',
+                            fontSize: 20,
+                            textAlign: 'center',
+                          }}>
+                          {'+'}
+                        </Text>
+                      </TouchableOpacity>
+
+                      <TouchableOpacity onPress={()=>this.decrementWaterLevelView()}
+                        style={[
+                          Styles.buttonIncrement,
+                          {
+                            marginTop: 45,
+                          },
+                        ]}>
+                        <Text
+                          style={{
+                            color: Colors.White,
+                            fontWeight: '600',
+                            fontSize: 20,
+                            textAlign: 'center',
+                          }}>
+                          {'-'}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+
+                    <Progress.Bar
+                      progress={this.state.waterData.value / 15 }//make gender male 15.5 and female 12.5 cups
+                      style={{
+                        transform: [{rotate: '-90deg'}],
+                        height: 40,
+                        marginTop: 38,
+                        width: 120,
+                      }}
+                      height={40}
+                      color={'#18acbb'}
+                      borderRadius={25}
+                    />
+                  </View>
+                </View>
+              </View>
             </View>
           </ScrollView>
           <BottomWrapper navigation={this.props.navigation} page={1} />

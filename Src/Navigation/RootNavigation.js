@@ -15,10 +15,11 @@ const AppNavigator = createSwitchNavigator(
     NutrionStack: NutrionStack,
   },
   {
-    initialRouteName: 'AuthStack',
+    initialRouteName: 'UserStack'
+    /*AsyncStorage.getItem('@authStatus') === '1'
+            ? 'UserStack'
+           : 'AuthStack',*/
   },
 );
-// AsyncStorage.getItem('@loggedInStatus') === '1'
-//         ? 'UserStack'
-//         : 'AuthStack',
+
 export default createAppContainer(AppNavigator);

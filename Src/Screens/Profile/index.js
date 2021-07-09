@@ -18,6 +18,7 @@ import * as Constants from '../../Constants';
 import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
 import BottomWrapper from '../../Components/BottomNavigator';
+import { app_context } from '../../setup';
 
 class Profile extends Component {
   constructor(props) {
@@ -74,7 +75,9 @@ class Profile extends Component {
         <SafeAreaView style={Styles.safeViewStyle}>
           <View style={Styles.headerWrapper}>
             <View style={Styles.headerContainer}>
-              <Text style={Styles.homeText}>{'Oscarmmgg'}</Text>
+              <app_context.Consumer>
+                { app_context => {return <Text style={Styles.homeText}>{app_context.username}</Text>}}
+              </app_context.Consumer>
               <View>
                 <Text style={Styles.darkModeText}>{'Dark Mode:'}</Text>
                 <ToggleSwitch

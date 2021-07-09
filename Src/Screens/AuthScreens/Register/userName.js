@@ -44,9 +44,6 @@ class RegisterUserName extends Component {
   };
 
   UsernameStatus = () => {
-    {<app_context.Consumer>
-      {app_context => {app_context.updateUsername(stringify(this.state.userName))}}
-    </app_context.Consumer>}
     registerUser(this.state.userName, this.state.name, this.state.email);
     registerUserCredentials(this.state.userName, this.state.password);
     this.props.navigation.navigate('Login');

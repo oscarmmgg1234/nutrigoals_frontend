@@ -33,7 +33,6 @@ class Login extends Component {
     await AsyncStorage.setItem('@authStatus', '1').then(() => {
       {<app_context.Consumer>
         {app_context => {app_context.updateUsername(stringify(this.state.email))}}
-        {app_context => {app_context.updateAuthStatus('1')}}
       </app_context.Consumer>}
       this.props.navigation.navigate('Home');
     });
