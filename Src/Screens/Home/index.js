@@ -4,13 +4,13 @@ import {
   Text,
   SafeAreaView,
   TouchableOpacity,
-  ScrollView,
   Image,
   TextInput,
   StatusBar,
   Dimensions,
   TouchableNativeFeedbackBase
 } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import Styles from './Styles';
 import * as Constants from '../../Constants';
@@ -22,9 +22,9 @@ import SplashScreen from 'react-native-splash-screen';
 import {color, Value} from 'react-native-reanimated';
 import {LineChart} from 'react-native-chart-kit'
 import * as Progress from 'react-native-progress';
-
+import { timeout } from 'async';
+import { app_context} from '../../setup';
 //compare http and asynctorage username and if not same update async user data http for userData only not theme or other data => having current user data in servers will allow synchronization beetween devices possible
-
 
 class Home extends Component {
   constructor(props) {
@@ -33,39 +33,14 @@ class Home extends Component {
       imageProfile: '',
       waterData: {value: 8},
       graphData: {graphLabels: ["S", "M", "T", "W", "T", "F", "S"], graphDataP: [80,20,30,40,50,60,70]},
-      macroData: [
-        {
-          name: 'Protein',
-          macroGoal: 100,
-          macroCurrent: 50,
-        },
-        {
-          name: 'Fat',
-          macroGoal: 100,
-          macroCurrent: 2,
-        },
-        {
-          name: 'Carbohydrates',
-          macroGoal: 100,
-          macroCurrent: 10,
-        },
-        {
-          name: 'Sugar',
-          macroGoal: 100,
-          macroCurrent: 32,
-        },
-        {
-          name: 'Sodium',
-          macroGoal: 100,
-          macroCurrent: 89,
-        },
-      ],
+      macroData: [],
     };
 
 
   }
   componentDidMount() {
     SplashScreen.hide();
+    
     
   }
 
@@ -114,27 +89,7 @@ class Home extends Component {
     });
   };
 
-  addTraceMacro(value) {
-    this.setState({
-      macroData: [
-        ...this.state.macroData,
-        {
-          name: value.name,
-          macroGoal: value.macroGoal,
-          macroCurrent: value.macroCurrent,
-        },
-      ],
-    });
-  }
-  deleteTraceElement(position) {
-    const newStateArray = this.state.macroData.map((item, index) => {
-      if (item.name !== position) {
-        return item;
-      }
-    });
-    this.setState({macroData: [newStateArray]});
-    this.state.macroData.map((item) => alert(item.name));
-  }
+
 
   render() {
     const {imageProfile, macroData} = this.state;
@@ -181,7 +136,10 @@ class Home extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <ScrollView>
+          <ScrollView
+          
+          >
+            
             <View
               style={{
                 marginTop: 10,
@@ -241,17 +199,18 @@ class Home extends Component {
                 </View>
               </View>
               {/* Tracked Macros */}
-
+              
               <Text style={Styles.inputTextStyle1}>{' Tracked Macros:'}</Text>
-
-              <ScrollView
+              <app_context.Consumer>
+                {app_context=><ScrollView
+              
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 style={{marginLeft: 16}}>
                 <View style={Styles.headerContentWrapper}>
                   <View style={Styles.headerContent}>
-                    {macroData.length > 0 &&
-                      macroData.map((value) => {
+                    {app_context.macroData.length > 0 &&
+                      app_context.macroData.map((value) => {
                         return (
                           <>
                             <View style={Styles.showbackGroundContent}>
@@ -280,52 +239,24 @@ class Home extends Component {
                                 emptyColor={Colors.cancel}
                                 size={50}
                                 progress={
-                                  (value.macroCurrent / value.macroGoal) * 100
+                                  Math.round(((value.macroCurrent / value.macroGoal) * 100))
                                 }
                                 stokeWidth={1}>
                                 <Text style={Styles.totalTextMacro}>
-                                  {(value.macroCurrent / value.macroGoal) * 100}
+                                  {Math.round(((value.macroCurrent / value.macroGoal) * 100))}
                                   %
                                 </Text>
                               </GradientCircularProgress>
-                              <TouchableOpacity
-                                onPress={() =>
-                                  this.deleteTraceElement('Sodium')
-                                }>
-                                <Image
-                                  source={require('../../assests/Icons/delete.png')}
-                                  style={{width: 12, height: 12, marginTop: 10}}
-                                />
-                              </TouchableOpacity>
+                             
                             </View>
                           </>
                         );
                       })}
-                    <View style={Styles.showbackGroundContent}>
-                      <TouchableOpacity
-                        onPress={() =>
-                          this.addTraceMacro({
-                            name: 'fat',
-                            macroGoal: 100,
-                            macroCurrent: 40,
-                          })
-                        }>
-                        <Text
-                          style={{
-                            fontSize: 13,
-                            fontWeight: '500',
-                            color: Colors.primary,
-                          }}>
-                          {'Add Trace Elements'}
-                        </Text>
-                      </TouchableOpacity>
-                      {/* <View style={{}}>
-
-                        </View> */}
-                    </View>
                   </View>
                 </View>
-              </ScrollView>
+              </ScrollView>}
+                  </app_context.Consumer>
+          
 
               {/* Weight */}
 
@@ -471,7 +402,9 @@ class Home extends Component {
               </View>
             </View>
           </ScrollView>
+          {this.state.bottomNavHide === true ? null :
           <BottomWrapper navigation={this.props.navigation} page={1} />
+          }
         </SafeAreaView>
       </>
     );
