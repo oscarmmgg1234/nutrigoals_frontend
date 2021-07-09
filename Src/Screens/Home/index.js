@@ -368,7 +368,7 @@ class Home extends Component {
                         },
                     
                         propsForDots: {
-                          r: "3",
+                          r: "4",
                           color: (opacity = 1) => `rgba(122,228,187, ${opacity})`
                         }
                       }}
@@ -457,6 +457,11 @@ class Home extends Component {
                         marginTop: 38,
                         width: 120,
                       }}
+                      indeterminateAnimationDuration={700}
+                      animationConfig={{bounciness: 20}}
+                      animationType={'spring'}
+                      borderColor={this.state.waterData.value === 15 ? '#62FF68' : '#18acbb'}
+                      borderWidth={this.state.waterData.value === 15 ? 5 : 1}
                       height={40}
                       color={'#18acbb'}
                       borderRadius={25}
