@@ -9,6 +9,7 @@ import {
   StatusBar,
   Dimensions,
   TouchableNativeFeedbackBase,
+  Modal
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
@@ -32,6 +33,7 @@ class Home extends Component {
     super(props);
     this.state = {
       imageProfile: '',
+      modalVisible: false,
       waterData: {current: 0,goal: 15 },
       graphData: {
         graphLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -115,9 +117,27 @@ class Home extends Component {
                 <TouchableOpacity>
                   <Image source={Images.search} style={Styles.sideImage} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.setState({modalVisible: true})}>
                   <Image source={Images.menu} style={Styles.sideImage1} />
                 </TouchableOpacity>
+                <Modal 
+                animationType={'slide'}
+                transparent={true}
+                visible={this.state.modalVisible}
+                onRequestClose={()=>this.setState({modalVisible: false})}
+                >
+                  <View style={Styles.ModalContainer}>
+                  
+                    <View style={Styles.modalHeader}>
+                      <View style={Styles.ModalHeaderView}>
+                      <Text style={Styles.homeText}>{Constants.SETTINGS}</Text>
+                    <TouchableOpacity onPress={()=>this.setState({modalVisible: false})}><Text style={Styles.homeText}>Back</Text></TouchableOpacity>
+                    </View>
+                    </View>
+                    <Text>Edit Options</Text>
+                  </View>
+                </Modal>
+               
               </View>
             </View>
             {/* Calender */}

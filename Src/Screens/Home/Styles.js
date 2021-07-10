@@ -187,6 +187,29 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
 
     elevation: 3,
+  },
+  ModalContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    backgroundColor: Colors.texInputBackground,
+
+  },
+  modalHeader: {
+    width: '100%',
+    height: '15%',
+     
+    backgroundColor: Colors.backgroundColor
+    
+    
+  },
+  ModalHeaderView: {
+    marginTop: 10,
+    marginHorizontal: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   }
 });
 export default styles;
