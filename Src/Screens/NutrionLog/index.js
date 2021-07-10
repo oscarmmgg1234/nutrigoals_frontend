@@ -8,7 +8,7 @@ import {
   Image,
   TextInput,
   FlatList,
-  StatusBar
+  StatusBar,
 } from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import Styles from './Styles';
@@ -43,7 +43,6 @@ class NutrionLog extends Component {
     const {imageProfile, storyData, quantity, calory} = this.state;
     return (
       <>
-
         {value.name != 'add' ? (
           <View style={Styles.showbackGroundContent1}>
             <View style={Styles.boxHeader}>
@@ -180,10 +179,7 @@ class NutrionLog extends Component {
     const {imageProfile, storyData, quantity, calory} = this.state;
     return (
       <>
-      <StatusBar 
-      barStyle={'light-content'}
-      hidden={false}
-      />
+        <StatusBar barStyle={'light-content'} hidden={false} />
         <SafeAreaView style={Styles.safeViewStyle1} />
         <SafeAreaView style={Styles.safeViewStyle}>
           <View style={Styles.headerWrapper}>
@@ -289,16 +285,16 @@ class NutrionLog extends Component {
               {/* Lunch: */}
               <Text style={Styles.inputTextStyle1}>{'Lunch:'}</Text>
 
-                  <View style={Styles.headerContentWrapper}>
-                    <View style={Styles.headerContent}>
-                      <FlatList
-                        showsHorizontalScrollIndicator={false}
-                        horizontal={true}
-                        data={storyData}
-                        renderItem={({item}) => this.showBreakfast(item)}
-                      />
-                    </View>
-                  </View>
+              <View style={Styles.headerContentWrapper}>
+                <View style={Styles.headerContent}>
+                  <FlatList
+                    showsHorizontalScrollIndicator={false}
+                    horizontal={true}
+                    data={storyData}
+                    renderItem={({item}) => this.showBreakfast(item)}
+                  />
+                </View>
+              </View>
 
               {/* Dinner:  */}
               <Text style={Styles.inputTextStyle1}>{'Dinner:'}</Text>

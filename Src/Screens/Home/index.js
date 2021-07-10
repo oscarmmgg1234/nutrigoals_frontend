@@ -8,9 +8,9 @@ import {
   TextInput,
   StatusBar,
   Dimensions,
-  TouchableNativeFeedbackBase
+  TouchableNativeFeedbackBase,
 } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import Styles from './Styles';
 import * as Constants from '../../Constants';
@@ -20,10 +20,11 @@ import BottomWrapper from '../../Components/BottomNavigator';
 import {GradientCircularProgress} from 'react-native-circular-gradient-progress';
 import SplashScreen from 'react-native-splash-screen';
 import {color, Value} from 'react-native-reanimated';
-import {LineChart} from 'react-native-chart-kit'
+import {LineChart} from 'react-native-chart-kit';
 import * as Progress from 'react-native-progress';
-import { timeout } from 'async';
-import { app_context} from '../../setup';
+import {timeout} from 'async';
+import {app_context} from '../../setup';
+
 //compare http and asynctorage username and if not same update async user data http for userData only not theme or other data => having current user data in servers will allow synchronization beetween devices possible
 
 class Home extends Component {
@@ -31,32 +32,33 @@ class Home extends Component {
     super(props);
     this.state = {
       imageProfile: '',
-      waterData: {value: 8},
-      graphData: {graphLabels: ["S", "M", "T", "W", "T", "F", "S"], graphDataP: [80,20,30,40,50,60,70]},
-      macroData: [],
+      waterData: {current: 0,goal: 15 },
+      graphData: {
+        graphLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+        graphDataP: [80, 20, 30, 45, 50, 60, 70],
+      },
     };
-
-
   }
   componentDidMount() {
     SplashScreen.hide();
     
+
     
   }
 
-  incrementWaterLevelView(){
-
-    let old = this.state.waterData.value;
-    if(old < 15){
-    this.setState({waterData: {value: old + 1}})
+  incrementWaterLevelView() {
+    let context = this.context;
+  
+    if (context.waterCurrent.waterCurrent < 15){
+      context.increaseWaterLevel();
     }
   }
 
-  decrementWaterLevelView(){
-    
-    let old = this.state.waterData.value;
-    if(old > 0){
-    this.setState({waterData: {value: old - 1}})
+  decrementWaterLevelView() {
+    let context = this.context;
+    if (context.waterCurrent.waterCurrent > 0){
+      context.decreaseWaterLevel();
+
     }
   }
 
@@ -89,21 +91,19 @@ class Home extends Component {
     });
   };
 
-
-
   render() {
     const {imageProfile, macroData} = this.state;
     return (
       <>
-      <StatusBar 
-      barStyle={'light-content'}
-      hidden={false}
-      />
+        <StatusBar barStyle={'light-content'} hidden={false} />
+        
         <SafeAreaView style={Styles.safeViewStyle1} />
+        <app_context.Consumer>
+          {(app_context)=>(
         <SafeAreaView style={Styles.safeViewStyle}>
           <View style={Styles.headerWrapper}>
             <View style={Styles.headerContainer}>
-        
+
               <TouchableOpacity onPress={this.selectImage}>
                 <Image
                   source={imageProfile ? {uri: imageProfile} : Images.Profile}
@@ -136,10 +136,7 @@ class Home extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <ScrollView
-          
-          >
-            
+          <ScrollView>
             <View
               style={{
                 marginTop: 10,
@@ -147,173 +144,216 @@ class Home extends Component {
               }}>
               <Text style={Styles.inputTextStyle1}>{' Calories:'}</Text>
               {/* showProgressSingle */}
-              <View style={Styles.showProgressSingle}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    width: '90%',
-                    alignSelf: 'center',
-                    justifyContent: 'space-around',
-                    marginTop: 20,
-                  }}>
-                  <View>
-                    <Text style={Styles.firstText}>{'Recieved'}</Text>
-                    <View style={{flexDirection: 'row', marginTop: 10}}>
-                      <Text style={Styles.firstText1}>{'1645'}</Text>
-                      <Text
-                        style={[
-                          Styles.firstText,
-                          {marginLeft: 7, marginTop: 3},
-                        ]}>
-                        {'/ 2030 Kcal'}
-                      </Text>
-                    </View>
+                
+                  <View style={Styles.showProgressSingle}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        width: '90%',
+                        alignSelf: 'center',
+                        justifyContent: 'space-around',
+                        marginTop: 20,
+                      }}>
+                      <View>
+                        <Text style={Styles.firstText}>{'Recieved'}</Text>
+                        <View style={{flexDirection: 'row', marginTop: 10}}>
+                          <Text style={Styles.firstText1}>
+                            {app_context.macroData[0].macroCurrent * 4 +
+                              app_context.macroData[1].macroCurrent * 9 +
+                              app_context.macroData[2].macroCurrent * 4}
+                          </Text>
+                          <Text
+                            style={[
+                              Styles.firstText,
+                              {marginLeft: 7, marginTop: 3},
+                            ]}>
+                            {'/ '}
+                            {app_context.macroData[0].macroGoal * 4 +
+                              app_context.macroData[1].macroGoal * 9 +
+                              app_context.macroData[2].macroGoal * 4}
+                            {' Kcal'}
+                          </Text>
+                        </View>
 
-                    <Text style={[Styles.firstText, {marginTop: 20}]}>
-                      {'Spent'}
-                    </Text>
-                    <View style={{flexDirection: 'row', marginTop: 10}}>
-                      <Text style={Styles.firstText1}>{'105'}</Text>
-                      <Text
-                        style={[
-                          Styles.firstText,
-                          {marginLeft: 7, marginTop: 3},
-                        ]}>
-                        {'Kcal'}
-                      </Text>
+                        <Text style={[Styles.firstText, {marginTop: 20}]}>
+                          {'Left'}
+                        </Text>
+                        <View style={{flexDirection: 'row', marginTop: 10}}>
+                          <Text style={Styles.firstText1}>
+                            {Math.round(
+                              app_context.macroData[0].macroGoal * 4 +
+                                app_context.macroData[1].macroGoal * 9 +
+                                app_context.macroData[2].macroGoal * 4 -
+                                (app_context.macroData[0].macroCurrent * 4 +
+                                  app_context.macroData[1].macroCurrent * 9 +
+                                  app_context.macroData[2].macroCurrent * 4),
+                            )}
+                          </Text>
+                          <Text
+                            style={[
+                              Styles.firstText,
+                              {marginLeft: 7, marginTop: 3},
+                            ]}>
+                            {'Kcal'}
+                          </Text>
+                        </View>
+                      </View>
+
+                      <GradientCircularProgress
+                        startColor={'#18acbb'}
+                        middleColor={'#4abb0b'}
+                        endColor={'#4abb0b'}
+                        emptyColor={Colors.cancel}
+                        size={100}
+                        progress={Math.round(
+                          ((app_context.macroData[0].macroCurrent * 4 +
+                            app_context.macroData[1].macroCurrent * 9 +
+                            app_context.macroData[2].macroCurrent * 4) /
+                            (app_context.macroData[0].macroGoal * 4 +
+                              app_context.macroData[1].macroGoal * 9 +
+                              app_context.macroData[2].macroGoal * 4)) *
+                            100,
+                        )}
+                        stokeWidth={1}>
+                        <Text style={Styles.totalText}>{'Total'}</Text>
+                        <Text style={Styles.totalText1}>
+                          {app_context.macroData[0].macroGoal * 4 +
+                            app_context.macroData[1].macroGoal * 9 +
+                            app_context.macroData[2].macroGoal * 4}
+                        </Text>
+                        <Text style={Styles.totalText2}>{'Kcal'}</Text>
+                      </GradientCircularProgress>
                     </View>
                   </View>
-
-                  <GradientCircularProgress
-                    startColor={'#18acbb'}
-                    middleColor={'#4abb0b'}
-                    endColor={'#4abb0b'}
-                    emptyColor={Colors.cancel}
-                    size={100}
-                    progress={60}
-                    stokeWidth={1}>
-                    <Text style={Styles.totalText}>{'Total'}</Text>
-                    <Text style={Styles.totalText1}>{'1540'}</Text>
-                    <Text style={Styles.totalText2}>{'Kcal'}</Text>
-                  </GradientCircularProgress>
-                </View>
-              </View>
+                
+              
               {/* Tracked Macros */}
-              
+
               <Text style={Styles.inputTextStyle1}>{' Tracked Macros:'}</Text>
-              <app_context.Consumer>
-                {app_context=><ScrollView
-              
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                style={{marginLeft: 16}}>
-                <View style={Styles.headerContentWrapper}>
-                  <View style={Styles.headerContent}>
-                    {app_context.macroData.length > 0 &&
-                      app_context.macroData.map((value) => {
-                        return (
-                          <>
-                            <View style={Styles.showbackGroundContent}>
-                              <Text
-                                style={{
-                                  color: Colors.grey,
-                                  fontSize: 10,
-                                  marginBottom: 2,
-                                }}>
-                                {value.name}
-                              </Text>
-                              <View style={Styles.macroProgressTextContainer}>
-                                <Text style={Styles.macroProgressText}>
-                                  {value.macroCurrent + ' '}
-                                </Text>
-                                <Text style={Styles.macroProgressText1}>
-                                  {' / '}
-                                  {value.macroGoal}
-                                  {'g'}
-                                </Text>
-                              </View>
-                              <GradientCircularProgress
-                                startColor={'#18acbb'}
-                                middleColor={'#4abb0b'}
-                                endColor={'#4abb0b'}
-                                emptyColor={Colors.cancel}
-                                size={50}
-                                progress={
-                                  Math.round(((value.macroCurrent / value.macroGoal) * 100))
-                                }
-                                stokeWidth={1}>
-                                <Text style={Styles.totalTextMacro}>
-                                  {Math.round(((value.macroCurrent / value.macroGoal) * 100))}
-                                  %
-                                </Text>
-                              </GradientCircularProgress>
-                             
+             
+                
+                    <ScrollView
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    style={{marginLeft: 16}}>
+                    <View style={Styles.headerContentWrapper}>
+                      <View style={Styles.headerContent}>
+                        {app_context.macroData.length > 0 &&
+                          app_context.macroData.map((value) => {
+                            return (
+                              <>
+                                <View style={Styles.showbackGroundContent}>
+                                  <Text
+                                    style={{
+                                      color: Colors.grey,
+                                      fontSize: 10,
+                                      marginBottom: 2,
+                                    }}>
+                                    {value.name}
+                                  </Text>
+                                  <View
+                                    style={Styles.macroProgressTextContainer}>
+                                    <Text style={Styles.macroProgressText}>
+                                      {value.macroCurrent + ' '}
+                                    </Text>
+                                    <Text style={Styles.macroProgressText1}>
+                                      {' / '}
+                                      {value.macroGoal}
+                                      {'g'}
+                                    </Text>
+                                  </View>
+                                  <GradientCircularProgress
+                                    startColor={'#18acbb'}
+                                    middleColor={'#4abb0b'}
+                                    endColor={'#4abb0b'}
+                                    emptyColor={Colors.cancel}
+                                    size={50}
+                                    progress={Math.round(
+                                      (value.macroCurrent / value.macroGoal) *
+                                        100,
+                                    )}
+                                    stokeWidth={1}>
+                                    <Text style={Styles.totalTextMacro}>
+                                      {Math.round(
+                                        (value.macroCurrent / value.macroGoal) *
+                                          100,
+                                      )}
+                                      %
+                                    </Text>
+                                  </GradientCircularProgress>
+
                             </View>
-                          </>
-                        );
-                      })}
-                  </View>
-                </View>
-              </ScrollView>}
-                  </app_context.Consumer>
-          
+                              </>
+                            );
+                          })}
+                      </View>
+                    </View>
+                  </ScrollView>
+                
+              
+
 
               {/* Weight */}
 
               <Text style={Styles.inputTextStyle1}>{' Weight:'}</Text>
-              <View style={Styles.weightContainer }>
+              <View style={Styles.weightContainer}>
                 <View style={Styles.chartContainer}>
-                <LineChart data={{
-                  
+                  <LineChart
+                      data= {{
                         labels: this.state.graphData.graphLabels,
-                        datasets: [
-                          {
-                            data: this.state.graphData.graphDataP,
-                            strokeWidth: 2,
-                            color: (opacity = 1) => `rgba(122,228,187, ${opacity})`,
-                          
+                      datasets: [
+                        {
+                          data: this.state.graphData.graphDataP,
+                          strokeWidth: 2,
+                          color: (opacity = 1) =>
+                            `rgba(122,228,187, ${opacity})`,
+
                           },
-                        ],
-                        legend: ["Performance / Weekly"]
-                      }}
-                      width={Dimensions.get("window").width / 1.2} // from react-native
-                      height={180}
-                      yAxisSuffix="%"
-                      yAxisInterval={10} // optional, defaults to 1
-                      withInnerLines={false}
-                      withDots={true}
-                      fromZero={true}
-                      
-                      
+                      ],
+                      legend: ['Performance / Weekly'],
+                    }}
+                    width={Dimensions.get('window').width / 1.2} // from react-native
+                    height={180}
+                    yAxisSuffix="%"
+                    yAxisInterval={5} // optional, defaults to 1
+                    withInnerLines={false}
+                    withDots={true}
+                    fromZero={true}
+
+
                       chartConfig={{
-                        backgroundColor: Colors.ok,
-                        backgroundGradientFrom: Colors.ok,
-                        decimalPlaces: 0,
-                    
-                        backgroundGradientTo: Colors.ok,
-                        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                        labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                        style: {
-                          borderRadius: 16,
-                        
+                      backgroundColor: Colors.ok,
+                      backgroundGradientFrom: Colors.ok,
+                      decimalPlaces: 0,
+
+                      backgroundGradientTo: Colors.ok,
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) =>
+                        `rgba(255, 255, 255, ${opacity})`,
+                      style: {
+                        borderRadius: 16,
+
                         },
-                    
-                        propsForDots: {
-                          r: "4",
-                          color: (opacity = 1) => `rgba(122,228,187, ${opacity})`
-                        }
-                      }}
-                      bezier
-                      style={{
-                        marginBottom: 8,
-                        borderRadius: 20
-                      }}
-                    />
+
+                      propsForDots: {
+                        r: '4',
+                        color: (opacity = 1) => `rgba(122,228,187, ${opacity})`,
+                      },
+                    }}
+                    bezier
+                    style={{
+                      marginBottom: 8,
+                      borderRadius: 20,
+                    }}
+                  />
                 </View>
               </View>
 
-              {/* Water */} 
+              {/* Water */}
+              
+               
               <Text style={Styles.inputTextStyle1}>{' Water:'}</Text>
+            
               <View style={Styles.showProgressSingle}>
                 <View
                   style={{
@@ -326,13 +366,15 @@ class Home extends Component {
                   <View>
                     <Text style={Styles.firstText}>{'Recieved'}</Text>
                     <View style={{flexDirection: 'row', marginTop: 10}}>
-                      <Text style={Styles.firstText1}>{this.state.waterData.value}</Text>
+                      <Text style={Styles.firstText1}>
+                        {app_context.waterCurrent.waterCurrent}
+                      </Text>
                       <Text
                         style={[
                           Styles.firstText,
                           {marginLeft: 7, marginTop: 3},
                         ]}>
-                        { '/ 15 Cups'}
+                        {'/ '}{app_context.waterGoals.waterGoal} {' Cups'}
                       </Text>
                     </View>
 
@@ -349,7 +391,9 @@ class Home extends Component {
 
                   <View style={{flexDirection: 'row', marginRight: -50}}>
                     <View>
-                      <TouchableOpacity style={Styles.buttonIncrement} onPress={()=>this.incrementWaterLevelView()}>
+                      <TouchableOpacity
+                        style={Styles.buttonIncrement}
+                        onPress={() => {this.incrementWaterLevelView();}}>
                         <Text
                           style={{
                             color: Colors.White,
@@ -361,7 +405,8 @@ class Home extends Component {
                         </Text>
                       </TouchableOpacity>
 
-                      <TouchableOpacity onPress={()=>this.decrementWaterLevelView()}
+                      <TouchableOpacity
+                        onPress={()=>{this.decrementWaterLevelView();}}
                         style={[
                           Styles.buttonIncrement,
                           {
@@ -379,9 +424,10 @@ class Home extends Component {
                         </Text>
                       </TouchableOpacity>
                     </View>
-
+                    
+                          
                     <Progress.Bar
-                      progress={this.state.waterData.value / 15 }//make gender male 15.5 and female 12.5 cups
+                      progress={app_context.waterCurrent.waterCurrent / app_context.waterGoals.waterGoal} //make gender male 15.5 and female 12.5 cups
                       style={{
                         transform: [{rotate: '-90deg'}],
                         height: 40,
@@ -391,8 +437,12 @@ class Home extends Component {
                       indeterminateAnimationDuration={700}
                       animationConfig={{bounciness: 20}}
                       animationType={'spring'}
-                      borderColor={this.state.waterData.value === 15 ? '#62FF68' : '#18acbb'}
-                      borderWidth={this.state.waterData.value === 15 ? 5 : 1}
+                      borderColor={
+                        app_context.waterCurrent.waterCurrent === 15
+                          ? '#62FF68'
+                          : '#18acbb'
+                      }
+                      borderWidth={app_context.waterCurrent.waterCurrent === 15 ? 5 : 1}
                       height={40}
                       color={'#18acbb'}
                       borderRadius={25}
@@ -401,13 +451,17 @@ class Home extends Component {
                 </View>
               </View>
             </View>
+            
           </ScrollView>
-          {this.state.bottomNavHide === true ? null :
-          <BottomWrapper navigation={this.props.navigation} page={1} />
-          }
-        </SafeAreaView>
+          
+        
+            <BottomWrapper navigation={this.props.navigation} page={1} />
+        </SafeAreaView>)}
+        </app_context.Consumer>
       </>
     );
   }
 }
+
+Home.contextType = app_context;
 export default Home;
