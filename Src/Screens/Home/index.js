@@ -73,17 +73,17 @@ class Home extends Component {
   }
 
   incrementWaterLevelView() {
-    let context = this.context;
+    let value = this.context;
   
-    if (context.waterCurrent.waterCurrent < 15){
-      context.increaseWaterLevel();
+    if (value.waterCurrent.current < 15){
+      value.increaseWaterLevel();
     }
   }
 
   decrementWaterLevelView() {
-    let context = this.context;
-    if (context.waterCurrent.waterCurrent > 0){
-      context.decreaseWaterLevel();
+    let value = this.context;
+    if (value.waterCurrent.current > 0){
+      value.decreaseWaterLevel();
 
     }
   }
@@ -494,7 +494,7 @@ class Home extends Component {
                     <Text style={Styles.firstText}>{'Recieved'}</Text>
                     <View style={{flexDirection: 'row', marginTop: 10}}>
                       <Text style={Styles.firstText1}>
-                        {app_context.waterCurrent.waterCurrent}
+                        {app_context.waterCurrent.current}
                       </Text>
                       <Text
                         style={[
@@ -554,7 +554,7 @@ class Home extends Component {
                     
                           
                     <Progress.Bar
-                      progress={app_context.waterCurrent.waterCurrent / app_context.waterGoals.waterGoal} //make gender male 15.5 and female 12.5 cups
+                      progress={app_context.waterCurrent.current / app_context.waterGoals.waterGoal} //make gender male 15.5 and female 12.5 cups
                       style={{
                         transform: [{rotate: '-90deg'}],
                         height: 40,
@@ -565,11 +565,11 @@ class Home extends Component {
                       animationConfig={{bounciness: 30}}
                       animationType={'spring'}
                       borderColor={
-                        app_context.waterCurrent.waterCurrent === 15
+                        app_context.waterCurrent.current === 15
                           ? '#62FF68'
                           : '#18acbb'
                       }
-                      borderWidth={app_context.waterCurrent.waterCurrent === 15 ? 5 : 1}
+                      borderWidth={app_context.waterCurrent.current === 15 ? 5 : 1}
                       height={40}
                       color={'#18acbb'}
                       borderRadius={25}
