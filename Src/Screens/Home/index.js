@@ -27,7 +27,7 @@ import {color, Value} from 'react-native-reanimated';
 import {LineChart} from 'react-native-chart-kit';
 import * as Progress from 'react-native-progress';
 import {timeout} from 'async';
-import {app_context} from '../../setup';
+import {app_context, water_context} from '../../setup';
 
 //compare http and asynctorage username and if not same update async user data http for userData only not theme or other data => having current user data in servers will allow synchronization beetween devices possible
 
@@ -590,5 +590,5 @@ class Home extends Component {
   }
 }
 
-Home.contextType = app_context;
+Home.contextType = water_context;
 export default Home;

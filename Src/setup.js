@@ -6,7 +6,7 @@ import { createContext } from 'react/cjs/react.development';
 import RootNavigation from './Navigation/RootNavigation';
 console.disableYellowBox = true;
 export const app_context = createContext();
-
+export const water_context = createContext();
 
 const Root = (props) => {
 const [ThemeStyle, setThemeStyle] = useState('dark');
@@ -91,13 +91,15 @@ setMissGoals({sugarCurrent: missGoals.sugarCurrent, sugarGoal: val4, sodiumCurre
 
 return (
   <>
+  <water_context.Provider value={{waterCurrent, waterGoals, increaseWaterLevel, decreaseWaterLevel}}>
   <app_context.Provider value={{ThemeStyle,macroData: macroData.data,LoggedInStatus: AuthStatus,
-  User, increaseWaterLevel, userGoals, missGoals, userGoals, waterGoals, waterCurrent, decreaseWaterLevel, setGoals}}>
+  User, userGoals, missGoals, userGoals, waterGoals, waterCurrent, setGoals}}>
     <View style={{flex: 1}}>
       <RootNavigation />
     </View>
     </app_context.Provider>
-  </>
+    </water_context.Provider>
+    </>
 );
   }
 export default Root;
