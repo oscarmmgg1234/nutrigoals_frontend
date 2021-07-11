@@ -210,6 +210,38 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  listWrapper: {
+    flexDirection: 'row',
+    width: '95%',
+    alignSelf: 'center',
+    justifyContent: "space-between"
+  },
+  userImage: {
+    width: 30,
+    height: 30
+  }, seperator: {
+    borderBottomColor: Colors.primary,
+    borderBottomWidth: 2,
+    marginTop: 20,
+    marginBottom: 20,
+    width: widthScreen / 1.15,
+    alignSelf: 'center'
+  },
+  listText: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: Colors.White,
+    marginTop: 3,
+    marginLeft: 15,
+  },
+  
+  MacroModalContainer:{
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    backgroundColor: Colors.texInputBackground,
   }
 });
 export default styles;

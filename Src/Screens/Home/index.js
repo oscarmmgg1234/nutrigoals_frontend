@@ -34,6 +34,9 @@ class Home extends Component {
     this.state = {
       imageProfile: '',
       modalVisible: false,
+      eMacroModalVisible: false,
+      eWaterModalVisible: false,
+      eWeightModalVisble: false, 
       waterData: {current: 0,goal: 15 },
       graphData: {
         graphLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -124,17 +127,67 @@ class Home extends Component {
                 animationType={'slide'}
                 transparent={true}
                 visible={this.state.modalVisible}
-                onRequestClose={()=>this.setState({modalVisible: false})}
-                >
+                onRequestClose={()=>this.setState({modalVisible: false})}>
                   <View style={Styles.ModalContainer}>
-                  
                     <View style={Styles.modalHeader}>
                       <View style={Styles.ModalHeaderView}>
                       <Text style={Styles.homeText}>{Constants.SETTINGS}</Text>
                     <TouchableOpacity onPress={()=>this.setState({modalVisible: false})}><Text style={Styles.homeText}>Back</Text></TouchableOpacity>
                     </View>
                     </View>
-                    <Text>Edit Options</Text>
+
+                    <TouchableOpacity style={{marginTop: 16}} onPress={()=>this.setState({eMacroModalVisible: true})}>
+                    <View style={Styles.listWrapper}>
+                <View style={{flexDirection: 'row'}}>
+                  <Image source={Images.data} style={Styles.userImage} />
+                  <Text style={Styles.listText}>{'Edit Macro Goals '}</Text>
+                </View>
+                <Image source={Images.chevron} style={Styles.userImage} />
+              </View>
+              <View style={Styles.seperator} />
+              </TouchableOpacity>
+              <TouchableOpacity >
+                    <View style={Styles.listWrapper}>
+                <View style={{flexDirection: 'row'}}>
+                  <Image source={Images.data} style={Styles.userImage} />
+                  <Text style={Styles.listText}>{'Edit Water Goals'}</Text>
+                </View>
+                <Image source={Images.chevron} style={Styles.userImage} />
+              </View>
+              <View style={Styles.seperator} />
+              </TouchableOpacity>
+              <TouchableOpacity >
+                    <View style={Styles.listWrapper}>
+                <View style={{flexDirection: 'row'}}>
+                  <Image source={Images.data} style={Styles.userImage} />
+                  <Text style={Styles.listText}>{'Edit Weight Goals'}</Text>
+                </View>
+                <Image source={Images.chevron} style={Styles.userImage} />
+              </View>
+              <View style={Styles.seperator} />
+              </TouchableOpacity>
+              
+              <Modal 
+                animationType={'slide'}
+                transparent={true}
+                visible={this.state.eMacroModalVisible}
+                onRequestClose={()=>this.setState({eMacroModalVisible: false})}>
+                  <View style={Styles.MacroModalContainer}>
+                  <View style={Styles.modalHeader}>
+                      <View style={Styles.ModalHeaderView}>
+                      <Text style={Styles.homeText}>{Constants.MACRONUTRIENT}</Text>
+                    <TouchableOpacity onPress={()=>this.setState({eMacroModalVisible: false})}><Text style={Styles.homeText}>Back</Text></TouchableOpacity>
+                    </View>
+                    </View>
+<TouchableOpacity onPress={()=>{app_context.setGoals(0,15,200)}}>
+                    <Text style={Styles.homeText}>Edit Macro</Text>
+                  </TouchableOpacity>
+
+                  </View>
+                  
+
+                  </Modal>
+
                   </View>
                 </Modal>
                
@@ -162,6 +215,8 @@ class Home extends Component {
                 marginTop: 10,
                 marginBottom: 20,
               }}>
+
+                
               <Text style={Styles.inputTextStyle1}>{' Calories:'}</Text>
               {/* showProgressSingle */}
                 

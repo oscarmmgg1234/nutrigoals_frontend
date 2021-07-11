@@ -41,6 +41,37 @@ const [macroData, setMacroData] = useState({data: [{
   macroGoal: missGoals.sodiumGoal,
   macroCurrent: missGoals.sodiumCurrent,
 },]})
+
+
+
+useEffect(()=>{setMacroData({data:  [{
+  name: 'Protein',
+  macroGoal: userGoals.proteinGoal,
+  macroCurrent: userGoals.proteinCurrent,
+},
+{
+  name: 'Fat',
+  macroGoal: userGoals.fatGoal,
+  macroCurrent: userGoals.fatCurrent,
+},
+{
+  name: 'Carbohydrates',
+  macroGoal: userGoals.carbGoal,
+  macroCurrent: userGoals.carbCurrent,
+},
+{
+  name: 'Sugar',
+  macroGoal:missGoals.sugarGoal,
+  macroCurrent: missGoals.sugarCurrent,
+},
+{
+  name: 'Sodium',
+  macroGoal: missGoals.sodiumGoal,
+  macroCurrent: missGoals.sodiumCurrent,
+},]})}, [userGoals.proteinGoal, userGoals.fatGoal,userGoals.carbGoal])
+
+
+
 const [AuthStatus, setAuthStatus] = useState('1');
 
 function increaseWaterLevel(){
@@ -52,11 +83,16 @@ function decreaseWaterLevel(){
   setWaterCurrent({waterCurrent: old - 1})
 }
 
+function setGoals(val,val2, val3){
+setUserGoals({proteinGoal: val, fatGoal: val2, carbGoal: val3, proteinCurrent: userGoals.proteinCurrent, fatCurrent: userGoals.fatCurrent, carbCurrent: userGoals.carbCurrent});
+
+}
+
 
 return (
   <>
   <app_context.Provider value={{ThemeStyle,macroData: macroData.data,LoggedInStatus: AuthStatus,
-  User, increaseWaterLevel, userGoals, missGoals, userGoals, waterGoals, waterCurrent, decreaseWaterLevel}}>
+  User, increaseWaterLevel, userGoals, missGoals, userGoals, waterGoals, waterCurrent, decreaseWaterLevel, setGoals}}>
     <View style={{flex: 1}}>
       <RootNavigation />
     </View>

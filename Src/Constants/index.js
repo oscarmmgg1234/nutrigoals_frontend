@@ -19,3 +19,4 @@ export const CARBS = 'Carbohydrates';
 export const SUGAR = 'Sugar';
 export const SODIUM = 'Sodium';
 export const SETTINGS = 'Settings';
+export const MACRONUTRIENT = 'Macronutrients';
