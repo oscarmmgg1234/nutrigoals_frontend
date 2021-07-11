@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Image, Text, TouchableOpacity, View, StatusBar} from 'react-native';
+import {Image, Text, TouchableOpacity, View, StatusBar, ImageBackground} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Styles from './Styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -32,10 +32,12 @@ export default class LoginSplash extends React.Component {
      
        
       <View style={Styles.loginSContainer}>
-        <Image
+        <ImageBackground
+        style={{width: '100%', height: '100%', tintColor: '#000000'}}
+        resizeMode={'cover'}
+      
           source={require('../../../assests/logo/workOut.jpg')}
-          style={Styles.BackgroundImage}
-        />
+        >
         <View style={Styles.LoginScreenDim}>
           <Image
             source={require('../../../assests/logo/icon4.png')}
@@ -51,6 +53,7 @@ export default class LoginSplash extends React.Component {
             <Text style={Styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
+        </ImageBackground>
       </View>
       
       </>

@@ -9,9 +9,12 @@ import {
   StatusBar,
   Dimensions,
   TouchableNativeFeedbackBase,
-  Modal
+  Modal, 
+  RefreshControl,
+  ScrollView,
+  Switch
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import Styles from './Styles';
 import * as Constants from '../../Constants';
@@ -32,6 +35,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      macroSwitch: false,
       imageProfile: '',
       modalVisible: false,
       eMacroModalVisible: false,
@@ -42,6 +46,7 @@ class Home extends Component {
         graphLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
         graphDataP: [80, 20, 30, 45, 50, 60, 70],
       },
+      screenRefresh: false, 
     };
   }
   componentDidMount() {
@@ -49,6 +54,22 @@ class Home extends Component {
     
 
     
+  }
+
+  toggleMacroSwitch = () => {
+     let prev = this.state.macroSwitch;
+    this.setState({macroSwitch: !prev})
+    
+  }
+
+  wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+
+  onRefresh = () => {
+    this.setState({screenRefresh: true});
+    
+    this.wait(1000).then(()=>this.setState({screenRefresh: false}));
   }
 
   incrementWaterLevelView() {
@@ -166,7 +187,13 @@ class Home extends Component {
               </View>
               <View style={Styles.seperator} />
               </TouchableOpacity>
-              
+              <TouchableOpacity
+                style={Styles.buttonContainer}
+                onPress={() => {
+                  this.signOuty();
+                }}>
+                <Text style={Styles.buttonText}>{Constants.SIGNOUT}</Text>
+              </TouchableOpacity>
               <Modal 
                 animationType={'slide'}
                 transparent={true}
@@ -179,9 +206,23 @@ class Home extends Component {
                     <TouchableOpacity onPress={()=>this.setState({eMacroModalVisible: false})}><Text style={Styles.homeText}>Back</Text></TouchableOpacity>
                     </View>
                     </View>
-<TouchableOpacity onPress={()=>{app_context.setGoals(0,15,200)}}>
+                    <View style={Styles.macroBodySwitchHeaderSwitch}>
+                      <Text style={
+                        Styles.macroTextSwitch
+                      }>Select Method</Text>
+                      </View>
+                      <View style = {Styles.switchContainer}> 
+                      <Text style={this.state.macroSwitch === false? {color: Colors.buttonColor} : {color: 'white'}}>{'<= Custom'}</Text>
+                    <Switch style={{ transform: [{ scaleX: 1.4 }, { scaleY: 1.4 }] }} trackColor={'coral'} thumbColor={Colors.backgroundColor} onValueChange={this.toggleMacroSwitch} 
+                    value={this.state.macroSwitch}/>
+                    <Text style={this.state.macroSwitch === true ? {color: Colors.buttonColor} : {color: 'white'}}>{'Ratio =>'}</Text>
+                    </View>
+
+                    <TouchableOpacity onPress={()=>{app_context.setGoals(0,15,200,50,12)}}>
                     <Text style={Styles.homeText}>Edit Macro</Text>
                   </TouchableOpacity>
+
+
 
                   </View>
                   
@@ -209,7 +250,18 @@ class Home extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <ScrollView>
+          <ScrollView
+          
+            refreshControl={
+              <RefreshControl 
+              refreshing={this.state.screenRefresh}
+              onRefresh={this.onRefresh}
+              progressBackgroundColor={'white'}
+              
+              progressViewOffset={50}
+              />
+            }
+            >
             <View
               style={{
                 marginTop: 10,
@@ -510,7 +562,7 @@ class Home extends Component {
                         width: 120,
                       }}
                       indeterminateAnimationDuration={700}
-                      animationConfig={{bounciness: 20}}
+                      animationConfig={{bounciness: 30}}
                       animationType={'spring'}
                       borderColor={
                         app_context.waterCurrent.waterCurrent === 15

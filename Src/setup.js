@@ -68,7 +68,7 @@ useEffect(()=>{setMacroData({data:  [{
   name: 'Sodium',
   macroGoal: missGoals.sodiumGoal,
   macroCurrent: missGoals.sodiumCurrent,
-},]})}, [userGoals.proteinGoal, userGoals.fatGoal,userGoals.carbGoal])
+},]})}, [userGoals.proteinCurrent, userGoals.fatCurrent,userGoals.carbCurrent])
 
 
 
@@ -83,9 +83,9 @@ function decreaseWaterLevel(){
   setWaterCurrent({waterCurrent: old - 1})
 }
 
-function setGoals(val,val2, val3){
+function setGoals(val,val2, val3, val4, val5){
 setUserGoals({proteinGoal: val, fatGoal: val2, carbGoal: val3, proteinCurrent: userGoals.proteinCurrent, fatCurrent: userGoals.fatCurrent, carbCurrent: userGoals.carbCurrent});
-
+setMissGoals({sugarCurrent: missGoals.sugarCurrent, sugarGoal: val4, sodiumCurrent: missGoals.sugarCurrent, sodiumGoal: val5})
 }
 
 

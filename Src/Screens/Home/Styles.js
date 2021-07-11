@@ -242,6 +242,36 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: Colors.texInputBackground,
-  }
+  },
+  macroBodySwitchHeaderSwitch: {
+    width: '100%',
+    alignItems: 'center'
+  },
+  macroTextSwitch:{
+    color: 'white',
+    marginTop: 20,
+    marginBottom: 17,
+  },
+  switchContainer:{
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around'
+  },
+  buttonContainer: {
+    width: widthScreen / 1.25,
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FF4343',
+    marginTop: '5%',
+    marginBottom: 15,
+    alignSelf: 'center',
+    borderRadius: 20
+  },
+  buttonText: {
+    color: Colors.White,
+    fontSize: 20,
+    fontWeight: '600'
+  },
 });
 export default styles;
