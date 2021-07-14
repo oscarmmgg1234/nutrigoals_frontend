@@ -1,11 +1,11 @@
 
-import React, {useEffect,useState, useContext} from 'react';
+import React, {useEffect,useState, createContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View} from 'react-native';
-import { createContext } from 'react/cjs/react.development';
 import RootNavigation from './Navigation/RootNavigation';
 console.disableYellowBox = true;
 export const app_context = createContext();
+export const user_context = createContext();
 export const water_context = createContext();
 
 const Root = (props) => {
@@ -14,7 +14,7 @@ const [User, setUserInfo] = useState({name: '', age: 0, weight: 0, gender: '',  
  })
 const [userGoals, setUserGoals] = useState({ proteinGoal: 0, fatGoal: 0, carbGoal: 0,proteinCurrent: 0, fatCurrent: 0, carbCurrent: 0,})
 const [waterCurrent, setWaterCurrent] = useState( {current: 0})
-const [waterGoals, setWaterGoals] = useState({ waterGoal: 15})
+const [waterGoals, setWaterGoals] = useState({ waterGoal: 15, waterCurrent: 0})
 const [missGoals, setMissGoals] = useState({ sodiumCurrent: 0, sugarCurrent: 0, sodiumGoal: 0, sugarGoal: 0})
 const [macroData, setMacroData] = useState({data: [{
   name: 'Protein',
@@ -91,14 +91,13 @@ setMissGoals({sugarCurrent: missGoals.sugarCurrent, sugarGoal: val4, sodiumCurre
 
 return (
   <>
-  <water_context.Provider value={{waterCurrent, waterGoals, increaseWaterLevel, decreaseWaterLevel}}>
-  <app_context.Provider value={{ThemeStyle,macroData: macroData.data,LoggedInStatus: AuthStatus,
-  User, userGoals, missGoals, userGoals, waterGoals, waterCurrent, setGoals}}>
+ <app_context.Provider value={{macroData: macroData.data, waterGoals,waterCurrent}}>
+     <user_context.Provider value={{macroData: macroData.data, waterGoals, increaseWaterLevel, decreaseWaterLevel}}>
     <View style={{flex: 1}}>
       <RootNavigation />
     </View>
-    </app_context.Provider>
-    </water_context.Provider>
+    </user_context.Provider>
+  </app_context.Provider>
     </>
 );
   }
