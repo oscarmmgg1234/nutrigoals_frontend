@@ -22,12 +22,12 @@ const Root = (props) => {
     graphDataP: [80, 20, 30, 45, 50, 60, 70],
   });
   const [userGoals, setUserGoals] = useState({
-    proteinGoal: 0,
-    fatGoal: 0,
-    carbGoal: 0,
-    proteinCurrent: 0,
-    fatCurrent: 0,
-    carbCurrent: 0,
+    proteinGoal: 100,
+    fatGoal: 100,
+    carbGoal: 100,
+    proteinCurrent: 80,
+    fatCurrent: 50,
+    carbCurrent: 50,
   });
   const [waterGoals, setWaterGoals] = useState({
     waterGoal: 15,
@@ -127,11 +127,18 @@ const Root = (props) => {
 
   return (
     <>
-      <app_context.Provider value={{macroData: macroData.data, selectImage, imagePath, username: User.username}}>
+      <app_context.Provider
+        value={{
+          macroData: macroData.data,
+          selectImage,
+          imagePath,
+          username: User.username,
+        }}>
         <user_context.Provider
           value={{
             macroData: macroData.data,
             graphData,
+            userGoals,
           }}>
           <water_context.Provider
             value={{waterGoals, increaseWaterLevel, decreaseWaterLevel}}>
