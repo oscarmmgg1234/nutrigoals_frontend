@@ -1,16 +1,17 @@
-import React from 'react'
-import { View, Text, Image, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import * as Progress from 'react-native-progress';
 import Styles from '../../../Screens/Home/Styles';
 import Colors from '../../../Styles/Colors';
-import { user_context } from '../../../setup';
+import {water_context} from '../../../setup';
 import Images from '../../../Styles/Images';
 
-const WaterProgress = () =>{
-    const {waterGoals, increaseWaterLevel, decrementWaterLevelView} = React.useContext(user_context);
-return(
-       <>
-    <Text style={Styles.inputTextStyle1}>{' Water:'}</Text>
+const WaterProgress = () => {
+  const {waterGoals, increaseWaterLevel, decrementWaterLevelView} =
+    React.useContext(water_context);
+  return (
+    <>
+      <Text style={Styles.inputTextStyle1}>{' Water:'}</Text>
       <View style={Styles.showProgressSingle}>
         <View
           style={{
@@ -23,23 +24,15 @@ return(
           <View>
             <Text style={Styles.firstText}>{'Recieved'}</Text>
             <View style={{flexDirection: 'row', marginTop: 10}}>
-              <Text style={Styles.firstText1}>
-                {waterGoals.waterCurrent}
-              </Text>
-              <Text
-                style={[
-                  Styles.firstText,
-                  {marginLeft: 7, marginTop: 3},
-                ]}>
-                {'/ '}{waterGoals.waterGoal} {' Cups'}
+              <Text style={Styles.firstText1}>{waterGoals.waterCurrent}</Text>
+              <Text style={[Styles.firstText, {marginLeft: 7, marginTop: 3}]}>
+                {'/ '}
+                {waterGoals.waterGoal} {' Cups'}
               </Text>
             </View>
 
             <View style={{flexDirection: 'row', marginTop: 30}}>
-              <Image
-                source={Images.clock}
-                style={{width: 20, height: 20}}
-              />
+              <Image source={Images.clock} style={{width: 20, height: 20}} />
               <Text style={[Styles.firstText, {marginLeft: 7}]}>
                 {'Last Drunk 9:34 AM'}
               </Text>
@@ -50,7 +43,9 @@ return(
             <View>
               <TouchableOpacity
                 style={Styles.buttonIncrement}
-                onPress={() => {this.incrementWaterLevelView}}>
+                onPress={() => {
+                  this.incrementWaterLevelView;
+                }}>
                 <Text
                   style={{
                     color: Colors.White,
@@ -63,7 +58,9 @@ return(
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={()=>{this.decrementWaterLevelView}}
+                onPress={() => {
+                  this.decrementWaterLevelView;
+                }}
                 style={[
                   Styles.buttonIncrement,
                   {
@@ -81,10 +78,9 @@ return(
                 </Text>
               </TouchableOpacity>
             </View>
-            
-                  
+
             <Progress.Bar
-              progress={1/7} 
+              progress={1 / 7}
               style={{
                 transform: [{rotate: '-90deg'}],
                 height: 40,
@@ -95,11 +91,9 @@ return(
               animationConfig={{bounciness: 30}}
               animationType={'spring'}
               borderColor={
-                waterGoals.waterCurrent === 15
-                  ? '#62FF68'
-                  : '#18acbb'
+                waterGoals.waterCurrent === 15 ? '#62FF68' : '#18acbb'
               }
-              borderWidth={waterGoals.waterCurrent=== 15 ? 5 : 1}
+              borderWidth={waterGoals.waterCurrent === 15 ? 5 : 1}
               height={40}
               color={'#18acbb'}
               borderRadius={25}
@@ -107,8 +101,8 @@ return(
           </View>
         </View>
       </View>
-      </>
-)
-}
+    </>
+  );
+};
 
 export default WaterProgress;
