@@ -19,8 +19,9 @@ const ProgressMacro = (props) => {
           color={props.color}
         />
       </View>
-      <View style={Styles.divider} />
+      {props.name != 'Carbohydrates:' ? <View style={Styles.divider} /> : null}
     </>
   );
 };
+
 export default ProgressMacro;

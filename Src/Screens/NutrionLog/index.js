@@ -97,51 +97,6 @@ class NutrionLog extends Component {
               }}>
               {'Calories/kcal : 200'}
             </Text>
-            <Text
-              style={{
-                color: Colors.White,
-                fontSize: 18,
-                fontWeight: '500',
-                marginTop: 7,
-              }}>
-              {'Carbs/g : 20'}
-            </Text>
-            <Text
-              style={{
-                color: Colors.White,
-                fontSize: 18,
-                fontWeight: '500',
-                marginTop: 7,
-              }}>
-              {'Fat/g : 2'}
-            </Text>
-            <Text
-              style={{
-                color: Colors.White,
-                fontSize: 18,
-                fontWeight: '500',
-                marginTop: 7,
-              }}>
-              {'Protein/g : 4'}
-            </Text>
-            <Text
-              style={{
-                color: Colors.White,
-                fontSize: 18,
-                fontWeight: '500',
-                marginTop: 7,
-              }}>
-              {'Sodium/mg : 800'}
-            </Text>
-            <Text
-              style={{
-                color: Colors.White,
-                fontSize: 18,
-                fontWeight: '500',
-                marginTop: 7,
-              }}>
-              {'Sugar/g : 10'}
-            </Text>
           </View>
         ) : (
           <TouchableOpacity>
