@@ -9,6 +9,16 @@ export const user_context = createContext();
 export const water_context = createContext();
 
 const Root = (props) => {
+
+  const [BFLogData, setBFLogData] = useState([]);
+  const [LunchLogData, setLunchLogData] = useState([]);
+  const [DinnerLogData, setDinnerLogData] = useState([]);
+  const [SnackLogData, setSnackLogData] = useState([]);
+
+
+
+
+
   const [ThemeStyle, setThemeStyle] = useState('dark');
   const [User, setUserInfo] = useState({
     name: '',

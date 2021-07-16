@@ -115,8 +115,8 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   showbackGroundContent: {
-    width: 260,
-    height: 290,
+    width: 150,
+    height: 200,
     marginRight: 5,
     marginLeft: 20,
     backgroundColor: '#3E3E58',
@@ -125,8 +125,8 @@ const styles = StyleSheet.create({
     borderRadius: 15
   },
   showbackGroundContent1: {
-    width: 260,
-    height: 290,
+    width: 150,
+    height: 200,
     marginRight: 5,
     marginLeft: 20,
     backgroundColor: '#3E3E58',
@@ -152,24 +152,24 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   boxHeader: {
-    flexDirection: "row",
     marginTop: 10,
-    justifyContent: 'space-between',
     width: '90%',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    alignItems: 'center'
   },
   quantityWrapper: {
     marginTop: 15,
     flexDirection: 'row',
     width: '95%',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    justifyContent: 'center'
   },
   InputStyles: {
     width: 60,
-    height: 30,
+    height: 35,
     borderRadius: 25,
     color: Colors.White,
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '500',
     textAlign: 'center',
     backgroundColor: Colors.backgroundColor,
@@ -177,14 +177,20 @@ const styles = StyleSheet.create({
   },
   InputStyles1:{
     width: 110,
-    height: 30,
+    height: 35,
     borderRadius: 25,
     color: Colors.White,
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '500',
     textAlign: 'center',
     backgroundColor: Colors.backgroundColor,
     marginLeft: 5
+  },
+  divider:{
+    marginTop: 10,
+    height: 2,
+    width: '90%',
+    backgroundColor: Colors.ok
   }
 });
 export default styles;
