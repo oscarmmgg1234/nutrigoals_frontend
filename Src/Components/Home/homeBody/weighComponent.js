@@ -3,20 +3,10 @@ import {View, Text, Dimensions} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 import Colors from '../../../Styles/Colors';
 import Styles from '../../../Screens/Home/Styles';
+import {user_context} from '../../../setup';
 
 const ProgressChart = () => {
-  const [graphLabels, setGraphLabels] = React.useState([
-    'S',
-    'M',
-    'T',
-    'W',
-    'T',
-    'F',
-    'S',
-  ]);
-  const [graphDataP, setGraphDataP] = React.useState([
-    80, 20, 30, 45, 50, 60, 70,
-  ]);
+  const {graphData} = React.useContext(user_context);
   return (
     <>
       <Text style={Styles.inputTextStyle1}>{' Weight:'}</Text>
@@ -24,10 +14,10 @@ const ProgressChart = () => {
         <View style={Styles.chartContainer}>
           <LineChart
             data={{
-              labels: graphLabels,
+              labels: graphData.graphLabels,
               datasets: [
                 {
-                  data: graphDataP,
+                  data: graphData.graphDataP,
                   strokeWidth: 2,
                   color: (opacity = 1) => `rgba(122,228,187, ${opacity})`,
                 },

@@ -2,6 +2,7 @@ import React, {useEffect, useState, createContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View} from 'react-native';
 import RootNavigation from './Navigation/RootNavigation';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 console.disableYellowBox = true;
 export const app_context = createContext();
 export const user_context = createContext();
@@ -14,7 +15,11 @@ const Root = (props) => {
     age: 0,
     weight: 0,
     gender: '',
-    username: '',
+    username: 'Oscarmmgg',
+  });
+  const [graphData, setGraphData] = useState({
+    graphLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+    graphDataP: [80, 20, 30, 45, 50, 60, 70],
   });
   const [userGoals, setUserGoals] = useState({
     proteinGoal: 0,
@@ -24,7 +29,6 @@ const Root = (props) => {
     fatCurrent: 0,
     carbCurrent: 0,
   });
-  const [waterCurrent, setWaterCurrent] = useState({current: 0});
   const [waterGoals, setWaterGoals] = useState({
     waterGoal: 15,
     waterCurrent: 0,
@@ -65,15 +69,23 @@ const Root = (props) => {
     ],
   });
 
+  const [imagePath, setImagePath] = useState('');
+
   const [AuthStatus, setAuthStatus] = useState('1');
 
   function increaseWaterLevel() {
-    let old = waterCurrent.current;
-    setWaterCurrent({current: old + 1});
+    let oldGoal = waterGoals.waterGoal;
+    let oldCurrent = waterGoals.waterCurrent;
+    if (oldCurrent < 15) {
+      setWaterGoals({waterGoal: oldGoal, waterCurrent: oldCurrent + 1});
+    }
   }
   function decreaseWaterLevel() {
-    let old = waterCurrent.current;
-    setWaterCurrent({current: old - 1});
+    let oldGoal = waterGoals.waterGoal;
+    let oldCurrent = waterGoals.waterCurrent;
+    if (oldCurrent > 0) {
+      setWaterGoals({waterGoal: oldGoal, waterCurrent: oldCurrent - 1});
+    }
   }
 
   function setGoals(val, val2, val3, val4, val5) {
@@ -93,13 +105,33 @@ const Root = (props) => {
     });
   }
 
+  const selectImage = () => {
+    const options = {
+      quality: 0.1,
+      storageOptions: {
+        skipBackup: true,
+      },
+    };
+
+    launchImageLibrary(options, (response) => {
+      if (response.didCancel) {
+      } else if (response.error) {
+      } else if (response.customButton) {
+      } else {
+        const {fileName, type, uri, fileSize} = response;
+
+        setImagePath(uri);
+      }
+    });
+  };
+
   return (
     <>
-      <app_context.Provider
-        value={{macroData: macroData.data, waterGoals, waterCurrent}}>
+      <app_context.Provider value={{macroData: macroData.data, selectImage, imagePath, username: User.username}}>
         <user_context.Provider
           value={{
             macroData: macroData.data,
+            graphData,
           }}>
           <water_context.Provider
             value={{waterGoals, increaseWaterLevel, decreaseWaterLevel}}>

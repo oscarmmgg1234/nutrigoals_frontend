@@ -7,7 +7,7 @@ import {water_context} from '../../../setup';
 import Images from '../../../Styles/Images';
 
 const WaterProgress = () => {
-  const {waterGoals, increaseWaterLevel, decrementWaterLevelView} =
+  const {waterGoals, increaseWaterLevel, decreaseWaterLevel} =
     React.useContext(water_context);
   return (
     <>
@@ -44,7 +44,7 @@ const WaterProgress = () => {
               <TouchableOpacity
                 style={Styles.buttonIncrement}
                 onPress={() => {
-                  this.incrementWaterLevelView;
+                  increaseWaterLevel();
                 }}>
                 <Text
                   style={{
@@ -59,7 +59,7 @@ const WaterProgress = () => {
 
               <TouchableOpacity
                 onPress={() => {
-                  this.decrementWaterLevelView;
+                  decreaseWaterLevel();
                 }}
                 style={[
                   Styles.buttonIncrement,
@@ -80,7 +80,7 @@ const WaterProgress = () => {
             </View>
 
             <Progress.Bar
-              progress={1 / 7}
+              progress={waterGoals.waterCurrent / waterGoals.waterGoal}
               style={{
                 transform: [{rotate: '-90deg'}],
                 height: 40,
