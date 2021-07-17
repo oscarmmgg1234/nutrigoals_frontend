@@ -166,10 +166,10 @@ const styles = StyleSheet.create({
   },
   InputStyles: {
     width: 60,
-    height: 35,
+    height: 28,
     borderRadius: 25,
     color: Colors.White,
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '500',
     textAlign: 'center',
     backgroundColor: Colors.backgroundColor,
@@ -177,10 +177,10 @@ const styles = StyleSheet.create({
   },
   InputStyles1:{
     width: 110,
-    height: 35,
+    height: 28,
     borderRadius: 25,
     color: Colors.White,
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '500',
     textAlign: 'center',
     backgroundColor: Colors.backgroundColor,
@@ -191,6 +191,11 @@ const styles = StyleSheet.create({
     height: 2,
     width: '90%',
     backgroundColor: Colors.ok
+  },
+  Suspense: {
+    height: 200,
+    width: widthScreen / 1.15,
+    backgroundColor: Colors.backgroundColor
   }
 });
 export default styles;

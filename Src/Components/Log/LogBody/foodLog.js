@@ -6,25 +6,17 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Modal
 } from 'react-native';
 import Styles from '../../../Screens/NutrionLog/Styles';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
 
-const FoodLog = () => {
+const FoodLog = (props) => {
   const [quantity, setQuantity] = useState('');
   const [calory, setCalorie] = useState('');
-  const [logdata, setLogData] = useState([
-    {
-      name: 'Toast',
-    },
-    {
-      name: 'Egg',
-    },
-    {
-      name: 'add',
-    },
-  ]);
+  const [modalVisible, setModalVisible] = useState(false)
+  
 
   const showFood = (value, index) => {
     return (
@@ -36,7 +28,7 @@ const FoodLog = () => {
                 <Text
                   style={{
                     color: Colors.White,
-                    fontSize: 18,
+                    fontSize: 15,
                     fontWeight: '500',
                   }}>
                   {value.name}
@@ -48,7 +40,7 @@ const FoodLog = () => {
               <Text
                 style={{
                   color: Colors.White,
-                  fontSize: 18,
+                  fontSize: 15,
                   fontWeight: '500',
                   marginRight: 10,
                 }}>
@@ -64,12 +56,26 @@ const FoodLog = () => {
                 }}
               />
             </View>
-
+            <Modal animationType={'slide'}
+                  transparent={true}
+                  visible={modalVisible}
+                  onRequestClose={() => setModalVisible(false)}>
+              <View style={{height: 300,width: '85%', marginTop: '60%', backgroundColor: 'white', borderRadius: 20, alignSelf: 'center'}}>
+                <Text style={{alignSelf: 'center'}}>Add Food</Text>
+                <View style={{height: 1, width: '95%', backgroundColor: Colors.backgroundColor, alignSelf: 'center'}}/>
+                <View style={Styles.ModalInput}>
+                  <TextInput/>
+                  {value.name.length > 0 && (
+                    <Image source={Images.check} style={Styles.checkImage} />
+                  )}
+                </View>
+                </View> 
+            </Modal>
             <View style={Styles.quantityWrapper}>
               <Text
                 style={{
                   color: Colors.White,
-                  fontSize: 18,
+                  fontSize: 15,
                   fontWeight: '500',
 
                   marginRight: 3,
@@ -94,7 +100,7 @@ const FoodLog = () => {
             </TouchableOpacity>
           </View>
         ) : (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>setModalVisible(true)}>
             <View style={Styles.showbackGroundContent}>
               <Text
                 style={{fontSize: 15, fontWeight: '500', color: Colors.White}}>
@@ -127,13 +133,12 @@ const FoodLog = () => {
 
   return (
     <>
-      <Text style={Styles.inputTextStyle1}>{'Breakfast:'}</Text>
       <View style={Styles.headerContentWrapper}>
         <View style={Styles.headerContent}>
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            data={logdata}
+            data={props.data}
             renderItem={({item}) => showFood(item)}
           />
         </View>
