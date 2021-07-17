@@ -17,7 +17,6 @@ import Styles from './Styles';
 import * as Constants from '../../Constants';
 import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
-import BottomWrapper from '../../Components/BottomNavigator';
 import {app_context} from '../../setup';
 
 class Profile extends Component {
@@ -175,7 +174,7 @@ class Profile extends Component {
                   </TouchableOpacity>
                 </View>
               </ScrollView>
-              <BottomWrapper navigation={this.props.navigation} page={4} />
+              
             </SafeAreaView>
           )}
         </app_context.Consumer>

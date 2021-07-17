@@ -16,7 +16,7 @@ import Styles from './Styles';
 import * as Constants from '../../Constants';
 import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
-import BottomWrapper from '../../Components/BottomNavigator';
+
 
 class Instagram extends Component {
   constructor(props) {
@@ -182,7 +182,6 @@ class Instagram extends Component {
               </View>
             </View>
           </ScrollView>
-          <BottomWrapper navigation={this.props.navigation} page={3} />
         </SafeAreaView>
       </>
     );

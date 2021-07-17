@@ -7,10 +7,11 @@ import {
   ScrollView,
 } from 'react-native';
 import Styles from './Styles';
-import BottomWrapper from '../../Components/BottomNavigator';
+
 import SplashScreen from 'react-native-splash-screen';
 import HomeHeader from '../../Components/Home/HomeHeader/homeHeader';
 import CaloriesView from '../../Components/Home/homeBody/totalCalCom';
+
 
 const MacroComponent = React.lazy(() =>
   import('../../Components/Home/homeBody/macroComponent'),
@@ -74,7 +75,7 @@ class Home extends Component {
               </Suspense>
             </View>
           </ScrollView>
-          <BottomWrapper navigation={this.props.navigation} page={1} />
+          
         </SafeAreaView>
       </>
     );

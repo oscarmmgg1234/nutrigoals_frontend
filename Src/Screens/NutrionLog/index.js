@@ -2,7 +2,7 @@ import React, {useContext, Suspense} from 'react';
 import {View, Text, SafeAreaView, ScrollView, StatusBar} from 'react-native';
 import Styles from './Styles';
 import {foodLog_context} from '../../setup';
-import BottomWrapper from '../../Components/BottomNavigator';
+
 import LogHeader from '../../Components/Log/LogHeader/LogHeader';
 import TotalView from '../../Components/Log/LogBody/totalView/totalView';
 
@@ -52,7 +52,6 @@ const NutrionLog = (props) => {
             </Suspense>
           </View>
         </ScrollView>
-        <BottomWrapper navigation={props.navigation} page={2} />
       </SafeAreaView>
     </>
   );

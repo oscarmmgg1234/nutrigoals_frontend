@@ -1,9 +1,12 @@
 import React, {useEffect, useState, createContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View} from 'react-native';
-import RootNavigation from './Navigation/RootNavigation';
+
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import FoodLog from './Components/Log/LogBody/foodLog/foodLog';
+import AppStack from './Navigation/AppStack';
+import { NavigationContainer } from '@react-navigation/native';
+import RootNavigation from './Navigation/RootNavigation';
 console.disableYellowBox = true;
 export const app_context = createContext();
 export const user_context = createContext();
@@ -170,7 +173,7 @@ const Root = (props) => {
             <foodLog_context.Provider
               value={{BFLogData, LunchLogData, DinnerLogData, SnackLogData}}>
               <View style={{flex: 1}}>
-                <RootNavigation />
+                <RootNavigation/>
               </View>
             </foodLog_context.Provider>
           </water_context.Provider>
