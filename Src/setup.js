@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View} from 'react-native';
 import RootNavigation from './Navigation/RootNavigation';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
-import FoodLog from './Components/Log/LogBody/foodLog';
+import FoodLog from './Components/Log/LogBody/foodLog/foodLog';
 console.disableYellowBox = true;
 export const app_context = createContext();
 export const user_context = createContext();
@@ -11,13 +11,28 @@ export const water_context = createContext();
 export const foodLog_context = createContext();
 
 const Root = (props) => {
-
-  const [BFLogData, setBFLogData] = useState([{name: 'toast'}, {name: 'Egg'}, {name: 'pancacke'},{name: 'orange juice'}, {name: 'add'}]);
-  const [LunchLogData, setLunchLogData] = useState([{name: 'chicken sandwich'}, {name: 'stella rose wine palor wine'},{name: 'add'}]);
-  const [DinnerLogData, setDinnerLogData] = useState([{name: 'stake'},{name: 'mashed potatoes'}, {name: 'broccoli'},{name: 'add'}]);
-  const [SnackLogData, setSnackLogData] = useState([{name: 'trail mix'},{name: 'add'}]);
-
-
+  const [BFLogData, setBFLogData] = useState([
+    {name: 'toast'},
+    {name: 'Egg'},
+    {name: 'pancacke'},
+    {name: 'orange juice'},
+    {name: 'add'},
+  ]);
+  const [LunchLogData, setLunchLogData] = useState([
+    {name: 'chicken sandwich'},
+    {name: 'stella rose wine palor wine'},
+    {name: 'add'},
+  ]);
+  const [DinnerLogData, setDinnerLogData] = useState([
+    {name: 'stake'},
+    {name: 'mashed potatoes'},
+    {name: 'broccoli'},
+    {name: 'add'},
+  ]);
+  const [SnackLogData, setSnackLogData] = useState([
+    {name: 'trail mix'},
+    {name: 'add'},
+  ]);
 
   const [ThemeStyle, setThemeStyle] = useState('dark');
   const [User, setUserInfo] = useState({
@@ -152,10 +167,11 @@ const Root = (props) => {
           }}>
           <water_context.Provider
             value={{waterGoals, increaseWaterLevel, decreaseWaterLevel}}>
-              <foodLog_context.Provider value={{BFLogData, LunchLogData, DinnerLogData, SnackLogData}}>
-            <View style={{flex: 1}}>
-              <RootNavigation />
-            </View>
+            <foodLog_context.Provider
+              value={{BFLogData, LunchLogData, DinnerLogData, SnackLogData}}>
+              <View style={{flex: 1}}>
+                <RootNavigation />
+              </View>
             </foodLog_context.Provider>
           </water_context.Provider>
         </user_context.Provider>

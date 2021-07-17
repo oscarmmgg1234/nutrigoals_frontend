@@ -13,10 +13,10 @@ import LogHeader from '../../Components/Log/LogHeader/LogHeader';
 import TotalView from '../../Components/Log/LogBody/totalView/totalView';
 import WaterProgress from '../../Components/Home/homeBody/waterCompontent';
 
-const FoodLogComponent = React.lazy(()=>import('../../Components/Log/LogBody/foodLog'))
+const FoodLogComponent = React.lazy(()=>import('../../Components/Log/LogBody/foodLog/foodLog'))
 
 const NutrionLog = (props) =>{
- 
+
   const {BFLogData, LunchLogData, DinnerLogData, SnackLogData} = useContext(foodLog_context);
     return (
       <>
@@ -55,6 +55,6 @@ const NutrionLog = (props) =>{
         </SafeAreaView>
       </>
     );
-  
+
 }
 export default NutrionLog;

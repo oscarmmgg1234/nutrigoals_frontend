@@ -165,8 +165,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   InputStyles: {
+
     width: 60,
-    height: 28,
+    height: 35,
     borderRadius: 25,
     color: Colors.White,
     fontSize: 12,
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
   },
   InputStyles1:{
     width: 110,
-    height: 28,
+    height: 35,
     borderRadius: 25,
     color: Colors.White,
     fontSize: 12,
@@ -195,7 +196,9 @@ const styles = StyleSheet.create({
   Suspense: {
     height: 200,
     width: widthScreen / 1.15,
-    backgroundColor: Colors.backgroundColor
+    backgroundColor: Colors.ok,
+    alignSelf: 'center',
+    borderRadius: 20,
   }
 });
 export default styles;

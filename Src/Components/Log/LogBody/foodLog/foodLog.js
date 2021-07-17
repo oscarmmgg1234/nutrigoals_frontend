@@ -6,17 +6,17 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
-  Modal
+  Modal,
 } from 'react-native';
-import Styles from '../../../Screens/NutrionLog/Styles';
-import Colors from '../../../Styles/Colors';
-import Images from '../../../Styles/Images';
+import Styles from '../../../../Screens/NutrionLog/Styles';
+import Colors from '../../../../Styles/Colors';
+import Images from '../../../../Styles/Images';
+import ModalComponent from './foodLogModal';
 
 const FoodLog = (props) => {
   const [quantity, setQuantity] = useState('');
   const [calory, setCalorie] = useState('');
-  const [modalVisible, setModalVisible] = useState(false)
-  
+  const [modalVisible, setModalVisible] = useState(false);
 
   const showFood = (value, index) => {
     return (
@@ -56,21 +56,11 @@ const FoodLog = (props) => {
                 }}
               />
             </View>
-            <Modal animationType={'slide'}
-                  transparent={true}
-                  visible={modalVisible}
-                  onRequestClose={() => setModalVisible(false)}>
-              <View style={{height: 300,width: '85%', marginTop: '60%', backgroundColor: 'white', borderRadius: 20, alignSelf: 'center'}}>
-                <Text style={{alignSelf: 'center'}}>Add Food</Text>
-                <View style={{height: 1, width: '95%', backgroundColor: Colors.backgroundColor, alignSelf: 'center'}}/>
-                <View style={Styles.ModalInput}>
-                  <TextInput/>
-                  {value.name.length > 0 && (
-                    <Image source={Images.check} style={Styles.checkImage} />
-                  )}
-                </View>
-                </View> 
-            </Modal>
+            <ModalComponent
+              state={modalVisible}
+              setVisible={setModalVisible}
+              value={value}
+            />
             <View style={Styles.quantityWrapper}>
               <Text
                 style={{
@@ -100,7 +90,7 @@ const FoodLog = (props) => {
             </TouchableOpacity>
           </View>
         ) : (
-          <TouchableOpacity onPress={()=>setModalVisible(true)}>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
             <View style={Styles.showbackGroundContent}>
               <Text
                 style={{fontSize: 15, fontWeight: '500', color: Colors.White}}>
