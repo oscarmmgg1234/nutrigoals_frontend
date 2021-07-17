@@ -11,13 +11,16 @@ import BottomWrapper from '../../Components/BottomNavigator';
 import SplashScreen from 'react-native-splash-screen';
 import HomeHeader from '../../Components/Home/HomeHeader/homeHeader';
 import CaloriesView from '../../Components/Home/homeBody/totalCalCom';
-import WaterProgress from '../../Components/Home/homeBody/waterCompontent';
-import ProgressChart from '../../Components/Home/homeBody/weighComponent';
 
 const MacroComponent = React.lazy(() =>
   import('../../Components/Home/homeBody/macroComponent'),
 );
-
+const ProgressChart = React.lazy(() =>
+  import('../../Components/Home/homeBody/weighComponent'),
+);
+const WaterProgress = React.lazy(() =>
+  import('../../Components/Home/homeBody/waterCompontent'),
+);
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -63,8 +66,12 @@ class Home extends Component {
               <Suspense fallback={null}>
                 <MacroComponent />
               </Suspense>
-              <ProgressChart />
-              <WaterProgress />
+              <Suspense fallback={null}>
+                <ProgressChart />
+              </Suspense>
+              <Suspense fallback={null}>
+                <WaterProgress />
+              </Suspense>
             </View>
           </ScrollView>
           <BottomWrapper navigation={this.props.navigation} page={1} />

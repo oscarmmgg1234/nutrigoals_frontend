@@ -146,26 +146,19 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   weightContainer: {
-    width: "90%",
-    height: 180,
-    borderRadius: 40,
-    backgroundColor: Colors.ok,
-    alignSelf: 'center'
-  },
-  weightContainer: {
     display: 'flex',
     flexDirection: 'column',
-    width: "100%",
+    width: '100%',
     height: 180,
     borderRadius: 40,
     alignItems: 'center',
     marginBottom: 40,
-    marginTop: 17
+    marginTop: 17,
   },
   chartContainer: {
     display: 'flex',
     flexDirection: 'column',
-    width: "83%",
+    width: '83%',
     height: 200,
     borderRadius: 40,
     alignItems: 'center',
@@ -178,7 +171,7 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 1,
@@ -194,15 +187,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: Colors.texInputBackground,
-
   },
   modalHeader: {
     width: '100%',
     height: '15%',
-     
-    backgroundColor: Colors.backgroundColor
-    
-    
+
+    backgroundColor: Colors.backgroundColor,
   },
   ModalHeaderView: {
     marginTop: 10,
@@ -215,18 +205,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '95%',
     alignSelf: 'center',
-    justifyContent: "space-between"
+    justifyContent: 'space-between',
   },
   userImage: {
     width: 30,
-    height: 30
-  }, seperator: {
+    height: 30,
+  },
+  seperator: {
     borderBottomColor: Colors.primary,
     borderBottomWidth: 2,
     marginTop: 20,
     marginBottom: 20,
     width: widthScreen / 1.15,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   listText: {
     fontSize: 20,
@@ -235,8 +226,8 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginLeft: 15,
   },
-  
-  MacroModalContainer:{
+
+  MacroModalContainer: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
@@ -245,17 +236,17 @@ const styles = StyleSheet.create({
   },
   macroBodySwitchHeaderSwitch: {
     width: '100%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  macroTextSwitch:{
+  macroTextSwitch: {
     color: 'white',
     marginTop: 20,
     marginBottom: 17,
   },
-  switchContainer:{
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-around'
+  switchContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   buttonContainer: {
     width: widthScreen / 1.25,
@@ -266,12 +257,12 @@ const styles = StyleSheet.create({
     marginTop: '5%',
     marginBottom: 15,
     alignSelf: 'center',
-    borderRadius: 20
+    borderRadius: 20,
   },
   buttonText: {
     color: Colors.White,
     fontSize: 20,
-    fontWeight: '600'
+    fontWeight: '600',
   },
 });
 export default styles;
