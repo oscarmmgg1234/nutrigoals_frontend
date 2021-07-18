@@ -193,12 +193,5 @@ const styles = StyleSheet.create({
     width: '90%',
     backgroundColor: Colors.ok
   },
-  Suspense: {
-    height: 200,
-    width: widthScreen / 1.15,
-    backgroundColor: Colors.ok,
-    alignSelf: 'center',
-    borderRadius: 20,
-  }
 });
 export default styles;

@@ -32,19 +32,19 @@ const NutrionLog = (props) => {
             <Text style={Styles.inputTextStyle1}>{' Summary:'}</Text>
             <TotalView />
             <Text style={Styles.inputTextStyle1}>{'Breakfast:'}</Text>
-            <Suspense fallback={<View style={Styles.Suspense} />}>
+            <Suspense fallback={null}>
               <FoodLogComponent data={BFLogData} />
             </Suspense>
             <Text style={Styles.inputTextStyle1}>{'Lunch:'}</Text>
-            <Suspense fallback={<View style={Styles.Suspense} />}>
+            <Suspense fallback={null}>
               <FoodLogComponent data={LunchLogData} />
             </Suspense>
             <Text style={Styles.inputTextStyle1}>{'Dinner:'}</Text>
-            <Suspense fallback={<View style={Styles.Suspense} />}>
+            <Suspense fallback={null}>
               <FoodLogComponent data={DinnerLogData} />
             </Suspense>
             <Text style={Styles.inputTextStyle1}>{'Snacks:'}</Text>
-            <Suspense fallback={<View style={Styles.Suspense} />}>
+            <Suspense fallback={null}>
               <FoodLogComponent data={SnackLogData} />
             </Suspense>
             <Suspense fallback={null}>
