@@ -62,6 +62,7 @@
 		8205475B03D2C710F8D9995C /* Pods-Nutrigoals-NutrigoalsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nutrigoals-NutrigoalsTests.debug.xcconfig"; path = "Target Support Files/Pods-Nutrigoals-NutrigoalsTests/Pods-Nutrigoals-NutrigoalsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A94EDF3E1E865FAFE5EAABA7 /* Pods-Nutrigoals-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nutrigoals-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Nutrigoals-tvOS/Pods-Nutrigoals-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		AEB0EE9907C6425A951E3CBC /* Pods-Nutrigoals-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nutrigoals-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Nutrigoals-tvOSTests/Pods-Nutrigoals-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		CFFE63E326A3F6F4008A179C /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		E48845379F83D013A16D18B0 /* libPods-Nutrigoals-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Nutrigoals-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E54CA9127650B946406FA262 /* Pods-Nutrigoals-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nutrigoals-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Nutrigoals-tvOSTests/Pods-Nutrigoals-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E9243D7814DB3E5BC3214003 /* Pods-Nutrigoals-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nutrigoals-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Nutrigoals-tvOS/Pods-Nutrigoals-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -159,12 +160,14 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				CFFE63E926A3F8BA008A179C /* Fonts */,
 				13B07FAE1A68108700A75B9A /* Nutrigoals */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* NutrigoalsTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D734CB6F84D5F5F9F8265052 /* Pods */,
+				A4523517B5F04AB6AA15CBD0 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -180,6 +183,21 @@
 				2D02E4901E0B4A5D006451C7 /* Nutrigoals-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A4523517B5F04AB6AA15CBD0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		CFFE63E926A3F8BA008A179C /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CFFE63E326A3F6F4008A179C /* FontAwesome.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		D734CB6F84D5F5F9F8265052 /* Pods */ = {
@@ -377,7 +395,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		138FF107EDA48EEBC58D4A2E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
