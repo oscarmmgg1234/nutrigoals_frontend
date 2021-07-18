@@ -11,8 +11,6 @@ import Styles from './Styles';
 import SplashScreen from 'react-native-splash-screen';
 import HomeHeader from '../../Components/Home/HomeHeader/homeHeader';
 import CaloriesView from '../../Components/Home/homeBody/totalCalCom';
-
-
 const MacroComponent = React.lazy(() =>
   import('../../Components/Home/homeBody/macroComponent'),
 );
@@ -75,7 +73,6 @@ class Home extends Component {
               </Suspense>
             </View>
           </ScrollView>
-          
         </SafeAreaView>
       </>
     );
