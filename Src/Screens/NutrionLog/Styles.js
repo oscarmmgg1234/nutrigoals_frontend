@@ -133,6 +133,19 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
+    justifyContent: 'center',
+  },
+  showbackGroundContent2: {
+    marginTop: 7,
+    width: 80,
+    height: 120,
+    marginRight: 5,
+    marginLeft: 20,
+    backgroundColor: '#3E3E58',
+    // justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+    justifyContent: 'center',
   },
   buttonIncrement: {
     width: 45,
@@ -217,7 +230,7 @@ const styles = StyleSheet.create({
   },
   ResultModal: {
     width: '80%',
-    height: 150,
+    height: 194,
     backgroundColor: Colors.backgroundColor,
     alignSelf: 'center',
     borderRadius: 20,

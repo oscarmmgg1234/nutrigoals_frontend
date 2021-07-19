@@ -1,19 +1,9 @@
 import React, {useState} from 'react';
-import {
-  Modal,
-  View,
-  Text,
-  TextInput,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import {Modal, View, Text, TextInput, TouchableOpacity} from 'react-native';
 import Colors from '../../../../Styles/Colors';
 import Styles from '../../../../Screens/NutrionLog/Styles';
-import Images from '../../../../Styles/Images';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import FoodLog from './foodLog';
-
+import ResultsView from './resultsComponent';
 
 const ModalComponent = (props) => {
   const [foodSearch, setFoodSearch] = useState('');
@@ -21,7 +11,13 @@ const ModalComponent = (props) => {
   function inputFocus() {
     setSFocus(!foodSearchFocus);
   }
+  const [resultsData, setData] = useState([
+    {name: 'egg', toggle: false, id: 0},
+    {name: 'Toast', toggle: false, id: 1},
+    {name: 'Hash', toggle: false, id: 2},
+  ]);
 
+  const [selectedFood, setSelectedFood] = useState([{name: ''}]);
   return (
     <Modal
       animationType={'slide'}
@@ -30,7 +26,7 @@ const ModalComponent = (props) => {
       onRequestClose={() => props.setVisible(false)}>
       <View
         style={{
-          height: 420,
+          height: 460,
           width: '85%',
           marginTop: '17%',
           backgroundColor: 'rgba(20,19,25,0.6)',
@@ -109,11 +105,23 @@ const ModalComponent = (props) => {
               alignSelf: 'center',
             }}
           />
-          <FoodLog />
+          <ResultsView data={resultsData} setData={setData} setSelected={setSelectedFood}/>
         </View>
-        <View style={{alignSelf: 'center', marginTop: 30, backgroundColor: Colors.buttonColor, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 20}} >
+        <View
+          style={{
+            alignSelf: 'center',
+            marginTop: 30,
+            backgroundColor: Colors.buttonColor,
+            height: 40,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 20,
+          }}>
           <TouchableOpacity style={{width: 110}}>
-            <Text style={{color: 'white', alignSelf: 'center', fontWeight: 'bold'}}>Add</Text>
+            <Text
+              style={{color: 'white', alignSelf: 'center', fontWeight: 'bold'}}>
+              Add
+            </Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={() => props.setVisible(false)}>
@@ -125,6 +133,7 @@ const ModalComponent = (props) => {
           />
         </TouchableOpacity>
       </View>
+
     </Modal>
   );
 };

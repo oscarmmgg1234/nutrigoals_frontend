@@ -60,6 +60,7 @@ const FoodLog = (props) => {
               state={modalVisible}
               setVisible={setModalVisible}
               value={value}
+              context={props.data}
             />
             <View style={Styles.quantityWrapper}>
               <Text
