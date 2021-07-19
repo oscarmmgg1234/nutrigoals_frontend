@@ -2,11 +2,6 @@ import React, {useContext} from 'react';
 import {Image, Text, TouchableOpacity, View, StatusBar, ImageBackground} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import Styles from './Styles';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {context} from '../../../setup'
-
-
-
 
 
 
@@ -19,8 +14,7 @@ export default class LoginSplash extends React.Component {
   }
   componentDidMount() {
     SplashScreen.hide();
-    
-  }
+    }
   
   render() { 
   

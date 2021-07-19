@@ -1,10 +1,10 @@
 import React from 'react';
-import {ImageBackground, SafeAreaView, View, Text} from 'react-native';
+import {ImageBackground , View, Text} from 'react-native';
 
 const SocialScreen = () => {
   return (
     <>
-      <SafeAreaView style={{height: '100%', width: '100%'}}>
+      
         <ImageBackground
           style={{
             width: '100%',
@@ -33,7 +33,7 @@ const SocialScreen = () => {
             </Text>
           </View>
         </ImageBackground>
-      </SafeAreaView>
+      
     </>
   );
 };

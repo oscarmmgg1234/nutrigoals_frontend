@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  TextInput,
   ImageBackground,
   StatusBar,
 } from 'react-native';
@@ -69,11 +68,11 @@ class Profile extends Component {
         <StatusBar barStyle={'light-content'} hidden={false} />
         <SafeAreaView style={Styles.safeViewStyle1} />
         <app_context.Consumer>
-          {({username, imagePath, selectImage}) => (
+          {({User, imagePath, selectImage}) => (
             <SafeAreaView style={Styles.safeViewStyle}>
               <View style={Styles.headerWrapper}>
                 <View style={Styles.headerContainer}>
-                  <Text style={Styles.homeText}>{username}</Text>
+                  <Text style={Styles.homeText}>{User.username}</Text>
                   <View>
                     <Text style={Styles.darkModeText}>{'Dark Mode:'}</Text>
                     <ToggleSwitch

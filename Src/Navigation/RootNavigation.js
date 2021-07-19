@@ -8,7 +8,7 @@ const AppNavigator = createSwitchNavigator(
     UserStack: AppStack,
   },
   {
-    initialRouteName: 'UserStack',
+    initialRouteName: 'AuthStack',
    
   },
 );

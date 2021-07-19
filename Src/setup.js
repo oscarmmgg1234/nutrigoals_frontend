@@ -157,10 +157,9 @@ const Root = (props) => {
     <>
       <app_context.Provider
         value={{
-          macroData: macroData.data,
           selectImage,
           imagePath,
-          username: User.username,
+          User,
         }}>
         <user_context.Provider
           value={{

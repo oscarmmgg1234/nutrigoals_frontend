@@ -8,14 +8,15 @@ import {
   ScrollView,
   Image,
   TextInput,
-  StatusBar
+  StatusBar,
+  KeyboardAvoidingView
 } from 'react-native';
 import Styles from './Styles';
 import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
 import {AuthSeverCall} from '../../../http_config/axios_config';
-import { app_context} from '../../../setup';
+import { app_context } from '../../../setup';
 
 class Login extends Component {
   constructor(props) {
@@ -29,13 +30,8 @@ class Login extends Component {
     };
   }
 
-  async next() {
-    await AsyncStorage.setItem('@authStatus', '1').then(() => {
-      {<app_context.Consumer>
-        {app_context => {app_context.updateUsername(stringify(this.state.email))}}
-      </app_context.Consumer>}
-      this.props.navigation.navigate('Home');
-    });
+  next() {
+       
   }
 
   loginValidator = () => {
@@ -68,7 +64,8 @@ class Login extends Component {
       hidden={false}
       />
         <SafeAreaView style={Styles.safeViewStyle}>
-          <ScrollView>
+          <KeyboardAvoidingView behavior={'padding'}>
+          <ScrollView keyboardDismissMode={'on-drag'}>
             <View style={Styles.mainContainer}>
               <Text style={Styles.headerText}>{Constants.LOGIN}</Text>
 
@@ -140,7 +137,7 @@ class Login extends Component {
               <TouchableOpacity
                 style={Styles.buttonContainer}
                 onPress={
-                  () => this.loginValidator()
+                  ()=>this.props.navigation.navigate('UserStack')
               
                 }>
                 <Text style={Styles.buttonText}>{Constants.LOGIN}</Text>
@@ -175,6 +172,7 @@ class Login extends Component {
               </TouchableOpacity>
             </View>
           </ScrollView>
+          </KeyboardAvoidingView>
         </SafeAreaView>
       </>
     );

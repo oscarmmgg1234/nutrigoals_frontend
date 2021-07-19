@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 import Styles from './Styles';
 import * as Constants from '../../../Constants';
@@ -69,7 +70,8 @@ class Register extends Component {
     return (
       <>
         <SafeAreaView style={Styles.safeViewStyle}>
-          <ScrollView>
+          <KeyboardAvoidingView behavior={'padding'}>
+          <ScrollView keyboardDismissMode={'on-drag'}>
             <View style={Styles.mainContainer}>
               <Text style={Styles.headerText}>{Constants.SIGNUP}</Text>
 
@@ -151,6 +153,7 @@ class Register extends Component {
                         : Colors.backgroundColor,
                     },
                   ]}>
+                    
                   <TextInput
                     style={Styles.emailInput}
                     value={password}
@@ -171,6 +174,7 @@ class Register extends Component {
                       <Image source={Images.check} style={Styles.checkImage} />
                     )
                   )}
+                  
                 </View>
                 {this.state.password.length <= 6  ? <Text style = {Styles.buttonText}>Minimum Password Length: 6</Text> : null}
                 {this.state.password.includes('!') ? null: <Text style = {Styles.buttonText}>Atleast one special character: !,?,% etc ...</Text>  } 
@@ -227,6 +231,7 @@ class Register extends Component {
               </View>
             </View>
           </ScrollView>
+          </KeyboardAvoidingView>
         </SafeAreaView>
       </>
     );
