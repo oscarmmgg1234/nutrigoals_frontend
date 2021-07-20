@@ -5,7 +5,7 @@ import {View} from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import FoodLog from './Components/Log/LogBody/foodLog/foodLog';
 import AppStack from './Navigation/AppStack';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import RootNavigation from './Navigation/RootNavigation';
 console.disableYellowBox = true;
 export const app_context = createContext();
@@ -15,26 +15,26 @@ export const foodLog_context = createContext();
 
 const Root = (props) => {
   const [BFLogData, setBFLogData] = useState([
-    {name: 'toast'},
-    {name: 'Egg'},
-    {name: 'pancacke'},
-    {name: 'orange juice'},
-    {name: 'add'},
+    {name: 'toast', id: Math.random() % 5000},
+    {name: 'Egg', id: Math.random() % 5000},
+    {name: 'pancacke', id: Math.random() % 5000},
+    {name: 'orange juice', id: Math.random() % 5000},
+    {name: 'add', id: Math.random() % 5000},
   ]);
   const [LunchLogData, setLunchLogData] = useState([
-    {name: 'chicken sandwich'},
-    {name: 'stella rose wine palor wine'},
-    {name: 'add'},
+    {name: 'chicken sandwich', id: Math.random() % 5000},
+    {name: 'stella rose wine palor wine', id: Math.random() % 5000},
+    {name: 'add', id: Math.random() % 5000},
   ]);
   const [DinnerLogData, setDinnerLogData] = useState([
-    {name: 'stake'},
-    {name: 'mashed potatoes'},
-    {name: 'broccoli'},
-    {name: 'add'},
+    {name: 'stake', id: Math.random() % 5000},
+    {name: 'mashed potatoes', id: Math.random() % 5000},
+    {name: 'broccoli', id: Math.random() % 5000},
+    {name: 'add', id: Math.random() % 5000},
   ]);
   const [SnackLogData, setSnackLogData] = useState([
-    {name: 'trail mix'},
-    {name: 'add'},
+    {name: 'trail mix', id: Math.random() % 5000},
+    {name: 'add', id: Math.random() % 5000},
   ]);
 
   const [ThemeStyle, setThemeStyle] = useState('dark');
@@ -100,6 +100,26 @@ const Root = (props) => {
   const [imagePath, setImagePath] = useState('');
 
   const [AuthStatus, setAuthStatus] = useState('1');
+
+  function editBFLogData(value) {
+    let newLog = BFLogData.filter((obj) => obj.name != 'add');
+    setBFLogData(newLog);
+    value.map((obj) =>
+      setBFLogData([...BFLogData, {name: obj.name, id: Math.random()}]),
+    );
+    setBFLogData([...BFLogData, {name: 'add'}]);
+  }
+  function removeBFLogData(index) {
+    let temp = BFLogData.filter((obj) => index != obj.id);
+    setBFLogData(temp);
+  }
+  function editLunchLogData(value) {
+    setLunchLogData([...LunchLogData, {value}]);
+  }
+  function removeLunchLogData(index) {
+    let temp = LunchLogData.filter((obj) => index != obj.id);
+    setLunchLogData(temp);
+  }
 
   function increaseWaterLevel() {
     let oldGoal = waterGoals.waterGoal;
@@ -170,9 +190,18 @@ const Root = (props) => {
           <water_context.Provider
             value={{waterGoals, increaseWaterLevel, decreaseWaterLevel}}>
             <foodLog_context.Provider
-              value={{BFLogData, LunchLogData, DinnerLogData, SnackLogData}}>
+              value={{
+                BFLogData,
+                LunchLogData,
+                DinnerLogData,
+                SnackLogData,
+                editBFLogData,
+                editLunchLogData,
+                removeBFLogData,
+                removeLunchLogData,
+              }}>
               <View style={{flex: 1}}>
-                <RootNavigation/>
+                <RootNavigation />
               </View>
             </foodLog_context.Provider>
           </water_context.Provider>

@@ -12,12 +12,15 @@ const ModalComponent = (props) => {
     setSFocus(!foodSearchFocus);
   }
   const [resultsData, setData] = useState([
-    {name: 'egg', toggle: false, id: 0},
+    {name: 'egg', toggle: false, id: 177},
     {name: 'Toast', toggle: false, id: 1},
     {name: 'Hash', toggle: false, id: 2},
   ]);
 
-  const [selectedFood, setSelectedFood] = useState([{name: ''}]);
+  function addFood() {
+    let temp = resultsData.filter((obj) => obj.toggle === true);
+    props.addFood(temp);
+  }
   return (
     <Modal
       animationType={'slide'}
@@ -105,7 +108,7 @@ const ModalComponent = (props) => {
               alignSelf: 'center',
             }}
           />
-          <ResultsView data={resultsData} setData={setData} setSelected={setSelectedFood}/>
+          <ResultsView data={resultsData} setData={setData} />
         </View>
         <View
           style={{
@@ -117,7 +120,7 @@ const ModalComponent = (props) => {
             justifyContent: 'center',
             borderRadius: 20,
           }}>
-          <TouchableOpacity style={{width: 110}}>
+          <TouchableOpacity style={{width: 110}} onPress={addFood}>
             <Text
               style={{color: 'white', alignSelf: 'center', fontWeight: 'bold'}}>
               Add
@@ -133,7 +136,6 @@ const ModalComponent = (props) => {
           />
         </TouchableOpacity>
       </View>
-
     </Modal>
   );
 };

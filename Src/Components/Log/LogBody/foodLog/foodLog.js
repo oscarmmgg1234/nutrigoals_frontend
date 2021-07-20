@@ -61,6 +61,8 @@ const FoodLog = (props) => {
               setVisible={setModalVisible}
               value={value}
               context={props.data}
+              addFood={props.addLog}
+              removeFood={props.removeLog}
             />
             <View style={Styles.quantityWrapper}>
               <Text
@@ -131,6 +133,7 @@ const FoodLog = (props) => {
             horizontal={true}
             data={props.data}
             renderItem={({item}) => showFood(item)}
+            keyExtractor={(item) => item.id}
           />
         </View>
       </View>

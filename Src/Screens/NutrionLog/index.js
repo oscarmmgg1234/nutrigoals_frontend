@@ -15,8 +15,16 @@ const WaterComponent = React.lazy(() =>
 );
 
 const NutrionLog = (props) => {
-  const {BFLogData, LunchLogData, DinnerLogData, SnackLogData} =
-    useContext(foodLog_context);
+  const {
+    BFLogData,
+    LunchLogData,
+    DinnerLogData,
+    SnackLogData,
+    editBFLogData,
+    removeBFLogData,
+    editLunchLogData,
+    removeLunchLogData,
+  } = useContext(foodLog_context);
   return (
     <>
       <StatusBar barStyle={'light-content'} hidden={false} />
@@ -33,11 +41,19 @@ const NutrionLog = (props) => {
             <TotalView />
             <Text style={Styles.inputTextStyle1}>{'Breakfast:'}</Text>
             <Suspense fallback={null}>
-              <FoodLogComponent data={BFLogData} />
+              <FoodLogComponent
+                data={BFLogData}
+                addLog={editBFLogData}
+                removeLog={removeBFLogData}
+              />
             </Suspense>
             <Text style={Styles.inputTextStyle1}>{'Lunch:'}</Text>
             <Suspense fallback={null}>
-              <FoodLogComponent data={LunchLogData} />
+              <FoodLogComponent
+                data={LunchLogData}
+                addLog={editLunchLogData}
+                removeLog={removeLunchLogData}
+              />
             </Suspense>
             <Text style={Styles.inputTextStyle1}>{'Dinner:'}</Text>
             <Suspense fallback={null}>
