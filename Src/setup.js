@@ -3,9 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View} from 'react-native';
 
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
-import FoodLog from './Components/Log/LogBody/foodLog/foodLog';
-import AppStack from './Navigation/AppStack';
-import {NavigationContainer} from '@react-navigation/native';
 import RootNavigation from './Navigation/RootNavigation';
 console.disableYellowBox = true;
 export const app_context = createContext();
@@ -15,26 +12,26 @@ export const foodLog_context = createContext();
 
 const Root = (props) => {
   const [BFLogData, setBFLogData] = useState([
-    {name: 'toast', id: Math.random() % 5000},
-    {name: 'Egg', id: Math.random() % 5000},
-    {name: 'pancacke', id: Math.random() % 5000},
-    {name: 'orange juice', id: Math.random() % 5000},
     {name: 'add', id: Math.random() % 5000},
+    {name: 'toast', id: Math.random() % 5000, protein: 5},
+    {name: 'Egg', id: Math.random() % 5000, protein: 10},
+    {name: 'pancacke', id: Math.random() % 5000, protein: 20},
+    {name: 'orange juice', id: Math.random() % 5000, protein: 10},
   ]);
   const [LunchLogData, setLunchLogData] = useState([
+    {name: 'add', id: Math.random() % 5000},
     {name: 'chicken sandwich', id: Math.random() % 5000},
     {name: 'stella rose wine palor wine', id: Math.random() % 5000},
-    {name: 'add', id: Math.random() % 5000},
   ]);
   const [DinnerLogData, setDinnerLogData] = useState([
+    {name: 'add', id: Math.random() % 5000},
     {name: 'stake', id: Math.random() % 5000},
     {name: 'mashed potatoes', id: Math.random() % 5000},
     {name: 'broccoli', id: Math.random() % 5000},
-    {name: 'add', id: Math.random() % 5000},
   ]);
   const [SnackLogData, setSnackLogData] = useState([
-    {name: 'trail mix', id: Math.random() % 5000},
     {name: 'add', id: Math.random() % 5000},
+    {name: 'trail mix', id: Math.random() % 5000},
   ]);
 
   const [ThemeStyle, setThemeStyle] = useState('dark');
@@ -101,26 +98,65 @@ const Root = (props) => {
 
   const [AuthStatus, setAuthStatus] = useState('1');
 
-  function editBFLogData(value) {
-    let newLog = BFLogData.filter((obj) => obj.name != 'add');
-    setBFLogData(newLog);
-    value.map((obj) =>
-      setBFLogData([...BFLogData, {name: obj.name, id: Math.random()}]),
-    );
-    setBFLogData([...BFLogData, {name: 'add'}]);
+  function update() {
+    let PG = userGoals.proteinGoal;
+    let FG = userGoals.fatGoal;
+    let CG = userGoals.carbGoal;
+    let PC;
+    let FC = 10;
+    let CC = 10;
+    BFLogData.map((obj) => {
+      PC += obj.protein;
+      setUserGoals({
+        proteinGoal: PG,
+        fatGoal: FG,
+        carbGoal: CG,
+        proteinCurrent: PC,
+        fatCurrent: FC,
+        carbCurrent: CC,
+      });
+    });
   }
-  function removeBFLogData(index) {
-    let temp = BFLogData.filter((obj) => index != obj.id);
+
+  function editBFLogData(value) {
+    value.map((obj) =>
+      setBFLogData([
+        ...BFLogData,
+        {name: obj.name, id: Math.random(), protein: 20},
+      ]),
+    );
+  }
+  function removeBFLogData(value) {
+    let temp = BFLogData.filter((obj) => value.id != obj.id);
     setBFLogData(temp);
   }
   function editLunchLogData(value) {
-    setLunchLogData([...LunchLogData, {value}]);
+    value.map((obj) =>
+      setLunchLogData([...LunchLogData, {name: obj.name, id: Math.random()}]),
+    );
   }
-  function removeLunchLogData(index) {
-    let temp = LunchLogData.filter((obj) => index != obj.id);
+  function removeLunchLogData(value) {
+    let temp = LunchLogData.filter((obj) => value.id != obj.id);
     setLunchLogData(temp);
   }
-
+  function editDinnerLogData(value) {
+    value.map((obj) =>
+      setDinnerLogData([...DinnerLogData, {name: obj.name, id: Math.random()}]),
+    );
+  }
+  function removeDinnerLogData(value) {
+    let temp = DinnerLogData.filter((obj) => value.id != obj.id);
+    setDinnerLogData(temp);
+  }
+  function editSnackLogData(value) {
+    value.map((obj) =>
+      setSnackLogData([...SnackLogData, {name: obj.name, id: Math.random()}]),
+    );
+  }
+  function removeSnackLogData(value) {
+    let temp = SnackLogData.filter((obj) => value.id != obj.id);
+    setSnackLogData(temp);
+  }
   function increaseWaterLevel() {
     let oldGoal = waterGoals.waterGoal;
     let oldCurrent = waterGoals.waterCurrent;
@@ -197,8 +233,12 @@ const Root = (props) => {
                 SnackLogData,
                 editBFLogData,
                 editLunchLogData,
+                editDinnerLogData,
+                editSnackLogData,
                 removeBFLogData,
                 removeLunchLogData,
+                removeDinnerLogData,
+                removeSnackLogData,
               }}>
               <View style={{flex: 1}}>
                 <RootNavigation />

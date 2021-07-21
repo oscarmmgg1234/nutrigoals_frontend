@@ -20,6 +20,7 @@ const ModalComponent = (props) => {
   function addFood() {
     let temp = resultsData.filter((obj) => obj.toggle === true);
     props.addFood(temp);
+    props.setVisible(false);
   }
   return (
     <Modal

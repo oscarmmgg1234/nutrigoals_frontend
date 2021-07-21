@@ -14,7 +14,7 @@ const WaterComponent = React.lazy(() =>
   import('../../Components/Home/homeBody/waterCompontent'),
 );
 
-const NutrionLog = (props) => {
+const NutrionLog = () => {
   const {
     BFLogData,
     LunchLogData,
@@ -24,6 +24,10 @@ const NutrionLog = (props) => {
     removeBFLogData,
     editLunchLogData,
     removeLunchLogData,
+    editDinnerLogData,
+    removeDinnerLogData,
+    editSnackLogData,
+    removeSnackLogData,
   } = useContext(foodLog_context);
   return (
     <>
@@ -57,11 +61,19 @@ const NutrionLog = (props) => {
             </Suspense>
             <Text style={Styles.inputTextStyle1}>{'Dinner:'}</Text>
             <Suspense fallback={null}>
-              <FoodLogComponent data={DinnerLogData} />
+              <FoodLogComponent
+                data={DinnerLogData}
+                addLog={editDinnerLogData}
+                removeLog={removeDinnerLogData}
+              />
             </Suspense>
             <Text style={Styles.inputTextStyle1}>{'Snacks:'}</Text>
             <Suspense fallback={null}>
-              <FoodLogComponent data={SnackLogData} />
+              <FoodLogComponent
+                data={SnackLogData}
+                addLog={editSnackLogData}
+                removeLog={removeSnackLogData}
+              />
             </Suspense>
             <Suspense fallback={null}>
               <WaterComponent />

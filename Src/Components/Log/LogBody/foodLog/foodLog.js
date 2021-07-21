@@ -17,7 +17,9 @@ const FoodLog = (props) => {
   const [quantity, setQuantity] = useState('');
   const [calory, setCalorie] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-
+  function removeFood(arg) {
+    props.removeLog(arg);
+  }
   const showFood = (value, index) => {
     return (
       <>
@@ -56,14 +58,6 @@ const FoodLog = (props) => {
                 }}
               />
             </View>
-            <ModalComponent
-              state={modalVisible}
-              setVisible={setModalVisible}
-              value={value}
-              context={props.data}
-              addFood={props.addLog}
-              removeFood={props.removeLog}
-            />
             <View style={Styles.quantityWrapper}>
               <Text
                 style={{
@@ -85,7 +79,7 @@ const FoodLog = (props) => {
                 }}
               />
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => removeFood(value)}>
               <Image
                 source={Images.delete}
                 style={{width: 20, height: 20, marginTop: 23}}
@@ -113,6 +107,14 @@ const FoodLog = (props) => {
                 }}>
                 {'Or scan it'}
               </Text>
+              <ModalComponent
+                state={modalVisible}
+                setVisible={setModalVisible}
+                value={value}
+                context={props.data}
+                addFood={props.addLog}
+                removeFood={props.removeLog}
+              />
               <Image
                 source={Images.doc}
                 style={{width: 35, height: 30, marginTop: 10}}
