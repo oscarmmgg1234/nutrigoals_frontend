@@ -10,28 +10,28 @@ export const user_context = createContext();
 export const water_context = createContext();
 export const foodLog_context = createContext();
 
-const Root = (props) => {
+const Root = () => {
   const [BFLogData, setBFLogData] = useState([
     {name: 'add', id: Math.random() % 5000},
-    {name: 'toast', id: Math.random() % 5000, protein: 5},
-    {name: 'Egg', id: Math.random() % 5000, protein: 10},
-    {name: 'pancacke', id: Math.random() % 5000, protein: 20},
-    {name: 'orange juice', id: Math.random() % 5000, protein: 10},
+    {name: 'toast', id: Math.random() % 5000, protein: 5, fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'Egg', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'pancacke', id: Math.random() % 5000, protein: 20,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'orange juice', id: Math.random() % 5000, protein: 10, fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
   ]);
   const [LunchLogData, setLunchLogData] = useState([
-    {name: 'add', id: Math.random() % 5000},
-    {name: 'chicken sandwich', id: Math.random() % 5000},
-    {name: 'stella rose wine palor wine', id: Math.random() % 5000},
+    {name: 'add', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'chicken sandwich', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'stella rose wine palor wine', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
   ]);
   const [DinnerLogData, setDinnerLogData] = useState([
-    {name: 'add', id: Math.random() % 5000},
-    {name: 'stake', id: Math.random() % 5000},
-    {name: 'mashed potatoes', id: Math.random() % 5000},
-    {name: 'broccoli', id: Math.random() % 5000},
+    {name: 'add', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'stake', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'mashed potatoes', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'broccoli', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
   ]);
   const [SnackLogData, setSnackLogData] = useState([
-    {name: 'add', id: Math.random() % 5000},
-    {name: 'trail mix', id: Math.random() % 5000},
+    {name: 'add', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'trail mix', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
   ]);
 
   const [ThemeStyle, setThemeStyle] = useState('dark');
@@ -98,64 +98,113 @@ const Root = (props) => {
 
   const [AuthStatus, setAuthStatus] = useState('1');
 
-  function update() {
-    let PG = userGoals.proteinGoal;
-    let FG = userGoals.fatGoal;
-    let CG = userGoals.carbGoal;
-    let PC;
-    let FC = 10;
-    let CC = 10;
-    BFLogData.map((obj) => {
-      PC += obj.protein;
-      setUserGoals({
-        proteinGoal: PG,
-        fatGoal: FG,
-        carbGoal: CG,
-        proteinCurrent: PC,
-        fatCurrent: FC,
-        carbCurrent: CC,
-      });
-    });
-  }
+function updateBF(){
+  let pc = 0;
+  let fc = 0;
+  let cc = 0;
+  let sc = 0;
+  let soc = 0;
+  BFLogData.map((obj, index)=>{if(index > 0){
+    pc += obj.protein;
+    fc += obj.fat;
+    cc += obj.carbohydrate;
+    sc += obj.sugar;
+    soc += obj.sodium;
+  }})
+  setGoals(pc,fc,cc,sc, soc);
+}
+function updateLunch(){
+  let pc = 0;
+  let fc = 0;
+  let cc = 0;
+  let sc = 0;
+  let soc = 0;
+  LunchLogData.map((obj, index)=>{if(index > 0){
+    pc += obj.protein;
+    fc += obj.fat;
+    cc += obj.carbohydrate;
+    sc += obj.sugar;
+    soc += obj.sodium;
+  }})
+  setGoals(pc,fc,cc,sc, soc);
+}
+function updateD(){
+  let pc = 0;
+  let fc = 0;
+  let cc = 0;
+  let sc = 0;
+  let soc = 0;
+  DinnerLogData.map((obj, index)=>{if(index > 0){
+    pc += obj.protein;
+    fc += obj.fat;
+    cc += obj.carbohydrate;
+    sc += obj.sugar;
+    soc += obj.sodium;
+  }})
+  setGoals(pc,fc,cc,sc, soc);
+}
+function updateSnack(){
+  let pc = 0;
+  let fc = 0;
+  let cc = 0;
+  let sc = 0;
+  let soc = 0;
+  SnackLogData.map((obj, index)=>{if(index > 0){
+    pc += obj.protein;
+    fc += obj.fat;
+    cc += obj.carbohydrate;
+    sc += obj.sugar;
+    soc += obj.sodium;
+  }})
+  setGoals(pc,fc,cc,sc, soc);
+}
 
   function editBFLogData(value) {
     value.map((obj) =>
       setBFLogData([
         ...BFLogData,
-        {name: obj.name, id: Math.random(), protein: 20},
+        {name: obj.name, id: Math.random(), protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
       ]),
     );
+    updateBF();
   }
   function removeBFLogData(value) {
     let temp = BFLogData.filter((obj) => value.id != obj.id);
     setBFLogData(temp);
+    updateBF();
   }
   function editLunchLogData(value) {
     value.map((obj) =>
-      setLunchLogData([...LunchLogData, {name: obj.name, id: Math.random()}]),
+      setLunchLogData([...LunchLogData, {name: obj.name, id: Math.random(), protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30}]),
     );
-  }
+    updateLunch();
+    }
   function removeLunchLogData(value) {
     let temp = LunchLogData.filter((obj) => value.id != obj.id);
     setLunchLogData(temp);
+    updateLunch();
   }
   function editDinnerLogData(value) {
     value.map((obj) =>
-      setDinnerLogData([...DinnerLogData, {name: obj.name, id: Math.random()}]),
+      setDinnerLogData([...DinnerLogData, {name: obj.name, id: Math.random(), protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30}]),
     );
+    updateD();
   }
   function removeDinnerLogData(value) {
     let temp = DinnerLogData.filter((obj) => value.id != obj.id);
     setDinnerLogData(temp);
+    updateD();
   }
   function editSnackLogData(value) {
     value.map((obj) =>
-      setSnackLogData([...SnackLogData, {name: obj.name, id: Math.random()}]),
+      setSnackLogData([...SnackLogData, {name: obj.name, id: Math.random(), protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30}]),
     );
+    updateSnack();
   }
   function removeSnackLogData(value) {
     let temp = SnackLogData.filter((obj) => value.id != obj.id);
     setSnackLogData(temp);
+    updateSnack
   }
   function increaseWaterLevel() {
     let oldGoal = waterGoals.waterGoal;
@@ -172,21 +221,54 @@ const Root = (props) => {
     }
   }
 
+  useEffect(()=>
+  setMacroData({
+    data: [
+      {
+        name: 'Protein',
+        macroGoal: userGoals.proteinGoal,
+        macroCurrent: userGoals.proteinCurrent,
+      },
+      {
+        name: 'Fat',
+        macroGoal: userGoals.fatGoal,
+        macroCurrent: userGoals.fatCurrent,
+      },
+      {
+        name: 'Carbohydrates',
+        macroGoal: userGoals.carbGoal,
+        macroCurrent: userGoals.carbCurrent,
+      },
+      {
+        name: 'Sugar',
+        macroGoal: missGoals.sugarGoal,
+        macroCurrent: missGoals.sugarCurrent,
+      },
+      {
+        name: 'Sodium',
+        macroGoal: missGoals.sodiumGoal,
+        macroCurrent: missGoals.sodiumCurrent,
+      },
+    ],
+  }), [userGoals])
+
+
   function setGoals(val, val2, val3, val4, val5) {
     setUserGoals({
-      proteinGoal: val,
-      fatGoal: val2,
-      carbGoal: val3,
-      proteinCurrent: userGoals.proteinCurrent,
-      fatCurrent: userGoals.fatCurrent,
-      carbCurrent: userGoals.carbCurrent,
+      proteinGoal: userGoals.proteinGoal,
+      fatGoal: userGoals.fatGoal,
+      carbGoal: userGoals.carbGoal,
+      proteinCurrent: val,
+      fatCurrent: val2,
+      carbCurrent: val3,
     });
     setMissGoals({
-      sugarCurrent: missGoals.sugarCurrent,
-      sugarGoal: val4,
-      sodiumCurrent: missGoals.sugarCurrent,
-      sodiumGoal: val5,
+      sugarCurrent: val4,
+      sugarGoal: missGoals.sugarGoal,
+      sodiumCurrent: val5,
+      sodiumGoal: missGoals.sodiumGoal,
     });
+    
   }
 
   const selectImage = () => {
