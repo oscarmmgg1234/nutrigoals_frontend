@@ -57,9 +57,9 @@ const CaloriesView = () => {
           </View>
 
           <GradientCircularProgress
-            startColor={'#18acbb'}
-            middleColor={'#4abb0b'}
-            endColor={'#4abb0b'}
+            startColor={'#6aecb5'}
+            middleColor={'#55e3e0'}
+            endColor={'#0b7d94'}
             emptyColor={Colors.cancel}
             size={100}
             progress={Math.round(

@@ -1,38 +1,50 @@
-import { ThemeProvider } from '@react-navigation/native';
-import React from 'react';
-import {Modal, View, Text, SafeAreaView} from 'react-native';
+
+import React, {useState} from 'react';
+import {Modal, View, Text, TouchableOpacity, Image, Switch} from 'react-native';
+import Styles from '../../Screens/Home/Styles';
+import * as Constants from '../../Constants/index';
+import Images from '../../Styles/Images';
+import Colors from '../../Styles/Colors';
+import Icon from 'react-native-vector-icons/FontAwesome'
+
 
 const EditMainModal = (props) => {
+
+    const [modalVisibility, setModalV] = useState({macroM: false, waterM: false, weightM: false, notiM: false, calc: false})
+
 
     return (<Modal
         animationType={'slide'}
         transparent={true}
-        visible={this.state.modalVisible}
-        onRequestClose={() => this.setState({modalVisible: false})}>
+        visible={props.modal}
+        onRequestClose={() => props.toggleModal()}>
         <View style={Styles.ModalContainer}>
           <View style={Styles.modalHeader}>
             <View style={Styles.ModalHeaderView}>
+              <View style={{display: 'flex', flexDirection:'row'}}>
+                <Icon name={'cog'} color={'white'} size={37} style={{marginTop: 7, marginRight: 8}}/>
               <Text style={Styles.homeText}>
                 {Constants.SETTINGS}
               </Text>
+              
+              </View>
+              
               <TouchableOpacity
-                onPress={() => this.setState({modalVisible: false})}>
-                <Text style={Styles.homeText}>Back</Text>
+
+                onPress={() => props.toggleModal()}>
+                <Icon name={'close'} color={'white'} size={35} style={{marginTop: 4}} />
               </TouchableOpacity>
             </View>
           </View>
 
           <TouchableOpacity
             style={{marginTop: 16}}
-            onPress={() => props.toggle}>
+            onPress={() => setModalV({macroM: true})}>
             <View style={Styles.listWrapper}>
               <View style={{flexDirection: 'row'}}>
-                <Image
-                  source={Images.data}
-                  style={Styles.userImage}
-                />
+                <Icon name={'bullseye'} color={'coral'} size={27} style={{marginTop: 3}}/>
                 <Text style={Styles.listText}>
-                  {'Edit Macro Goals '}
+                  {'Edit Macronutrient Goals '}
                 </Text>
               </View>
               <Image
@@ -42,13 +54,10 @@ const EditMainModal = (props) => {
             </View>
             <View style={Styles.seperator} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>setModalV({waterM: true})}>
             <View style={Styles.listWrapper}>
               <View style={{flexDirection: 'row'}}>
-                <Image
-                  source={Images.data}
-                  style={Styles.userImage}
-                />
+              <Icon name={'glass'} color={'aquamarine'} size={25} style={{marginTop: 3}}/>
                 <Text style={Styles.listText}>
                   {'Edit Water Goals'}
                 </Text>
@@ -60,15 +69,42 @@ const EditMainModal = (props) => {
             </View>
             <View style={Styles.seperator} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>setModalV({weightM: true})}>
             <View style={Styles.listWrapper}>
               <View style={{flexDirection: 'row'}}>
-                <Image
-                  source={Images.data}
-                  style={Styles.userImage}
-                />
+              <Icon name={'line-chart'} color={'white'} size={24} style={{marginTop: 3}}/>
                 <Text style={Styles.listText}>
                   {'Edit Weight Goals'}
+                </Text>
+              </View>
+              <Image
+                source={Images.chevron}
+                style={Styles.userImage}
+              />
+            </View>
+            <View style={Styles.seperator} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={()=>setModalV({notiM: true})}> 
+            <View style={Styles.listWrapper}>
+              <View style={{flexDirection: 'row'}}>
+              <Icon name={'window-maximize'} color={'purple'} size={25} style={{marginTop: 3}}/>
+                <Text style={Styles.listText}>
+                  {'Manage notifications'}
+                </Text>
+              </View>
+              <Image
+                source={Images.chevron}
+                style={Styles.userImage}
+              />
+            </View>
+            <View style={Styles.seperator} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={()=>setModalV({calc: true})}>
+            <View style={Styles.listWrapper}>
+              <View style={{flexDirection: 'row'}}>
+              <Icon name={'gears'} color={'violet'} size={25} style={{marginTop: 3}}/>
+                <Text style={Styles.listText}>
+                  {'Fitness calculators'}
                 </Text>
               </View>
               <Image
@@ -88,16 +124,16 @@ const EditMainModal = (props) => {
           <Modal
             animationType={'slide'}
             transparent={true}
-            visible={props.eMacro}>
+            visible={modalVisibility.macroM}>
             <View style={Styles.MacroModalContainer}>
               <View style={Styles.modalHeader}>
                 <View style={Styles.ModalHeaderView}>
                   <Text style={Styles.homeText}>
                     {Constants.MACRONUTRIENT}
                   </Text>
-                  <TouchableOpacity
-                    >
-                    <Text style={Styles.homeText}>Back</Text>
+                 
+                  <TouchableOpacity onPress={()=>setModalV({macroM: false})}>
+                    <Icon name={'close'} color={'white'} size={35} style={{marginTop: 4}} />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -109,7 +145,7 @@ const EditMainModal = (props) => {
               <View style={Styles.switchContainer}>
                 <Text
                   style={
-                    props.macroSwitch === false
+                    modalVisibility.macroM === false
                       ? {color: Colors.buttonColor}
                       : {color: 'white'}
                   }>
@@ -120,11 +156,11 @@ const EditMainModal = (props) => {
                   trackColor={'coral'}
                   thumbColor={Colors.backgroundColor}
                   onValueChange={props.toggleMacro}
-                  value={this.state.macroSwitch}
+                  value={true}
                 />
                 <Text
                   style={
-                    props.macroSwitch === true
+                    modalVisibility.macroM === true
                       ? {color: Colors.buttonColor}
                       : {color: 'white'}
                   }>

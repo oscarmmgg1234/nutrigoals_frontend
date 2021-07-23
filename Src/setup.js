@@ -70,26 +70,41 @@ const Root = () => {
         name: 'Protein',
         macroGoal: userGoals.proteinGoal,
         macroCurrent: userGoals.proteinCurrent,
+        colorStart: '#fb8be3',
+        colorMiddle: '#fa7be8',
+        colorEnd: '#ff67ea'
       },
       {
         name: 'Fat',
         macroGoal: userGoals.fatGoal,
         macroCurrent: userGoals.fatCurrent,
+        colorStart: '#fada7a',
+        colorMiddle: '#ffd968',
+        colorEnd: '#ffd454'
       },
       {
         name: 'Carbohydrates',
         macroGoal: userGoals.carbGoal,
         macroCurrent: userGoals.carbCurrent,
+        colorStart: '#6ae7bd',
+        colorMiddle: '#5beebc',
+        colorEnd: '#49ffc2'
       },
       {
         name: 'Sugar',
         macroGoal: missGoals.sugarGoal,
         macroCurrent: missGoals.sugarCurrent,
+        colorStart: '#74abdf',
+        colorMiddle: '#6aaeee',
+        colorEnd: '#4fa0ed'
       },
       {
         name: 'Sodium',
         macroGoal: missGoals.sodiumGoal,
         macroCurrent: missGoals.sodiumCurrent,
+        colorStart: '#a064e0',
+        colorMiddle: '#9754de',
+        colorEnd: '#9046df'
       },
     ],
   });
@@ -228,26 +243,42 @@ function updateSnack(){
         name: 'Protein',
         macroGoal: userGoals.proteinGoal,
         macroCurrent: userGoals.proteinCurrent,
+        colorStart: '#fb8be3',
+        colorMiddle: '#fa7be8',
+        colorEnd: '#ff67ea'
+
       },
       {
         name: 'Fat',
         macroGoal: userGoals.fatGoal,
         macroCurrent: userGoals.fatCurrent,
+        colorStart: '#fada7a',
+        colorMiddle: '#ffd968',
+        colorEnd: '#ffd454'
       },
       {
         name: 'Carbohydrates',
         macroGoal: userGoals.carbGoal,
         macroCurrent: userGoals.carbCurrent,
+        colorStart: '#6ae7bd',
+        colorMiddle: '#5beebc',
+        colorEnd: '#49ffc2'
       },
       {
         name: 'Sugar',
         macroGoal: missGoals.sugarGoal,
         macroCurrent: missGoals.sugarCurrent,
+        colorStart: '#74abdf',
+        colorMiddle: '#6aaeee',
+        colorEnd: '#4fa0ed'
       },
       {
         name: 'Sodium',
         macroGoal: missGoals.sodiumGoal,
         macroCurrent: missGoals.sodiumCurrent,
+        colorStart: '#a064e0',
+        colorMiddle: '#9754de',
+        colorEnd: '#9046df'
       },
     ],
   }), [userGoals])

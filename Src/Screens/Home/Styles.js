@@ -1,4 +1,4 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions, Platform} from 'react-native';
 import Colors from '../../Styles/Colors';
 const widthScreen = Dimensions.get('window').width;
 const styles = StyleSheet.create({
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
   },
   homeText: {
-    fontSize: 23,
+    fontSize: 30,
     fontWeight: '600',
     color: Colors.White,
     marginTop: 8,
@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.texInputBackground,
   },
   modalHeader: {
+    paddingTop: Platform.OS === 'ios' ? 30 : 0,
     width: '100%',
     height: '15%',
 

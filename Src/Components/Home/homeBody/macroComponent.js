@@ -54,9 +54,9 @@ const MacroScrollComponent = () => {
                         </Text>
                       </View>
                       <GradientCircularProgress
-                        startColor={'#18acbb'}
-                        middleColor={'#4abb0b'}
-                        endColor={'#4abb0b'}
+                        startColor={value.colorStart}
+                        middleColor={value.colorMiddle}
+                        endColor={value.colorEnd}
                         emptyColor={Colors.cancel}
                         size={50}
                         progress={Math.round(

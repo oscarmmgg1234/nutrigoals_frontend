@@ -11,19 +11,16 @@ class HomeHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      macroSwitch: false,
       modalVisible: false,
-      eMacroModalVisible: false,
-      eWaterModalVisible: false,
-      eWeightModalVisble: false,
     };
   }
 
-  toggleMacroSwitch = () => {
-    let prev = this.state.macroSwitch;
-    this.setState({macroSwitch: !prev});
-  };
-
+  
+  removeModalView = ()=> {
+    this.setState({modalVisible: false})
+      
+  }
+ 
   render() {
     return (
       <app_context.Consumer>
@@ -45,7 +42,7 @@ class HomeHeader extends Component {
                   onPress={() => this.setState({modalVisible: true})}>
                   <Image source={Images.menu} style={Styles.sideImage1} />
                 </TouchableOpacity>
-                <EditMainModal toggle={this.toggleMacroSwitch} eMacro={eMacroModalVisible} eWater={eWaterModalVisible} eWeight={eWeightModalVisble} macro={macroSwitch} toggleMacro={this.setState({macroSwitch: !macroSwitch})}/>
+                <EditMainModal toggleModal={this.removeModalView} modal={this.state.modalVisible} />
               </View>
             </View>
 

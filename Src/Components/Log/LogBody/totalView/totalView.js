@@ -22,25 +22,25 @@ const TotalView = () => {
             name={'Calories:'}
             current={calCurrent}
             goal={calGoal}
-            color={'#B4443C'}
+            color={'#a064e0'}
           />
           <ProgressMacro
             name={'Protein:'}
             current={userGoals.proteinCurrent}
             goal={userGoals.proteinGoal}
-            color={'#AFDFE4'}
+            color={'#74abdf'}
           />
           <ProgressMacro
             name={'Fat:'}
             current={userGoals.fatCurrent}
             goal={userGoals.fatGoal}
-            color={'#BAE8BB'}
+            color={'#fada7a'}
           />
           <ProgressMacro
             name={'Carbohydrates:'}
             current={userGoals.carbCurrent}
             goal={userGoals.carbGoal}
-            color={'#6A70CD'}
+            color={'#49ffc2'}
           />
         </View>
       </View>
