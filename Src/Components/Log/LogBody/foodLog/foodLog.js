@@ -17,13 +17,15 @@ const FoodLog = (props) => {
   const [quantity, setQuantity] = useState('');
   const [calory, setCalorie] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState([]);
   function removeFood(arg) {
     props.removeLog(arg);
   }
+  function updateLogQuantity(obj, value) {
+    props.updateQuantity(obj, value);
+  }
 
   const showFood = (value, index) => {
-    
     return (
       <>
         {value.name != 'add' ? (
@@ -55,11 +57,14 @@ const FoodLog = (props) => {
                 style={Styles.InputStyles}
                 placeholder={'1'}
                 placeholderTextColor={Colors.White}
-                value={value.quantity}
-                onBlur={()=>{props.updateQuantity(value.id,0,input)}}
+                value={input[index]}
+                onBlur={() => updateLogQuantity(value, input[index - 1])}
                 onChangeText={(value) => {
-                  setInput(value)
+                  let temp = input;
+                  temp[index - 1] = value;
+                  setInput(temp);
                 }}
+                keyboardType={'number-pad'}
               />
             </View>
             <View style={Styles.quantityWrapper}>
@@ -73,8 +78,13 @@ const FoodLog = (props) => {
                 }}>
                 {'Of'}
               </Text>
-              <Text style={{color: 'rgba(255,255,255,0.8)', fontSize: 15, marginLeft: 10}}>
-              {'1 cup(60ml)'}
+              <Text
+                style={{
+                  color: 'rgba(255,255,255,0.8)',
+                  fontSize: 15,
+                  marginLeft: 10,
+                }}>
+                {'1 cup(60ml)'}
               </Text>
             </View>
             <TouchableOpacity onPress={() => removeFood(value)}>
@@ -132,7 +142,7 @@ const FoodLog = (props) => {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={props.data}
-            renderItem={({item}) => showFood(item)}
+            renderItem={({item, index}) => showFood(item, index)}
             keyExtractor={(item) => item.id}
           />
         </View>
