@@ -28,6 +28,7 @@ const NutrionLog = () => {
     removeDinnerLogData,
     editSnackLogData,
     removeSnackLogData,
+    setValue
   } = useContext(foodLog_context);
   return (
     <>
@@ -49,6 +50,7 @@ const NutrionLog = () => {
                 data={BFLogData}
                 addLog={editBFLogData}
                 removeLog={removeBFLogData}
+                updateQuantity={setValue}
               />
             </Suspense>
             <Text style={Styles.inputTextStyle1}>{'Lunch:'}</Text>

@@ -16,7 +16,7 @@ class HomeHeader extends Component {
   }
 
   
-  removeModalView = ()=> {
+  removeModalView = () => {
     this.setState({modalVisible: false})
       
   }

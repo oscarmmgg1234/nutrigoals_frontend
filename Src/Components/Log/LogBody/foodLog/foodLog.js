@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   FlatList,
   View,
@@ -17,10 +17,13 @@ const FoodLog = (props) => {
   const [quantity, setQuantity] = useState('');
   const [calory, setCalorie] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [input, setInput] = useState('')
   function removeFood(arg) {
     props.removeLog(arg);
   }
+
   const showFood = (value, index) => {
+    
     return (
       <>
         {value.name != 'add' ? (
@@ -52,9 +55,10 @@ const FoodLog = (props) => {
                 style={Styles.InputStyles}
                 placeholder={'1'}
                 placeholderTextColor={Colors.White}
-                value={quantity}
+                value={value.quantity}
+                onBlur={()=>{props.updateQuantity(value.id,0,input)}}
                 onChangeText={(value) => {
-                  setQuantity(value);
+                  setInput(value)
                 }}
               />
             </View>
@@ -69,15 +73,9 @@ const FoodLog = (props) => {
                 }}>
                 {'Of'}
               </Text>
-              <TextInput
-                style={Styles.InputStyles1}
-                placeholder={'1 cup(60ml)'}
-                placeholderTextColor={Colors.White}
-                value={calory}
-                onChangeText={(value) => {
-                  setCalorie(calory);
-                }}
-              />
+              <Text style={{color: 'rgba(255,255,255,0.8)', fontSize: 15, marginLeft: 10}}>
+              {'1 cup(60ml)'}
+              </Text>
             </View>
             <TouchableOpacity onPress={() => removeFood(value)}>
               <Image

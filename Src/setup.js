@@ -13,25 +13,25 @@ export const foodLog_context = createContext();
 const Root = () => {
   const [BFLogData, setBFLogData] = useState([
     {name: 'add', id: Math.random() % 5000},
-    {name: 'toast', id: Math.random() % 5000, protein: 5, fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
-    {name: 'Egg', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
-    {name: 'pancacke', id: Math.random() % 5000, protein: 20,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
-    {name: 'orange juice', id: Math.random() % 5000, protein: 10, fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'toast', id: Math.random() % 5000, protein: 5, fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
+    {name: 'Egg', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
+    {name: 'pancacke', id: Math.random() % 5000, protein: 20,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
+    {name: 'orange juice', id: Math.random() % 5000, protein: 10, fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
   ]);
   const [LunchLogData, setLunchLogData] = useState([
-    {name: 'add', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
-    {name: 'chicken sandwich', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
-    {name: 'stella rose wine palor wine', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'add', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
+    {name: 'chicken sandwich', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
+    {name: 'stella rose wine palor wine', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
   ]);
   const [DinnerLogData, setDinnerLogData] = useState([
-    {name: 'add', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
-    {name: 'stake', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
-    {name: 'mashed potatoes', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
-    {name: 'broccoli', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'add', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
+    {name: 'stake', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
+    {name: 'mashed potatoes', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
+    {name: 'broccoli', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
   ]);
   const [SnackLogData, setSnackLogData] = useState([
-    {name: 'add', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
-    {name: 'trail mix', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+    {name: 'add', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
+    {name: 'trail mix', id: Math.random() % 5000, protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
   ]);
 
   const [ThemeStyle, setThemeStyle] = useState('dark');
@@ -113,6 +113,26 @@ const Root = () => {
 
   const [AuthStatus, setAuthStatus] = useState('1');
 
+function setValue(value, dataSetIndex, arg){
+  
+  switch(dataSetIndex){
+    case(0): {
+      let temp = BFLogData.map((obj)=>{
+        value.id === obj.id ? 
+          {...obj, quantity: arg} : obj
+     }
+      )
+      setBFLogData(temp)
+      updateBF();
+  
+      break;
+    }
+  }
+  
+  
+  
+}
+
 function updateBF(){
   let pc = 0;
   let fc = 0;
@@ -120,11 +140,11 @@ function updateBF(){
   let sc = 0;
   let soc = 0;
   BFLogData.map((obj, index)=>{if(index > 0){
-    pc += obj.protein;
-    fc += obj.fat;
-    cc += obj.carbohydrate;
-    sc += obj.sugar;
-    soc += obj.sodium;
+    pc += obj.protein * parseInt(obj.quantity);
+    fc += obj.fat * parseInt(obj.quantity);
+    cc += obj.carbohydrate * parseInt(obj.quantity);
+    sc += obj.sugar * parseInt(obj.quantity);
+    soc += obj.sodium * obj.quantity;
   }})
   setGoals(pc,fc,cc,sc, soc);
 }
@@ -135,11 +155,11 @@ function updateLunch(){
   let sc = 0;
   let soc = 0;
   LunchLogData.map((obj, index)=>{if(index > 0){
-    pc += obj.protein;
-    fc += obj.fat;
-    cc += obj.carbohydrate;
-    sc += obj.sugar;
-    soc += obj.sodium;
+    pc += obj.protein * obj.quantity;
+    fc += obj.fat * obj.quantity;
+    cc += obj.carbohydrate * obj.quantity;
+    sc += obj.sugar * obj.quantity;
+    soc += obj.sodium * obj.quantity;
   }})
   setGoals(pc,fc,cc,sc, soc);
 }
@@ -150,11 +170,11 @@ function updateD(){
   let sc = 0;
   let soc = 0;
   DinnerLogData.map((obj, index)=>{if(index > 0){
-    pc += obj.protein;
-    fc += obj.fat;
-    cc += obj.carbohydrate;
-    sc += obj.sugar;
-    soc += obj.sodium;
+    pc += obj.protein * parseInt(obj.quantity);
+    fc += obj.fat * parseInt(obj.quantity);
+    cc += obj.carbohydrate * parseInt(obj.quantity);
+    sc += obj.sugar * parseInt(obj.quantity);
+    soc += obj.sodium * parseInt(obj.quantity);
   }})
   setGoals(pc,fc,cc,sc, soc);
 }
@@ -165,11 +185,11 @@ function updateSnack(){
   let sc = 0;
   let soc = 0;
   SnackLogData.map((obj, index)=>{if(index > 0){
-    pc += obj.protein;
-    fc += obj.fat;
-    cc += obj.carbohydrate;
-    sc += obj.sugar;
-    soc += obj.sodium;
+    pc += obj.protein * parseInt(obj.quantity);
+    fc += obj.fat * parseInt(obj.quantity);
+    cc += obj.carbohydrate * parseInt(obj.quantity);
+    sc += obj.sugar * parseInt(obj.quantity);
+    soc += obj.sodium * parseInt(obj.quantity);
   }})
   setGoals(pc,fc,cc,sc, soc);
 }
@@ -178,7 +198,7 @@ function updateSnack(){
     value.map((obj) =>
       setBFLogData([
         ...BFLogData,
-        {name: obj.name, id: Math.random(), protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30},
+        {name: obj.name, id: Math.random(), protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'},
       ]),
     );
     updateBF();
@@ -190,7 +210,7 @@ function updateSnack(){
   }
   function editLunchLogData(value) {
     value.map((obj) =>
-      setLunchLogData([...LunchLogData, {name: obj.name, id: Math.random(), protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30}]),
+      setLunchLogData([...LunchLogData, {name: obj.name, id: Math.random(), protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30 , quantity: '1'}]),
     );
     updateLunch();
     }
@@ -201,7 +221,7 @@ function updateSnack(){
   }
   function editDinnerLogData(value) {
     value.map((obj) =>
-      setDinnerLogData([...DinnerLogData, {name: obj.name, id: Math.random(), protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30}]),
+      setDinnerLogData([...DinnerLogData, {name: obj.name, id: Math.random(), protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'}]),
     );
     updateD();
   }
@@ -212,7 +232,7 @@ function updateSnack(){
   }
   function editSnackLogData(value) {
     value.map((obj) =>
-      setSnackLogData([...SnackLogData, {name: obj.name, id: Math.random(), protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30}]),
+      setSnackLogData([...SnackLogData, {name: obj.name, id: Math.random(), protein: 10,fat: 20, carbohydrate: 10, sugar: 12, sodium: 30, quantity: '1'}]),
     );
     updateSnack();
   }
@@ -225,14 +245,14 @@ function updateSnack(){
     let oldGoal = waterGoals.waterGoal;
     let oldCurrent = waterGoals.waterCurrent;
     if (oldCurrent < 15) {
-      setWaterGoals({waterGoal: oldGoal, waterCurrent: oldCurrent + 1});
+      setWaterGoals({waterGoal: oldGoal, waterCurrent: oldCurrent + '1'});
     }
   }
   function decreaseWaterLevel() {
     let oldGoal = waterGoals.waterGoal;
     let oldCurrent = waterGoals.waterCurrent;
     if (oldCurrent > 0) {
-      setWaterGoals({waterGoal: oldGoal, waterCurrent: oldCurrent - 1});
+      setWaterGoals({waterGoal: oldGoal, waterCurrent: oldCurrent - '1'});
     }
   }
 
@@ -352,6 +372,7 @@ function updateSnack(){
                 removeLunchLogData,
                 removeDinnerLogData,
                 removeSnackLogData,
+                setValue
               }}>
               <View style={{flex: 1}}>
                 <RootNavigation />
