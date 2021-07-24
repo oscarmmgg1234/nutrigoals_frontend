@@ -22,7 +22,11 @@ const FoodLog = (props) => {
     props.removeLog(arg);
   }
   function updateLogQuantity(obj, value) {
+    if(parseFloat(value) > 0){
     props.updateQuantity(obj, value);
+    }
+    else props.updateQuantity(obj, '1');
+    
   }
 
   const showFood = (value, index) => {
@@ -58,13 +62,15 @@ const FoodLog = (props) => {
                 placeholder={'1'}
                 placeholderTextColor={Colors.White}
                 value={input[index]}
-                onBlur={() => updateLogQuantity(value, input[index - 1])}
-                onChangeText={(value) => {
+                onBlur={()=>{props.updateQuantity(value, input[index-1]); console.log(`On blur event has tiggered will pass ${parseFloat(input[index-1])}`)}}
+              
+                onChangeText={(text) => {
                   let temp = input;
-                  temp[index - 1] = value;
+                  temp[index - 1] = text;
                   setInput(temp);
+                 console.log(`OnChangeHas been executed with updatedValue: ${input[index-1]}`)
                 }}
-                keyboardType={'number-pad'}
+                keyboardType={'decimal-pad'}
               />
             </View>
             <View style={Styles.quantityWrapper}>

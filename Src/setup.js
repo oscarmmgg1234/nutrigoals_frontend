@@ -244,25 +244,35 @@ const Root = () => {
   const [AuthStatus, setAuthStatus] = useState('1');
 
   function setValue(object, value) {
+    console.log(`entry: will now begin to setValue with value ${value}`)
     switch (object.logGroup) {
       case 'BF': {
-        let temp = BFLogData.map((obj) =>
+        let temp = BFLogData.map((obj, index) =>
+      
           object.id === obj.id ? {...obj, quantity: value} : obj,
         );
-        setBFLogData(temp);
+        let tempOut = temp.map(obj=>obj.quantity)
+        console.log(`body: setting temp with updated BFlogdata which have quantity as follows: ${tempOut}`)
+        setBFLogData(temp);//problem
+        let BfOut = BFLogData.map(obj=>obj.quantity)
+        console.log(`body: updating bflogdata state which now have values ${BfOut}`)
         updateBF();
+        
+        
         break;
       }
     }
   }
 
   function updateBF() {
+    console.log('End: now updating userGoal values')
     let pc = 0;
     let fc = 0;
     let cc = 0;
     let sc = 0;
     let soc = 0;
     BFLogData.map((obj, index) => {
+      
       if (index > 0) {
         pc += obj.protein * parseFloat(obj.quantity);
         fc += obj.fat * parseFloat(obj.quantity);
@@ -433,7 +443,7 @@ const Root = () => {
   }
 
   useEffect(
-    () =>
+    () =>{console.log(`End: useEffect taking effect`)
       setMacroData({
         data: [
           {
@@ -477,7 +487,7 @@ const Root = () => {
             colorEnd: '#9046df',
           },
         ],
-      }),
+      })},
     [userGoals],
   );
 
