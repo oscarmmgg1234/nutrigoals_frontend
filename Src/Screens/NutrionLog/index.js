@@ -28,7 +28,11 @@ const NutrionLog = () => {
     removeDinnerLogData,
     editSnackLogData,
     removeSnackLogData,
-    setValue
+    setLogQuantity,
+    BFLogRef,
+    LunchLogRef,
+    DinnerLogRef,
+    SnackLogRef,
   } = useContext(foodLog_context);
   return (
     <>
@@ -47,34 +51,37 @@ const NutrionLog = () => {
             <Text style={Styles.inputTextStyle1}>{'Breakfast:'}</Text>
             <Suspense fallback={null}>
               <FoodLogComponent
-                data={BFLogData}
+                data={BFLogRef.current}
                 addLog={editBFLogData}
                 removeLog={removeBFLogData}
-                updateQuantity={setValue}
+                updateQuantity={setLogQuantity}
               />
             </Suspense>
             <Text style={Styles.inputTextStyle1}>{'Lunch:'}</Text>
             <Suspense fallback={null}>
               <FoodLogComponent
-                data={LunchLogData}
+                data={LunchLogRef.current}
                 addLog={editLunchLogData}
                 removeLog={removeLunchLogData}
+                updateQuantity={setLogQuantity}
               />
             </Suspense>
             <Text style={Styles.inputTextStyle1}>{'Dinner:'}</Text>
             <Suspense fallback={null}>
               <FoodLogComponent
-                data={DinnerLogData}
+                data={DinnerLogRef.current}
                 addLog={editDinnerLogData}
                 removeLog={removeDinnerLogData}
+                updateQuantity={setLogQuantity}
               />
             </Suspense>
             <Text style={Styles.inputTextStyle1}>{'Snacks:'}</Text>
             <Suspense fallback={null}>
               <FoodLogComponent
-                data={SnackLogData}
+                data={SnackLogRef.current}
                 addLog={editSnackLogData}
                 removeLog={removeSnackLogData}
+                updateQuantity={setLogQuantity}
               />
             </Suspense>
             <Suspense fallback={null}>
