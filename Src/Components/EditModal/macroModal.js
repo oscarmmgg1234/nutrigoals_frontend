@@ -53,6 +53,7 @@ const MacroModal = (props) => {
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
+                width: 80
               }}>
               {switchBool != true ? (
                 <Icon
@@ -72,7 +73,7 @@ const MacroModal = (props) => {
               </Text>
             </View>
             <Switch
-              style={{transform: [{scaleX: 1.9}, {scaleY: 1.7}]}}
+              style={{transform: [{scaleX: 1.5}, {scaleY: 1.5}]}}
               trackColor={'coral'}
               thumbColor={Colors.grey}
               onValueChange={() => setSwitch(!switchBool)}
@@ -83,6 +84,8 @@ const MacroModal = (props) => {
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
+                width: 90
+
               }}>
               <Text
                 style={
