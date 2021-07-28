@@ -234,7 +234,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.backgroundColor,
     alignSelf: 'center',
     borderRadius: 20,
-    marginTop: 20
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)'
   }
 });
 export default styles;

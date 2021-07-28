@@ -35,7 +35,7 @@ const ModalComponent = (props) => {
       transparent={true}
       visible={props.state}
       onRequestClose={() => props.setVisible(false)}>
-      <View style={{backgroundColor: 'rgba(20,19,25,0.7)', height: '100%', width: '100%'}}>
+      <View style={{backgroundColor: 'rgba(20,19,25,0.3)', height: '100%', width: '100%'}}>
         <View
           style={{
             height: 460,
@@ -44,7 +44,7 @@ const ModalComponent = (props) => {
             backgroundColor: 'rgba(20,19,25,1.0)',
             borderRadius: 20,
             alignSelf: 'center',
-            borderColor: 'rgba(255,255,255,0.5)',
+            borderColor: 'rgba(255,255,255,0.7)',
             borderWidth: 1
           }}>
           <Text
@@ -107,14 +107,14 @@ const ModalComponent = (props) => {
           </View>
 
           <View style={Styles.ResultModal}>
-            <Text style={{color: 'white', alignSelf: 'center', marginTop: 2}}>
+            <Text style={{color: 'white', alignSelf: 'center', marginTop: 6}}>
               Results{' '}
             </Text>
             <View
               style={{
-                marginTop: 3,
+                marginTop: 10,
                 height: 1,
-                width: '95%',
+                width: '85%',
                 backgroundColor: 'rgba(255,255,255,0.6)',
                 alignSelf: 'center',
               }}
