@@ -35,15 +35,17 @@ const ModalComponent = (props) => {
       transparent={true}
       visible={props.state}
       onRequestClose={() => props.setVisible(false)}>
-      <View style={{backgroundColor: 'rgba(20,19,25,0.3)', height: '100%', width: '100%'}}>
+      <View style={{backgroundColor: 'rgba(20,19,25,0.7)', height: '100%', width: '100%'}}>
         <View
           style={{
             height: 460,
             width: '85%',
-            marginTop: '17%',
+            marginTop: '35%',
             backgroundColor: 'rgba(20,19,25,1.0)',
             borderRadius: 20,
             alignSelf: 'center',
+            borderColor: 'rgba(255,255,255,0.5)',
+            borderWidth: 1
           }}>
           <Text
             style={{
