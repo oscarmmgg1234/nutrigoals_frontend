@@ -8,9 +8,10 @@ import {
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Styles from '../../Screens/Home/Styles';
-import Colors from '../../Styles/Colors';
-import * as Constants from '../../Constants';
+import Styles from '../../../Screens/Home/Styles';
+import Colors from '../../../Styles/Colors';
+import * as Constants from '../../../Constants';
+import CustomForm from './macroCustom';
 
 const MacroModal = (props) => {
   const [switchBool, setSwitch] = useState(false);
@@ -53,7 +54,7 @@ const MacroModal = (props) => {
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                width: 80
+                width: 80,
               }}>
               {switchBool != true ? (
                 <Icon
@@ -84,8 +85,7 @@ const MacroModal = (props) => {
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                width: 90
-
+                width: 90,
               }}>
               <Text
                 style={
@@ -108,12 +108,10 @@ const MacroModal = (props) => {
         </View>
         {switchBool === true ? (
           <ScrollView>
-            <Text>Ratio</Text>
-          </ScrollView>
-        ) : (
-          <ScrollView>
             <Text>Custom</Text>
           </ScrollView>
+        ) : (
+          <CustomForm />
         )}
       </View>
     </Modal>

@@ -5,7 +5,7 @@ import * as Constants from '../../Constants/index';
 import Images from '../../Styles/Images';
 import Colors from '../../Styles/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import MacroModal from './macroModal';
+import MacroModal from './macroModal/macroModal';
 
 const EditMainModal = (props) => {
   const [modalVisibility, setModalV] = useState({
