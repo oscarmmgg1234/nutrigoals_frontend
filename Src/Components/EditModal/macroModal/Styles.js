@@ -55,8 +55,6 @@ const Styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    borderWidth: 3,
-    borderColor: 'rgba(0,0,0,4)'
     
   },
   pickerTextContainer:{

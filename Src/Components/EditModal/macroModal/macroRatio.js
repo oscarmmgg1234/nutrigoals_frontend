@@ -4,17 +4,48 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ScrollPicker from 'react-native-wheely-simple-picker'
 import Styles from './Styles';
 import Colors from '../../../Styles/Colors';
+import { CARBS } from '../../../Constants';
+import { useEffect } from 'react/cjs/react.production.min';
 const MacroRatio = (props)=> {
 
     const [TI, setTI] = React.useState('')
     const [SI, setSI] = React.useState('');
     const [SOI, setSOI] = React.useState('')
-    const [PS, setPS] = React.useState(null);
-    const [FS, setFS] = React.useState(null);
-    const [CS, setCS] = React.useState(null);
+    const PS = React.useRef(40);
+    const FS = React.useRef(20);
+    const CS = React.useRef(40);
+    const [isValid, setIsValid] = React.useState(true);
 
+    
+    function setPS(val){
+      PS.current = val;
+    }
+    function setFS(val){
+      FS.current = val;
+    }
+    function setCS(val){
+      CS.current = val;
+    }
+    
+    const data = React.useRef([0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100])
+  
+    const selectedPS = React.useRef(8);
+    const selectedFS = React.useRef(4);
+    const selectedCS = React.useRef(8);
+
+    
     function submit(){
-        props.setG()
+        if(TI != '' && SI != '' && SOI != ''){
+          if((PS.current + FS.current + CS.current) === 100){
+          const Protein = (PS.current / 100) * TI;
+          const Fat = (FS.current / 100) * TI;
+          const Carbs = (CS.current / 100) * TI;
+          props.setG(Protein, Fat, Carbs, parseFloat(SI), parseFloat(SOI))
+          props.vis(0);
+          }
+          else {alert('Total percentage must = 100%')}
+         }
+        else {alert('Inputs cannot be empty')}
     }
 
 return(
@@ -141,18 +172,24 @@ return(
                 <Text style={Styles.pickerText}>{'Fat %'}</Text>
                 <Text style={Styles.pickerText}>{'Carbs %'}</Text>
             </View>
-            <View style={Styles.pickerContainer}>
+            <View style={[Styles.pickerContainer, {borderTopWidth: 3, borderBottomWidth: 3, borderColor: isValid ? '#62FF68' : 'red'}]}>
             <ScrollPicker 
-             dataSource={[
-                0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100
-           ]}
-           selectedIndex={8}
+             dataSource={data.current}
+           selectedIndex={selectedPS.current}
            renderItem={(data, index, isSelected) => {
                //
            }}
            onValueChange={(data, selectedIndex) => {
-               ()=>setPS(data);
-           }}
+               setPS(data);
+               if(PS.current + FS.current + CS.current != 100){
+                setIsValid(false);
+              }
+              else {
+                setIsValid(true);
+              }
+            }
+               
+           }
            wrapperHeight={180}
            wrapperWidth={'33%'}
            wrapperBackground="#FFFFFF"
@@ -163,16 +200,22 @@ return(
            activeItemColor='#222121'
            itemColor="#222121" />
             <ScrollPicker 
-             dataSource={[
-                0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100
-           ]}
-           selectedIndex={6}
+             dataSource={data.current}
+           selectedIndex={selectedFS.current}
            renderItem={(data, index, isSelected) => {
                //
            }}
            onValueChange={(data, selectedIndex) => {
-               ()=>setFS(data)
-           }}
+               setFS(data)
+               if(PS.current + FS.current + CS.current != 100){
+                setIsValid(false);
+              }
+              else {
+                setIsValid(true);
+              }
+            }
+              
+           }
            wrapperHeight={180}
            wrapperWidth={'33%'}
            wrapperBackground="#FFFFFF"
@@ -182,15 +225,20 @@ return(
            activeItemColor="#222121"
            itemColor="#222121" />
             <ScrollPicker 
-             dataSource={[
-                0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100
-           ]}
-           selectedIndex={4}
+             dataSource={data.current}
+           selectedIndex={selectedCS.current}
            renderItem={(data, index, isSelected) => {
                //
            }}
            onValueChange={(data, selectedIndex) => {
-               ()=>setCS(data)
+               setCS(data)
+               if(PS.current + FS.current + CS.current != 100){
+                setIsValid(true);
+              }
+              else {
+                setIsValid(false);
+              }
+            
            }}
            wrapperHeight={180}
            wrapperWidth={'33%'}
@@ -201,7 +249,7 @@ return(
            activeItemColor="#222121"
            itemColor="#222121" />
         </View>
-        <TouchableOpacity style={{alignSelf: 'center', marginBottom: 40, marginTop: 20}}>
+        <TouchableOpacity style={{alignSelf: 'center', marginBottom: 40, marginTop: 20}} onPress={()=>submit()}>
           <View style={{height: 52, width: 160, backgroundColor: Colors.buttonColor, alignItems: 'center', justifyContent: 'center', borderRadius: 20, marginTop: 25}}>
           <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>Change Goals</Text>
           </View>
