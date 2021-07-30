@@ -64,7 +64,8 @@ const Styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginTop: 20,
   },
   pickerText:{
     marginVertical: 20,

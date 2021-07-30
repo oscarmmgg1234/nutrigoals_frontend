@@ -135,6 +135,7 @@ return(
             ) : null}
         </View>
         </View>
+        <View style={{height: 2, width: '80%', backgroundColor: 'grey', alignSelf: 'center', marginTop: 50}}/>
             <View style={Styles.pickerTextContainer}> 
                 <Text style={Styles.pickerText}>{'Protein %'}</Text>
                 <Text style={Styles.pickerText}>{'Fat %'}</Text>
@@ -200,7 +201,7 @@ return(
            activeItemColor="#222121"
            itemColor="#222121" />
         </View>
-        <TouchableOpacity style={{alignSelf: 'center'}}>
+        <TouchableOpacity style={{alignSelf: 'center', marginBottom: 40, marginTop: 20}}>
           <View style={{height: 52, width: 160, backgroundColor: Colors.buttonColor, alignItems: 'center', justifyContent: 'center', borderRadius: 20, marginTop: 25}}>
           <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>Change Goals</Text>
           </View>
