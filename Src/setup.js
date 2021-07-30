@@ -350,6 +350,23 @@ const Root = () => {
     });
   }, [userGoals]);
 
+  function setGoalsR(val, val2, val3, val4, val5){
+    setUserGoals({
+      proteinGoal: val,
+      fatGoal: val2,
+      carbGoal: val3,
+      proteinCurrent: userGoals.proteinCurrent,
+      fatCurrent: userGoals.fatCurrent,
+      carbCurrent: userGoals.carbCurrent,
+    });
+    setMissGoals({
+      sugarCurrent: missGoals.sugarCurrent,
+      sugarGoal: val4,
+      sodiumCurrent: missGoals.sodiumCurrent,
+      sodiumGoal: val5,
+    });
+  }
+
   function setGoals(val, val2, val3, val4, val5) {
     setUserGoals({
       proteinGoal: userGoals.proteinGoal,
@@ -400,6 +417,7 @@ const Root = () => {
             macroData: macroData.data,
             graphData,
             userGoals,
+            setGoalsR
           }}>
           <water_context.Provider
             value={{waterGoals, increaseWaterLevel, decreaseWaterLevel}}>

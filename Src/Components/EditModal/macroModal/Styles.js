@@ -26,26 +26,51 @@ const Styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
+    width: 150
   },
   InputStyles: {
-    width: '40%',
+    width: '25%',
     backgroundColor: 'rgba(10,10,10,0.4)',
     borderRadius: 20,
     paddingLeft: 10,
     color: 'white',
     fontSize: 18,
     paddingRight: 10,
+    height: 40
   },
   InputSubview: {
     paddingLeft: 8,
     borderRadius: 20,
-    width: '50%',
+    width: '75%',
     backgroundColor: Colors.backgroundColor,
     display: 'flex',
     flexDirection: 'row',
     height: 50,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'space-around'
   },
+  pickerContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderWidth: 3,
+    borderColor: 'rgba(0,0,0,4)'
+    
+  },
+  pickerTextContainer:{
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignSelf: 'center'
+  },
+  pickerText:{
+    marginVertical: 20,
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: 12,
+    fontWeight: 'bold'
+  }
 });
 export default Styles;

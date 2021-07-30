@@ -12,8 +12,13 @@ import Styles from '../../../Screens/Home/Styles';
 import Colors from '../../../Styles/Colors';
 import * as Constants from '../../../Constants';
 import CustomForm from './macroCustom';
+import MacroRatio from './macroRatio';
+import { user_context } from '../../../setup';
 
 const MacroModal = (props) => {
+
+  const {setGoalsR} = React.useContext(user_context);
+
   const [switchBool, setSwitch] = useState(false);
   return (
     <Modal animationType={'fade'} transparent={true} visible={props.visibility}>
@@ -107,11 +112,9 @@ const MacroModal = (props) => {
           </View>
         </View>
         {switchBool === true ? (
-          <ScrollView>
-            <Text>Custom</Text>
-          </ScrollView>
+          <MacroRatio setG={setGoalsR} vis={props.setModalV}/>
         ) : (
-          <CustomForm />
+          <CustomForm setG={setGoalsR} vis={props.setModalV}/>
         )}
       </View>
     </Modal>
