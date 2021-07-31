@@ -1,21 +1,23 @@
 import React, {Component} from 'react';
-import {Modal, View, TouchableOpacity, Text, Image, Switch} from 'react-native';
+import {View, TouchableOpacity, Text, Image} from 'react-native';
 import Styles from '../../../Screens/Home/Styles';
 import Images from '../../../Styles/Images';
-import * as Constants from '../../../Constants';
-import Colors from '../../../Styles/Colors';
 import {app_context} from '../../../setup';
 import EditMainModal from '../../EditModal/editMainModal';
+import SearchModal from '../../SearchModal/searchModal';
 
 class HomeHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modalVisible: false,
+      searchModalVisible: false,
     };
   }
 
-  
+  removeSearcModal = () => {
+    this.setState({searchModalVisible: false})
+  }
   removeModalView = () => {
     this.setState({modalVisible: false})
       
@@ -35,7 +37,7 @@ class HomeHeader extends Component {
               </TouchableOpacity>
               <Text style={Styles.homeText}>{'Home'}</Text>
               <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.setState({searchModalVisible: true})}>
                   <Image source={Images.search} style={Styles.sideImage} />
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -43,6 +45,7 @@ class HomeHeader extends Component {
                   <Image source={Images.menu} style={Styles.sideImage1} />
                 </TouchableOpacity>
                 <EditMainModal toggleModal={this.removeModalView} modal={this.state.modalVisible} />
+                <SearchModal toggleModal={this.removeSearcModal} modal={this.state.searchModalVisible}/>
               </View>
             </View>
 

@@ -2,8 +2,14 @@ import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import Styles from '../../../Screens/NutrionLog/Styles';
 import Images from '../../../Styles/Images';
+import EditMainModal from '../../EditModal/editMainModal';
+
 
 const LogHeader = () => {
+  const [editModalVisible, SetModalV] = React.useState(false)
+  function setModalV(){
+    SetModalV(false)
+  }
   return (
     <>
       <View style={Styles.headerWrapper}>
@@ -13,7 +19,7 @@ const LogHeader = () => {
             <TouchableOpacity>
               <Image source={Images.search} style={Styles.sideImage} />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>SetModalV(true)}>
               <Image source={Images.menu} style={Styles.sideImage1} />
             </TouchableOpacity>
           </View>
@@ -28,7 +34,8 @@ const LogHeader = () => {
             </TouchableOpacity>
             <Text style={Styles.calenderText}>{' May 23, 2021'}</Text>
           </View>
-          <TouchableOpacity>
+          <EditMainModal toggleModal={setModalV} modal={editModalVisible}/>
+          <TouchableOpacity >
             <Image source={Images.arrow_right} style={Styles.sideImage1} />
           </TouchableOpacity>
         </View>

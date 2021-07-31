@@ -189,9 +189,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.texInputBackground,
   },
   modalHeader: {
-    paddingTop: Platform.OS === 'ios' ? 30 : 0,
+    paddingTop: Platform.OS === 'ios' ? 37 : 0,
     width: '100%',
-    height: '15%',
+    height: 100,
 
     backgroundColor: Colors.backgroundColor,
   },

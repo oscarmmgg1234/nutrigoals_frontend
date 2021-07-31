@@ -12,6 +12,7 @@ import Styles from '../../../../Screens/NutrionLog/Styles';
 import Colors from '../../../../Styles/Colors';
 import Images from '../../../../Styles/Images';
 import ModalComponent from './foodLogModal';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const FoodLog = (props) => {
   const [quantity, setQuantity] = useState('');
@@ -68,11 +69,7 @@ const FoodLog = (props) => {
                   let temp = input;
                   temp[index - 1] = text;
                   setInput(temp);
-                  console.log(
-                    `OnChangeHas been executed with updatedValue: ${
-                      input[index - 1]
-                    }`,
-                  );
+                
                 }}
                 keyboardType={'decimal-pad'}
               />
@@ -111,10 +108,8 @@ const FoodLog = (props) => {
                 style={{fontSize: 15, fontWeight: '500', color: Colors.White}}>
                 {'Add Food Element'}
               </Text>
-              <Image
-                source={Images.plus}
-                style={{width: 35, height: 30, marginTop: 15}}
-              />
+              <Icon name={'cutlery'} size={29} color={'white'} style={{marginTop: 15}}/>
+            
 
               <Text
                 style={{
@@ -133,10 +128,7 @@ const FoodLog = (props) => {
                 addFood={props.addLog}
                 removeFood={props.removeLog}
               />
-              <Image
-                source={Images.doc}
-                style={{width: 35, height: 30, marginTop: 10}}
-              />
+              <Icon name={'barcode'} size={36} color={'white'} style={{marginTop: 10}}/>
             </View>
           </TouchableOpacity>
         )}

@@ -57,12 +57,7 @@ const EditMainModal = (props) => {
         <View style={Styles.modalHeader}>
           <View style={Styles.ModalHeaderView}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-              <Icon
-                name={'cog'}
-                color={'white'}
-                size={37}
-                style={{marginTop: 7, marginRight: 8}}
-              />
+              
               <Text style={Styles.homeText}>{Constants.SETTINGS}</Text>
             </View>
 
