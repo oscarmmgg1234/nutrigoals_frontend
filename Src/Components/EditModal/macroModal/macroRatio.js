@@ -37,9 +37,9 @@ const MacroRatio = (props)=> {
     function submit(){
         if(TI != '' && SI != '' && SOI != ''){
           if((PS.current + FS.current + CS.current) === 100){
-          const Protein = (PS.current / 100) * TI;
-          const Fat = (FS.current / 100) * TI;
-          const Carbs = (CS.current / 100) * TI;
+          const Protein = Math.round(((PS.current / 100) * TI) / 4);
+          const Fat = Math.round(((FS.current / 100) * TI) / 9);
+          const Carbs = Math.round(((CS.current / 100) * TI) / 4);
           props.setG(Protein, Fat, Carbs, parseFloat(SI), parseFloat(SOI))
           props.vis(0);
           }
