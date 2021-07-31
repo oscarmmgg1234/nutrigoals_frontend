@@ -91,9 +91,9 @@ const WaterProgress = () => {
               animationConfig={{bounciness: 30}}
               animationType={'spring'}
               borderColor={
-                waterGoals.waterCurrent === waterGoals.waterGoal ? '#62FF68' : '#18acbb'
+                waterGoals.waterCurrent >= waterGoals.waterGoal ? '#62FF68' : '#18acbb'
               }
-              borderWidth={waterGoals.waterCurrent === waterGoals.waterGoal ? 5 : 1}
+              borderWidth={waterGoals.waterCurrent >= waterGoals.waterGoal ? 5 : 1}
               height={40}
               color={'#18acbb'}
               borderRadius={25}
