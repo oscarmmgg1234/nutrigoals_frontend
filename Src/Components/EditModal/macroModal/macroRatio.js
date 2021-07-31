@@ -181,7 +181,7 @@ return(
            }}
            onValueChange={(data, selectedIndex) => {
                setPS(data);
-               if(PS.current + FS.current + CS.current != 100){
+               if((PS.current + FS.current + CS.current) != 100){
                 setIsValid(false);
               }
               else {
@@ -207,7 +207,7 @@ return(
            }}
            onValueChange={(data, selectedIndex) => {
                setFS(data)
-               if(PS.current + FS.current + CS.current != 100){
+               if((PS.current + FS.current + CS.current) != 100){
                 setIsValid(false);
               }
               else {
@@ -232,11 +232,11 @@ return(
            }}
            onValueChange={(data, selectedIndex) => {
                setCS(data)
-               if(PS.current + FS.current + CS.current != 100){
-                setIsValid(true);
+               if((PS.current + FS.current + CS.current) != 100){
+                setIsValid(false);
               }
               else {
-                setIsValid(false);
+                setIsValid(true);
               }
             
            }}

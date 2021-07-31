@@ -6,6 +6,8 @@ import Images from '../../Styles/Images';
 import Colors from '../../Styles/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MacroModal from './macroModal/macroModal';
+import WaterModal from './waterModal/waterModal';
+import { set } from 'react-native-reanimated';
 
 const EditMainModal = (props) => {
   const [modalVisibility, setModalV] = useState({
@@ -16,23 +18,29 @@ const EditMainModal = (props) => {
     calc: false,
   });
 
+  const [macroM, setMacroM] = React.useState(false);
+  const [waterM, setWaterM] = React.useState(false);
+  const [weightM, setWeightM] = React.useState(false);
+  const [notiM, setNotiM] = React.useState(false);
+  const [calc, setCalc] = React.useState(false);
+
   function setModalVisibility(modalIndex){
     switch (modalIndex){
       case 0: {
-        setModalV({macroM: false})
+        setMacroM(false);
         break;
       }
       case 1:{
-        setModalV({waterM: false})
+        setWaterM(false);
         break;
       }case 2:{
-        setModalV({weightM: false})
+        setWeightM(false);
         break;
       }case 3:{
-        setModalV({notiM: false})
+        setNotiM(false);
         break;
       }case 4:{
-        setModalV({calc: false})
+        setCalc(false);
         break;
       }
 
@@ -71,7 +79,7 @@ const EditMainModal = (props) => {
 
         <TouchableOpacity
           style={{marginTop: 16}}
-          onPress={() => setModalV({macroM: true})}>
+          onPress={() => setMacroM(true)}>
           <View style={Styles.listWrapper}>
             <View style={{flexDirection: 'row'}}>
               <Icon
@@ -86,7 +94,7 @@ const EditMainModal = (props) => {
           </View>
           <View style={Styles.seperator} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setModalV({waterM: true})}>
+        <TouchableOpacity onPress={() => setWaterM(true)}>
           <View style={Styles.listWrapper}>
             <View style={{flexDirection: 'row'}}>
               <Icon
@@ -153,7 +161,8 @@ const EditMainModal = (props) => {
           }}>
           <Text style={Styles.buttonText}>{Constants.SIGNOUT}</Text>
         </TouchableOpacity>
-        <MacroModal visibility={modalVisibility.macroM} setModalV={setModalVisibility}/>
+        <MacroModal visibility={macroM} setModalV={setModalVisibility}/>
+        <WaterModal visibility={waterM} setModalV={setModalVisibility}/>
       </View>
     </Modal>
   );
