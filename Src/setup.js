@@ -287,9 +287,9 @@ const Root = () => {
     SnackLogRef.current = temp;
     update();
   }
-  function setWaterGoal(val){
+  function setWaterGoal(val) {
     let oldCurrent = waterGoals.waterCurrent;
-    setWaterGoals({waterGoal: val, waterCurrent: oldCurrent})
+    setWaterGoals({waterGoal: val, waterCurrent: oldCurrent});
   }
   function increaseWaterLevel() {
     let oldGoal = waterGoals.waterGoal;
@@ -354,7 +354,7 @@ const Root = () => {
     });
   }, [userGoals]);
 
-  function setGoalsR(val, val2, val3, val4, val5){
+  function setGoalsR(val, val2, val3, val4, val5) {
     setUserGoals({
       proteinGoal: val,
       fatGoal: val2,
@@ -421,10 +421,15 @@ const Root = () => {
             macroData: macroData.data,
             graphData,
             userGoals,
-            setGoalsR
+            setGoalsR,
           }}>
           <water_context.Provider
-            value={{waterGoals, increaseWaterLevel, decreaseWaterLevel, setWaterGoal}}>
+            value={{
+              waterGoals,
+              increaseWaterLevel,
+              decreaseWaterLevel,
+              setWaterGoal,
+            }}>
             <foodLog_context.Provider
               value={{
                 editBFLogData,

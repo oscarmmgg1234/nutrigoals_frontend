@@ -23,9 +23,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   profileStyle: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
     borderRadius: 40,
+
   },
   homeText: {
     fontSize: 30,
