@@ -17,6 +17,7 @@ import * as Constants from '../../Constants';
 import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
 import {app_context} from '../../setup';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Profile extends Component {
   constructor(props) {
@@ -73,19 +74,6 @@ class Profile extends Component {
               <View style={Styles.headerWrapper}>
                 <View style={Styles.headerContainer}>
                   <Text style={Styles.homeText}>{User.username}</Text>
-                  <View>
-                    <Text style={Styles.darkModeText}>{'Dark Mode:'}</Text>
-                    <ToggleSwitch
-                      style={{marginTop: 10}}
-                      isOn={toogleOn}
-                      onColor="#62FF68"
-                      offColor={Colors.White}
-                      size="large"
-                      onToggle={(isOn) => {
-                        this.setState({toogleOn: isOn});
-                      }}
-                    />
-                  </View>
                 </View>
               </View>
               <ScrollView>
@@ -104,10 +92,7 @@ class Profile extends Component {
                   {/* Profile */}
                   <View style={Styles.listWrapper}>
                     <View style={{flexDirection: 'row'}}>
-                      <Image
-                        source={Images.profileUser}
-                        style={Styles.userImage}
-                      />
+                      <Icon name={'user-o'} color={'white'} size={30} />
                       <Text style={Styles.listText}>{'Profile '}</Text>
                     </View>
                     <Image source={Images.chevron} style={Styles.userImage} />
@@ -117,10 +102,7 @@ class Profile extends Component {
                   {/* Setting */}
                   <View style={Styles.listWrapper}>
                     <View style={{flexDirection: 'row'}}>
-                      <Image
-                        source={Images.settings}
-                        style={Styles.userImage}
-                      />
+                      <Icon name={'cog'} color={'white'} size={30} />
                       <Text style={Styles.listText}>{'Settings '}</Text>
                     </View>
                     <Image source={Images.chevron} style={Styles.userImage} />
@@ -130,7 +112,7 @@ class Profile extends Component {
                   {/* Goals */}
                   <View style={Styles.listWrapper}>
                     <View style={{flexDirection: 'row'}}>
-                      <Image source={Images.data} style={Styles.userImage} />
+                      <Icon name={'line-chart'} color={'white'} size={30} />
                       <Text style={Styles.listText}>{'Goals '}</Text>
                     </View>
                     <Image source={Images.chevron} style={Styles.userImage} />
@@ -141,7 +123,7 @@ class Profile extends Component {
                   <TouchableOpacity>
                     <View style={Styles.listWrapper}>
                       <View style={{flexDirection: 'row'}}>
-                        <Image source={Images.food} style={Styles.userImage} />
+                        <Icon name={'cutlery'} color={'white'} size={30} />
                         <Text style={Styles.listText}>
                           {'My  Foods, Recipes, Meals '}
                         </Text>
@@ -153,12 +135,29 @@ class Profile extends Component {
                     </View>
                     <View style={Styles.seperator} />
                   </TouchableOpacity>
+                  <View style={Styles.listWrapper}>
+                    <View style={{flexDirection: 'row'}}>
+                      <Icon name={'calculator'} color={'white'} size={30} />
+                      <Text style={Styles.listText}>{'Calculators '}</Text>
+                    </View>
+                    <Image source={Images.chevron} style={Styles.userImage} />
+                  </View>
+                  <View style={Styles.seperator} />
 
                   {/* Remainder */}
                   <View style={Styles.listWrapper}>
                     <View style={{flexDirection: 'row'}}>
-                      <Image source={Images.alarm} style={Styles.userImage} />
+                      <Icon name={'bell-o'} color={'white'} size={30} />
                       <Text style={Styles.listText}>{'Reminders '}</Text>
+                    </View>
+                    <Image source={Images.chevron} style={Styles.userImage} />
+                  </View>
+                  <View style={Styles.seperator} />
+
+                  <View style={Styles.listWrapper}>
+                    <View style={{flexDirection: 'row'}}>
+                      <Icon name={'magic'} color={'white'} size={30} />
+                      <Text style={Styles.listText}>{'Apperance '}</Text>
                     </View>
                     <Image source={Images.chevron} style={Styles.userImage} />
                   </View>
@@ -173,7 +172,6 @@ class Profile extends Component {
                   </TouchableOpacity>
                 </View>
               </ScrollView>
-              
             </SafeAreaView>
           )}
         </app_context.Consumer>

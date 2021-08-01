@@ -57,7 +57,7 @@ const EditMainModal = (props) => {
         <View style={Styles.modalHeader}>
           <View style={Styles.ModalHeaderView}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
-              
+
               <Text style={Styles.homeText}>{Constants.SETTINGS}</Text>
             </View>
 
@@ -123,9 +123,9 @@ const EditMainModal = (props) => {
           <View style={Styles.listWrapper}>
             <View style={{flexDirection: 'row'}}>
               <Icon
-                name={'window-maximize'}
+                name={'newspaper-o'}
                 color={'purple'}
-                size={25}
+                size={23}
                 style={{marginTop: 3}}
               />
               <Text style={Styles.listText}>{'Manage notifications'}</Text>
@@ -138,7 +138,7 @@ const EditMainModal = (props) => {
           <View style={Styles.listWrapper}>
             <View style={{flexDirection: 'row'}}>
               <Icon
-                name={'gears'}
+                name={'calculator'}
                 color={'violet'}
                 size={25}
                 style={{marginTop: 3}}

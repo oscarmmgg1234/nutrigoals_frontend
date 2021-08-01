@@ -5,6 +5,7 @@ import Images from '../../../Styles/Images';
 import {app_context} from '../../../setup';
 import EditMainModal from '../../EditModal/editMainModal';
 import SearchModal from '../../SearchModal/searchModal';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class HomeHeader extends Component {
   constructor(props) {
@@ -16,13 +17,12 @@ class HomeHeader extends Component {
   }
 
   removeSearcModal = () => {
-    this.setState({searchModalVisible: false})
-  }
+    this.setState({searchModalVisible: false});
+  };
   removeModalView = () => {
-    this.setState({modalVisible: false})
-      
-  }
- 
+    this.setState({modalVisible: false});
+  };
+
   render() {
     return (
       <app_context.Consumer>
@@ -37,15 +37,27 @@ class HomeHeader extends Component {
               </TouchableOpacity>
               <Text style={Styles.homeText}>{'Home'}</Text>
               <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity onPress={()=>this.setState({searchModalVisible: true})}>
-                  <Image source={Images.search} style={Styles.sideImage} />
+                <TouchableOpacity
+                  onPress={() => this.setState({searchModalVisible: true})}>
+                  <Icon
+                    name={'search'}
+                    size={28}
+                    color={'white'}
+                    style={{marginRight: 10, marginTop: 5}}
+                  />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => this.setState({modalVisible: true})}>
                   <Image source={Images.menu} style={Styles.sideImage1} />
                 </TouchableOpacity>
-                <EditMainModal toggleModal={this.removeModalView} modal={this.state.modalVisible} />
-                <SearchModal toggleModal={this.removeSearcModal} modal={this.state.searchModalVisible}/>
+                <EditMainModal
+                  toggleModal={this.removeModalView}
+                  modal={this.state.modalVisible}
+                />
+                <SearchModal
+                  toggleModal={this.removeSearcModal}
+                  modal={this.state.searchModalVisible}
+                />
               </View>
             </View>
 
@@ -55,7 +67,7 @@ class HomeHeader extends Component {
               </TouchableOpacity>
               <View style={{flexDirection: 'row', marginLeft: -10}}>
                 <TouchableOpacity>
-                  <Image source={Images.calendar} style={Styles.sideImage} />
+                  <Icon name={'calendar'} size={28} color={'white'} style={{marginRight: 10, marginTop: 8}}/>
                 </TouchableOpacity>
                 <Text style={Styles.calenderText}>{' May 23, 2021'}</Text>
               </View>

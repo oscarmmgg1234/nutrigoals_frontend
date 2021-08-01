@@ -15,10 +15,6 @@ const WaterComponent = React.lazy(() =>
 
 const NutrionLog = () => {
   const {
-    BFLogData,
-    LunchLogData,
-    DinnerLogData,
-    SnackLogData,
     editBFLogData,
     removeBFLogData,
     editLunchLogData,
