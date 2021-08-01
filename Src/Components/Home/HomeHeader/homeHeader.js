@@ -6,7 +6,7 @@ import {app_context} from '../../../setup';
 import EditMainModal from '../../EditModal/editMainModal';
 import SearchModal from '../../SearchModal/searchModal';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 class HomeHeader extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +31,11 @@ class HomeHeader extends Component {
             <View style={Styles.headerContainer}>
               <TouchableOpacity onPress={selectImage}>
                 <Image
-                  source={imagePath ? {uri: imagePath} : Images.Profile}
+                  source={
+                    imagePath
+                      ? {uri: AsyncStorage.getItem('@imageUri')}
+                      : Images.Profile
+                  }
                   style={Styles.profileStyle}
                 />
               </TouchableOpacity>
@@ -67,7 +71,12 @@ class HomeHeader extends Component {
               </TouchableOpacity>
               <View style={{flexDirection: 'row', marginLeft: -10}}>
                 <TouchableOpacity>
-                  <Icon name={'calendar'} size={28} color={'white'} style={{marginRight: 10, marginTop: 8}}/>
+                  <Icon
+                    name={'calendar'}
+                    size={28}
+                    color={'white'}
+                    style={{marginRight: 10, marginTop: 8}}
+                  />
                 </TouchableOpacity>
                 <Text style={Styles.calenderText}>{' May 23, 2021'}</Text>
               </View>

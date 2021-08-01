@@ -11,6 +11,7 @@ export const water_context = createContext();
 export const foodLog_context = createContext();
 
 const Root = () => {
+
   const BFLogRef = useRef([{name: 'add', id: Math.random() % 5000}]);
   const LunchLogRef = useRef([
     {
@@ -404,6 +405,7 @@ const Root = () => {
         const {fileName, type, uri, fileSize} = response;
 
         setImagePath(uri);
+        AsyncStorage.setItem('@imageUri', uri);
       }
     });
   };
