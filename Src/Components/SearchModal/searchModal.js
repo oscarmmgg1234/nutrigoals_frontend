@@ -8,7 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 import Colors from '../../Styles/Colors';
-import Styles from './styles';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SearchModal = (props) => {

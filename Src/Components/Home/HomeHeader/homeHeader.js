@@ -15,7 +15,7 @@ class HomeHeader extends Component {
       searchModalVisible: false,
     };
   }
-
+  
   removeSearcModal = () => {
     this.setState({searchModalVisible: false});
   };
@@ -33,7 +33,7 @@ class HomeHeader extends Component {
                 <Image
                   source={
                     imagePath
-                      ? {uri: AsyncStorage.getItem('@imageUri')}
+                      ? {uri: imagePath}
                       : Images.Profile
                   }
                   style={Styles.profileStyle}
@@ -66,7 +66,7 @@ class HomeHeader extends Component {
             </View>
 
             <View style={Styles.headerContainer}>
-              <TouchableOpacity>
+              <TouchableOpacity >
                 <Image source={Images.arrow_left} style={Styles.sideImage} />
               </TouchableOpacity>
               <View style={{flexDirection: 'row', marginLeft: -10}}>

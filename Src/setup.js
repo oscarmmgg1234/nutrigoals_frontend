@@ -4,6 +4,8 @@ import {View} from 'react-native';
 
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import RootNavigation from './Navigation/RootNavigation';
+import { getActiveChildNavigationOptions } from 'react-navigation';
+import images from './Styles/Images';
 console.disableYellowBox = true;
 export const app_context = createContext();
 export const user_context = createContext();
@@ -108,6 +110,17 @@ const Root = () => {
   });
 
   const [imagePath, setImagePath] = useState('');
+  
+  async function getData(key){
+    let response = await AsyncStorage.getItem(key);
+    return response;
+  }
+
+  React.useEffect(async ()=>{if(imagePath === ''){
+    let response = await getData('@userImageURI')
+    setImagePath(response)
+    
+  }})
 
   const [AuthStatus, setAuthStatus] = useState('1');
 
@@ -389,7 +402,13 @@ const Root = () => {
     });
   }
 
-  const selectImage = () => {
+async function saveData(key, value){
+  await AsyncStorage.setItem(key, value);
+
+}
+
+
+   const selectImage = () => {
     const options = {
       quality: 0.1,
       storageOptions: {
@@ -405,7 +424,7 @@ const Root = () => {
         const {fileName, type, uri, fileSize} = response;
 
         setImagePath(uri);
-        AsyncStorage.setItem('@imageUri', uri);
+        saveData('@userImageURI', uri)
       }
     });
   };
