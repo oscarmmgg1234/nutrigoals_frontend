@@ -6,7 +6,8 @@ import {app_context} from '../../../setup';
 import EditMainModal from '../../EditModal/editMainModal';
 import SearchModal from '../../SearchModal/searchModal';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Colors from '../../../Styles/Colors';
+
 class HomeHeader extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +37,7 @@ class HomeHeader extends Component {
                       ? {uri: imagePath}
                       : Images.Profile
                   }
-                  style={Styles.profileStyle}
+                  style={[Styles.profileStyle, {borderColor: 'rgba(20,20,30,0.6)', borderWidth: 4}]}
                 />
               </TouchableOpacity>
               <Text style={Styles.homeText}>{'Home'}</Text>

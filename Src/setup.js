@@ -4,8 +4,7 @@ import {View} from 'react-native';
 
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import RootNavigation from './Navigation/RootNavigation';
-import { getActiveChildNavigationOptions } from 'react-navigation';
-import images from './Styles/Images';
+import { parse } from 'react-native-svg';
 console.disableYellowBox = true;
 export const app_context = createContext();
 export const user_context = createContext();
@@ -64,6 +63,8 @@ const Root = () => {
     sodiumGoal: 0,
     sugarGoal: 0,
   });
+
+
   const [macroData, setMacroData] = useState({
     data: [
       {
@@ -117,6 +118,7 @@ const Root = () => {
   }
 
   React.useEffect(async ()=>{if(imagePath === ''){
+    console.log('inhere')
     let response = await getData('@userImageURI')
     setImagePath(response)
     
@@ -321,7 +323,6 @@ const Root = () => {
   }
 
   useEffect(() => {
-    console.log('updated');
     setMacroData({
       data: [
         {
