@@ -7,6 +7,7 @@ import EditMainModal from '../../EditModal/editMainModal';
 import SearchModal from '../../SearchModal/searchModal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CalendarComponent from './dateComponent';
+import moment from 'moment';
 
 class HomeHeader extends Component {
   constructor(props) {
@@ -14,10 +15,23 @@ class HomeHeader extends Component {
     this.state = {
       modalVisible: false,
       searchModalVisible: false,
-      calendarModalVisible: false
+      calendarModalVisible: false,
+      date: '',
+      
     };
   }
   
+  componentDidMount(){
+    const now = new Date();
+    const cDate = moment(now).format('MMMM Do, YYYY')
+    this.setState({date: cDate})
+    
+  }
+
+  editDate = (value) =>{
+    this.setState({date: value});
+  }
+
   removeCalendarModalView = () => {
     this.setState({calendarModalVisible: false})
   }
@@ -72,7 +86,7 @@ class HomeHeader extends Component {
                 />
               </View>
             </View>
-        <CalendarComponent visibility={this.state.calendarModalVisible} removeVis={this.removeCalendarModalView}/>
+        <CalendarComponent visibility={this.state.calendarModalVisible} removeVis={this.removeCalendarModalView} editDate={this.editDate}/>
             <View style={Styles.headerContainer}>
               <TouchableOpacity >
                 <Image source={Images.arrow_left} style={Styles.sideImage} />
@@ -86,7 +100,7 @@ class HomeHeader extends Component {
                     style={{marginRight: 10, marginTop: 8}}
                   />
                 </TouchableOpacity>
-                <Text style={Styles.calenderText}>{' May 23, 2021'}</Text>
+                <Text style={Styles.calenderText}>{this.state.date}</Text>
               </View>
               <TouchableOpacity>
                 <Image source={Images.arrow_right} style={Styles.sideImage1} />
