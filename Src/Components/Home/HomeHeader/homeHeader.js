@@ -16,21 +16,35 @@ class HomeHeader extends Component {
       modalVisible: false,
       searchModalVisible: false,
       calendarModalVisible: false,
+      displayDate: '',
       date: '',
-      
+      dateIndex: 0,
     };
   }
   
   componentDidMount(){
-    const now = new Date();
+    const now = moment.now();
     const cDate = moment(now).format('MMMM Do, YYYY')
-    this.setState({date: cDate})
-    
+    this.setState({displayDate: cDate, date: now});
   }
 
-  editDate = (value) =>{
-    this.setState({date: value});
+   incrementDate = () => {
+      
+      let newDate = moment(this.state.date).add(1, 'days');
+      let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
+      this.setState({date: newDate, displayDate: newDisplayDate})
+   }
+   incrementDate = () => {
+      
+    let newDate = moment(this.state.date).subtract(1, 'days');
+    let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
+    this.setState({date: newDate, displayDate: newDisplayDate})
+ }
+  editDate = (Date, DisplayDate) =>{
+    this.setState({date: Date, displayDate: DisplayDate});
   }
+  
+  decrementDate
 
   removeCalendarModalView = () => {
     this.setState({calendarModalVisible: false})
@@ -86,9 +100,9 @@ class HomeHeader extends Component {
                 />
               </View>
             </View>
-        <CalendarComponent visibility={this.state.calendarModalVisible} removeVis={this.removeCalendarModalView} editDate={this.editDate}/>
+        <CalendarComponent visibility={this.state.calendarModalVisible} removeVis={this.removeCalendarModalView}  editDate={this.editDate} date={this.state.date}/>
             <View style={Styles.headerContainer}>
-              <TouchableOpacity >
+              <TouchableOpacity onPress={()=>this.decrementDate()}>
                 <Image source={Images.arrow_left} style={Styles.sideImage} />
               </TouchableOpacity>
               <View style={{flexDirection: 'row', marginLeft: -10}}>
@@ -100,9 +114,9 @@ class HomeHeader extends Component {
                     style={{marginRight: 10, marginTop: 8}}
                   />
                 </TouchableOpacity>
-                <Text style={Styles.calenderText}>{this.state.date}</Text>
+                <Text style={Styles.calenderText}>{this.state.displayDate}</Text>
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=>this.incrementDate()}>
                 <Image source={Images.arrow_right} style={Styles.sideImage1} />
               </TouchableOpacity>
             </View>
