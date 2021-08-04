@@ -30,6 +30,7 @@ const ModalComponent = (props) => {
     props.setVisible(false);
   }
   return (
+    
     <Modal
       animationType={'slide'}
       transparent={true}
@@ -153,6 +154,7 @@ const ModalComponent = (props) => {
         </View>
       </View>
     </Modal>
+    
   );
 };
 

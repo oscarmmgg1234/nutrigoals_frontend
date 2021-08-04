@@ -6,7 +6,7 @@ import {app_context} from '../../../setup';
 import EditMainModal from '../../EditModal/editMainModal';
 import SearchModal from '../../SearchModal/searchModal';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Colors from '../../../Styles/Colors';
+import CalendarComponent from './dateComponent';
 
 class HomeHeader extends Component {
   constructor(props) {
@@ -14,9 +14,14 @@ class HomeHeader extends Component {
     this.state = {
       modalVisible: false,
       searchModalVisible: false,
+      calendarModalVisible: false
     };
   }
   
+  removeCalendarModalView = () => {
+    this.setState({calendarModalVisible: false})
+  }
+
   removeSearcModal = () => {
     this.setState({searchModalVisible: false});
   };
@@ -39,7 +44,9 @@ class HomeHeader extends Component {
                   }
                   style={[Styles.profileStyle, {borderColor: 'rgba(20,20,30,0.6)', borderWidth: 4}]}
                 />
+               
               </TouchableOpacity>
+               
               <Text style={Styles.homeText}>{'Home'}</Text>
               <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
@@ -65,13 +72,13 @@ class HomeHeader extends Component {
                 />
               </View>
             </View>
-
+        <CalendarComponent visibility={this.state.calendarModalVisible} removeVis={this.removeCalendarModalView}/>
             <View style={Styles.headerContainer}>
               <TouchableOpacity >
                 <Image source={Images.arrow_left} style={Styles.sideImage} />
               </TouchableOpacity>
               <View style={{flexDirection: 'row', marginLeft: -10}}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.setState({calendarModalVisible: true})}>
                   <Icon
                     name={'calendar'}
                     size={28}
