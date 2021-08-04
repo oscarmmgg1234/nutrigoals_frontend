@@ -5,13 +5,14 @@ import {View} from 'react-native';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import RootNavigation from './Navigation/RootNavigation';
 import { parse } from 'react-native-svg';
+import { NavigationContainer } from '@react-navigation/native';
 console.disableYellowBox = true;
 export const app_context = createContext();
 export const user_context = createContext();
 export const water_context = createContext();
 export const foodLog_context = createContext();
 
-const Root = () => {
+const Root = (props) => {
 
   const BFLogRef = useRef([{name: 'add', id: Math.random() % 5000}]);
   const LunchLogRef = useRef([
@@ -469,7 +470,9 @@ async function saveData(key, value){
                 SnackLogRef,
               }}>
               <View style={{flex: 1}}>
+                
                 <RootNavigation />
+                
               </View>
             </foodLog_context.Provider>
           </water_context.Provider>

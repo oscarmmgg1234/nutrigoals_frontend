@@ -30,8 +30,8 @@ class Login extends Component {
     };
   }
 
-  next() {
-       
+  next = async () => {
+       await AsyncStorage.setItem('@authStatus','1')
   }
 
   loginValidator = () => {
@@ -137,9 +137,14 @@ class Login extends Component {
               <TouchableOpacity
                 style={Styles.buttonContainer}
                 onPress={
-                  ()=>this.props.navigation.navigate('UserStack')
+                  ()=>{this.props.navigation.navigate('UserStack');
+                 this.next();}
+                }
+                  
+                
+                  
               
-                }>
+                >
                 <Text style={Styles.buttonText}>{Constants.LOGIN}</Text>
               </TouchableOpacity>
 

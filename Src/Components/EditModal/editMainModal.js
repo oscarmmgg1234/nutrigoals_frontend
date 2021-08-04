@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MacroModal from './macroModal/macroModal';
 import WaterModal from './waterModal/waterModal';
 import { set } from 'react-native-reanimated';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EditMainModal = (props) => {
   const [modalVisibility, setModalV] = useState({
@@ -18,6 +19,9 @@ const EditMainModal = (props) => {
     calc: false,
   });
 
+  async function signOuty(){
+    await AsyncStorage.setItem('@authStatus', '0');
+  }
   const [macroM, setMacroM] = React.useState(false);
   const [waterM, setWaterM] = React.useState(false);
   const [weightM, setWeightM] = React.useState(false);
@@ -152,7 +156,9 @@ const EditMainModal = (props) => {
         <TouchableOpacity
           style={Styles.buttonContainer}
           onPress={() => {
-            this.signOuty();
+            signOuty();
+            props.signOut();
+            
           }}>
           <Text style={Styles.buttonText}>{Constants.SIGNOUT}</Text>
         </TouchableOpacity>

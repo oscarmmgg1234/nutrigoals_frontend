@@ -18,6 +18,7 @@ import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
 import {app_context} from '../../setup';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { NavigationContainer } from '@react-navigation/native';
 
 class Profile extends Component {
   constructor(props) {
@@ -29,8 +30,8 @@ class Profile extends Component {
   }
 
   signOuty = async () => {
-    await AsyncStorage.setItem('@loggedInStatus', '0').then(() => {
-      this.props.navigation.navigate('LoginSplash');
+    await AsyncStorage.setItem('@authStatus', '0').then(() => {
+      this.props.navigation.navigate('Login');
     });
   };
 
@@ -167,6 +168,7 @@ class Profile extends Component {
                     style={Styles.buttonContainer}
                     onPress={() => {
                       this.signOuty();
+                      this.props.navigation.navigate('AppStack',{name: 'Login'});
                     }}>
                     <Text style={Styles.buttonText}>{Constants.SIGNOUT}</Text>
                   </TouchableOpacity>

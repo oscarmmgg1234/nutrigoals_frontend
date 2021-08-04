@@ -4,29 +4,32 @@ import Home from '../Screens/Home';
 import NutrionLog from '../Screens/NutrionLog';
 import Instagram from '../Screens/Instagram';
 import Profile from '../Screens/Profile';
-import {NavigationContainer} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../Styles/Colors';
 
 export const Tab = createBottomTabNavigator();
-function AppStack() {
+function UserStack(props) {
   return (
-    <NavigationContainer>
+    
       <Tab.Navigator
         initialRouteName={'Home'}
-        tabBarOptions={{
-          showLabel: false,
-          activeTintColor: Colors.buttonColor,
-          inactiveTintColor: 'white',
-          keyboardHidesTabBar: true,
-          style: {
+        
+        sceneContainerStyle={{backgroundColor: '#292942'}}
+        screenOptions={{
+          tabBarShowLabel: false,
+          tabBarActiveTintColor: 'rgba(255,200,160,1.0)',
+          tabBarInactiveTintColor: 'rgba(255,255,255,0.8)',
+          tabBarHideOnKeyboard: true,
+          tabBarStyle: {
             backgroundColor: '#292942',
           },
+          headerShown: false
         }}>
         <Tab.Screen
           name="Home"
           component={Home}
           options={{
+          
             tabBarIcon: ({color}) => (
               <Icon name={'home'} size={30} color={color} />
             ),
@@ -60,8 +63,8 @@ function AppStack() {
           }}
         />
       </Tab.Navigator>
-    </NavigationContainer>
+    
   );
 }
 
-export default AppStack;
+export default UserStack;
