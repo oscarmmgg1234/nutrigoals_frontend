@@ -4,11 +4,21 @@ import Styles from '../../../Screens/NutrionLog/Styles';
 import Images from '../../../Styles/Images';
 import EditMainModal from '../../EditModal/editMainModal';
 import SearchModal from '../../SearchModal/searchModal';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { user_context } from '../../../setup';
+import { useState } from 'react/cjs/react.development';
+import CalendarComponent from '../../Home/HomeHeader/dateComponent';
+
 const LogHeader = () => {
+
   const [editModalVisible, SetModalV] = React.useState(false);
   const [searchModal, setSearchM] = React.useState(false);
+  const {date, DisplayDate, decrementDate, incrementDate, editDate} = React.useContext(user_context);
+  const [calendarModalVisible, setCalendarModalV] = useState(false);
 
+  function closeCModal(){
+    setCalendarModalV(false)
+  }
   function setModalV() {
     SetModalV(false);
   }
@@ -29,19 +39,21 @@ const LogHeader = () => {
             </TouchableOpacity>
           </View>
         </View>
+        <CalendarComponent visibility={calendarModalVisible} removeVis={closeCModal}  editDate={editDate} date={date}/>
         <View style={Styles.headerContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>decrementDate()}>
             <Image source={Images.arrow_left} style={Styles.sideImage} />
           </TouchableOpacity>
           <View style={{flexDirection: 'row', marginLeft: -10}}>
-            <TouchableOpacity>
-              <Icon name={'calendar'} size={28} color={'white'} style={{marginRight: 10, marginTop: 8}}/>
-            </TouchableOpacity>
-            <Text style={Styles.calenderText}>{' May 23, 2021'}</Text>
+            <TouchableOpacity onPress={()=>setCalendarModalV(true)} style={{flexDirection: 'row'}}>
+              <Icon name={'calendar'} size={31} color={'white'} style={{marginRight: 10, marginTop: 8}}/>
+            
+            <Text style={Styles.calenderText}>{DisplayDate}</Text>
+            </TouchableOpacity >
           </View>
           <EditMainModal toggleModal={setModalV} modal={editModalVisible} />
           <SearchModal toggleModal={setSearchModal} modal={searchModal} />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=>incrementDate()}>
             <Image source={Images.arrow_right} style={Styles.sideImage1} />
           </TouchableOpacity>
         </View>

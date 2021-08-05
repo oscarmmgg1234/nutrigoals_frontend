@@ -5,7 +5,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Platform,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import Colors from '../../../../Styles/Colors';
 import Styles from '../../../../Screens/NutrionLog/Styles';
@@ -36,7 +36,9 @@ const ModalComponent = (props) => {
       transparent={true}
       visible={props.state}
       onRequestClose={() => props.setVisible(false)}>
+        <TouchableOpacity onPress={()=>props.setVisible(false)} >
       <View style={{backgroundColor: 'rgba(20,19,25,0.3)', height: '100%', width: '100%'}}>
+        <TouchableWithoutFeedback>
         <View
           style={{
             height: 460,
@@ -152,7 +154,9 @@ const ModalComponent = (props) => {
             />
           </TouchableOpacity>
         </View>
+        </TouchableWithoutFeedback>
       </View>
+      </TouchableOpacity>
     </Modal>
     
   );

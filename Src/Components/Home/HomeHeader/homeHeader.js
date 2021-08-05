@@ -8,6 +8,7 @@ import SearchModal from '../../SearchModal/searchModal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CalendarComponent from './dateComponent';
 import moment from 'moment';
+import {user_context} from '../../../setup';
 
 class HomeHeader extends Component {
   constructor(props) {
@@ -22,30 +23,6 @@ class HomeHeader extends Component {
     };
   }
   
-  componentDidMount(){
-    const now = moment.now();
-    const cDate = moment(now).format('MMMM Do, YYYY')
-    this.setState({displayDate: cDate, date: now});
-  }
-
-   incrementDate = () => {
-      
-      let newDate = moment(this.state.date).add(1, 'days');
-      let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
-      this.setState({date: newDate, displayDate: newDisplayDate})
-   }
-   incrementDate = () => {
-      
-    let newDate = moment(this.state.date).subtract(1, 'days');
-    let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
-    this.setState({date: newDate, displayDate: newDisplayDate})
- }
-  editDate = (Date, DisplayDate) =>{
-    this.setState({date: Date, displayDate: DisplayDate});
-  }
-  
-  decrementDate
-
   removeCalendarModalView = () => {
     this.setState({calendarModalVisible: false})
   }
@@ -100,26 +77,30 @@ class HomeHeader extends Component {
                 />
               </View>
             </View>
-        <CalendarComponent visibility={this.state.calendarModalVisible} removeVis={this.removeCalendarModalView}  editDate={this.editDate} date={this.state.date}/>
+            <user_context.Consumer>
+              {user_context=>(<>
+        <CalendarComponent visibility={this.state.calendarModalVisible} removeVis={this.removeCalendarModalView}  editDate={user_context.editDate} date={user_context.date}/>
             <View style={Styles.headerContainer}>
-              <TouchableOpacity onPress={()=>this.decrementDate()}>
+              <TouchableOpacity onPress={()=>user_context.decrementDate()}>
                 <Image source={Images.arrow_left} style={Styles.sideImage} />
               </TouchableOpacity>
-              <View style={{flexDirection: 'row', marginLeft: -10}}>
-                <TouchableOpacity onPress={()=>this.setState({calendarModalVisible: true})}>
+              <View style={{ marginLeft: -10}}>
+                <TouchableOpacity onPress={()=>this.setState({calendarModalVisible: true})} style={{flexDirection: 'row'}}>
                   <Icon
                     name={'calendar'}
-                    size={28}
+                    size={31}
                     color={'white'}
                     style={{marginRight: 10, marginTop: 8}}
                   />
+                
+                <Text style={Styles.calenderText}>{user_context.DisplayDate}</Text>
                 </TouchableOpacity>
-                <Text style={Styles.calenderText}>{this.state.displayDate}</Text>
               </View>
-              <TouchableOpacity onPress={()=>this.incrementDate()}>
+              <TouchableOpacity onPress={()=>user_context.incrementDate()}>
                 <Image source={Images.arrow_right} style={Styles.sideImage1} />
               </TouchableOpacity>
-            </View>
+            </View></>)}
+            </user_context.Consumer>
           </View>
         )}
       </app_context.Consumer>

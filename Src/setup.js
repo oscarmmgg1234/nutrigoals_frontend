@@ -1,19 +1,39 @@
 import React, {useEffect, useState, createContext, useRef} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View} from 'react-native';
-
+import moment from 'moment';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import RootNavigation from './Navigation/RootNavigation';
-import { parse } from 'react-native-svg';
-import { NavigationContainer } from '@react-navigation/native';
-console.disableYellowBox = true;
 export const app_context = createContext();
 export const user_context = createContext();
 export const water_context = createContext();
 export const foodLog_context = createContext();
 
-const Root = (props) => {
 
+const Root = (props) => {
+  const [date, setDate] = useState('');
+  const [DisplayDate, setDisplayText] = useState('');
+
+  incrementDate = () => {
+    let newDate = moment(date).add(1, 'days');
+    let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
+    setDate(newDate);
+    setDisplayText(newDisplayDate);
+ }
+ decrementDate = () => {
+  let newDate = moment(date).subtract(1, 'days');
+  let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
+  setDate(newDate);
+  setDisplayText(newDisplayDate);
+}
+editDate = (arg) =>{
+  const dateString = arg.dateString;
+  const date = moment(dateString).format();
+  const DisplayDate = moment(date).format('MMMM Do, YYYY');
+  setDate(date);
+  setDisplayText(DisplayDate);
+  
+}
   const BFLogRef = useRef([{name: 'add', id: Math.random() % 5000}]);
   const LunchLogRef = useRef([
     {
@@ -119,9 +139,12 @@ const Root = (props) => {
   }
 
   React.useEffect(async ()=>{if(imagePath === ''){
-    console.log('inhere')
-    let response = await getData('@userImageURI')
+    const response = await getData('@userImageURI')
+    const now = moment.now();
+    const cDate = moment(now).format('MMMM Do, YYYY')
     setImagePath(response)
+    setDate(now);
+    setDisplayText(cDate);
     
   }})
 
@@ -445,6 +468,12 @@ async function saveData(key, value){
             graphData,
             userGoals,
             setGoalsR,
+            date,
+            DisplayDate,
+            incrementDate,
+            decrementDate,
+             editDate
+            
           }}>
           <water_context.Provider
             value={{
