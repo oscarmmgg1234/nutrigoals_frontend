@@ -28,15 +28,26 @@ const Styles = StyleSheet.create({
     color: 'white',
     width: 150
   },
-  InputStyles: {
-    width: '25%',
+  InputStyles1: {
+    width: '35%',
     backgroundColor: 'rgba(10,10,10,0.4)',
     borderRadius: 20,
     paddingLeft: 10,
     color: 'white',
     fontSize: 18,
     paddingRight: 10,
-    height: 40
+    height: 40,
+    flexDirection: 'row'
+  },
+  InputStyles: {
+    width: '75%',
+    borderRadius: 20,
+    paddingLeft: 10,
+    color: 'white',
+    fontSize: 18,
+    paddingRight: 10,
+    height: 40,
+    flexDirection: 'row'
   },
   InputSubview: {
     paddingLeft: 8,

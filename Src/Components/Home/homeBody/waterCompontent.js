@@ -7,7 +7,7 @@ import {water_context} from '../../../setup';
 import Images from '../../../Styles/Images';
 
 const WaterProgress = () => {
-  const {waterGoals, increaseWaterLevel, decreaseWaterLevel} =
+  const {waterGoals, increaseWaterLevel, decreaseWaterLevel, updateWaterTracker, waterText} =
     React.useContext(water_context);
   return (
     <>
@@ -32,10 +32,12 @@ const WaterProgress = () => {
             </View>
 
             <View style={{flexDirection: 'row', marginTop: 30}}>
-              <Image source={Images.clock} style={{width: 20, height: 20}} />
+            <Image source={Images.clock} style={{width: 20, height: 20}}/>
+              {waterText != 'Drink Water' ?  
               <Text style={[Styles.firstText, {marginLeft: 7}]}>
-                {'Last Drunk 9:34 AM'}
-              </Text>
+                {'Last Drunk'} {waterText} </Text> : <Text style={[Styles.firstText, {marginLeft: 7}]}>
+                {'Drink Water'}</Text> 
+}
             </View>
           </View>
 
@@ -44,6 +46,7 @@ const WaterProgress = () => {
               <TouchableOpacity
                 style={Styles.buttonIncrement}
                 onPress={() => {
+                  updateWaterTracker();
                   increaseWaterLevel();
                 }}>
                 <Text

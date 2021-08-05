@@ -58,7 +58,7 @@ const WaterModal = (props) => {
           }}>
           {'Water Goal: '}
         </Text>
-        <View style={{height: Platform.OS === 'ios' ? 180 : 315, width: '100%'}}>
+        <View style={{height: 315, width: '100%'}}>
           <ScrollPicker
             dataSource={data.current}
             selectedIndex={15}

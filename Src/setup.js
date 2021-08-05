@@ -13,6 +13,17 @@ export const foodLog_context = createContext();
 const Root = (props) => {
   const [date, setDate] = useState('');
   const [DisplayDate, setDisplayText] = useState('');
+  const [waterTracker, setWaterT] = useState('')
+  const [waterText, setWaterText] = useState('Drink Water');
+
+  updateWaterTracker = () =>{
+    const dateTime = moment.now();
+    const dateTimeText = moment(dateTime).format('h:mm a')
+    setWaterT(dateTime);
+    setWaterText(dateTimeText);
+    }
+   
+  
 
   incrementDate = () => {
     let newDate = moment(date).add(1, 'days');
@@ -481,6 +492,8 @@ async function saveData(key, value){
               increaseWaterLevel,
               decreaseWaterLevel,
               setWaterGoal,
+              updateWaterTracker,
+              waterText,
             }}>
             <foodLog_context.Provider
               value={{

@@ -13,7 +13,6 @@ function UserStack(props) {
     
       <Tab.Navigator
         initialRouteName={'Home'}
-        
         sceneContainerStyle={{backgroundColor: '#292942'}}
         screenOptions={{
           tabBarShowLabel: false,

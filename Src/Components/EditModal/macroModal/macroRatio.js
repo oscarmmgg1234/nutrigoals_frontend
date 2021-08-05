@@ -82,6 +82,7 @@ return(
                 marginLeft: 10,
               }}
             />
+            <View style={Styles.InputStyles1}> 
           <TextInput
             value={TI}
             onChangeText={setTI}
@@ -90,6 +91,8 @@ return(
             style={Styles.InputStyles}
             keyboardType={'decimal-pad'}
           />
+          <Text style={{color: 'rgba(255,255,255,0.9)', fontSize: 17, alignSelf: 'center'}}>{'g'}</Text>
+          </View>
           {TI.length > 0 ? (
               <TouchableOpacity onPress={() => setTI('')}>
                 <Icon
@@ -114,6 +117,7 @@ return(
                 marginLeft: 10,
               }}
             />
+            <View style={Styles.InputStyles1}> 
           <TextInput
             value={SI}
             onChangeText={setSI}
@@ -122,6 +126,8 @@ return(
             style={Styles.InputStyles}
             keyboardType={'decimal-pad'}
           />
+          <Text style={{color: 'rgba(255,255,255,0.9)', fontSize: 17, alignSelf: 'center'}}>{'g'}</Text>
+          </View>
           {SI.length > 0 ? (
               <TouchableOpacity onPress={() => setSI('')}>
                 <Icon
@@ -146,6 +152,7 @@ return(
                 marginLeft: 10,
               }}
             />
+            <View style={Styles.InputStyles1}> 
           <TextInput
             value={SOI}
             onChangeText={setSOI}
@@ -154,6 +161,8 @@ return(
             style={Styles.InputStyles}
             keyboardType={'decimal-pad'}
           />
+          <Text style={{color: 'rgba(255,255,255,0.9)', fontSize: 17, alignSelf: 'center'}}>{'mg'}</Text>
+          </View>
           {SOI.length > 0 ? (
               <TouchableOpacity onPress={() => setSOI('')}>
                 <Icon
@@ -251,7 +260,7 @@ return(
         </View>
         <TouchableOpacity style={{alignSelf: 'center', marginBottom: 40, marginTop: 20}} onPress={()=>submit()}>
           <View style={{height: 52, width: 160, backgroundColor: Colors.buttonColor, alignItems: 'center', justifyContent: 'center', borderRadius: 20, marginTop: 25}}>
-          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>Change Goals</Text>
+          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>Set Goals</Text>
           </View>
         </TouchableOpacity>
         </View>
