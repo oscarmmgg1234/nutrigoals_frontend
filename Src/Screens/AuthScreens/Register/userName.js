@@ -33,10 +33,13 @@ class RegisterUserName extends Component {
   }
   componentDidMount() {
     this.setState({
-      name: this.props.navigation.getParam('name'),
-      email: this.props.navigation.getParam('email'),
-      password: this.props.navigation.getParam('password'),
+      
+      name: this.props.route.params.name ,
+      email: this.props.route.params.email,
+      password: this.props.route.params.password,
+      
     });
+    console.log(this.state.password)
   }
 
   focusEmail = () => {

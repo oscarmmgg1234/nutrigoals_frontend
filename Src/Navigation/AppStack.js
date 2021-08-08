@@ -9,6 +9,7 @@ import Colors from '../Styles/Colors';
 
 export const Tab = createBottomTabNavigator();
 function UserStack(props) {
+
   return (
     
       <Tab.Navigator
@@ -23,10 +24,13 @@ function UserStack(props) {
             backgroundColor: '#292942',
           },
           headerShown: false
-        }}>
+        }}
+  
+        >
         <Tab.Screen
           name="Home"
           component={Home}
+          
           options={{
           
             tabBarIcon: ({color}) => (

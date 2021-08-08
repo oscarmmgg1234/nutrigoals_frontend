@@ -168,7 +168,7 @@ class Profile extends Component {
                     style={Styles.buttonContainer}
                     onPress={() => {
                       this.signOuty();
-                      this.props.navigation.navigate('AppStack',{name: 'Login'});
+                      this.props.navigation.navigate('Login');
                     }}>
                     <Text style={Styles.buttonText}>{Constants.SIGNOUT}</Text>
                   </TouchableOpacity>

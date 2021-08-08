@@ -15,8 +15,7 @@ import Styles from './Styles';
 import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
-import {AuthSeverCall} from '../../../http_config/axios_config';
-import { app_context } from '../../../setup';
+import { AuthSeverCall} from '../../../http_config/axios_config';
 
 class Login extends Component {
   constructor(props) {
@@ -30,18 +29,20 @@ class Login extends Component {
     };
   }
 
-  next = async () => {
-       await AsyncStorage.setItem('@authStatus','1')
+  next = () => {
+       this.props.navigation.navigate('UserStack');
   }
 
-  loginValidator = () => {
-    AuthSeverCall.post('/login', {
+  loginValidator = async () => {
+    await AuthSeverCall.post('/login', {
       username: this.state.email,
       password: this.state.password,
     })
       .then((res) => {
         if (res.data.valid === true) {
           this.next();
+        
+          
         } else {
           alert('wrong username/password');
         }
@@ -137,8 +138,8 @@ class Login extends Component {
               <TouchableOpacity
                 style={Styles.buttonContainer}
                 onPress={
-                  ()=>{this.props.navigation.navigate('UserStack');
-                 this.next();}
+                  ()=>this.loginValidator()
+                 
                 }
                   
                 

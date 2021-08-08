@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import moment from 'moment';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import RootNavigation from './Navigation/RootNavigation';
+import { APITokenCall } from './http_config/axios_config';
 export const app_context = createContext();
 export const user_context = createContext();
 export const water_context = createContext();
@@ -15,6 +16,16 @@ const Root = (props) => {
   const [DisplayDate, setDisplayText] = useState('');
   const [waterTracker, setWaterT] = useState('')
   const [waterText, setWaterText] = useState('Drink Water');
+  const [APIT,setAPIT] = useState('');
+
+  
+
+
+  useEffect(async ()=>{
+    //eventually to improve throughput we will eventually store and check if its valid or not then take action
+    let response = await APITokenCall.get('getFoodAccessToken');
+    setAPIT(response.data.access_token);
+  },[])
 
   updateWaterTracker = () =>{
     const dateTime = moment.now();
@@ -23,6 +34,7 @@ const Root = (props) => {
     setWaterText(dateTimeText);
     }
    
+  
   
 
   incrementDate = () => {
@@ -472,6 +484,7 @@ async function saveData(key, value){
           selectImage,
           imagePath,
           User,
+          APItoken: APIT,
         }}>
         <user_context.Provider
           value={{
