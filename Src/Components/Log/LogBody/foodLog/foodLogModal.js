@@ -13,15 +13,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ResultsView from './resultsComponent';
 
 const ModalComponent = (props) => {
+
+  
   const [foodSearch, setFoodSearch] = useState('');
   const [foodSearchFocus, setSFocus] = useState(false);
   function inputFocus() {
     setSFocus(!foodSearchFocus);
   }
   const [resultsData, setData] = useState([
-    {name: 'egg', toggle: false, id: 177},
-    {name: 'Toast', toggle: false, id: 1},
-    {name: 'Hash', toggle: false, id: 2},
   ]);
 
   function addFood() {
@@ -41,7 +40,6 @@ const ModalComponent = (props) => {
         <TouchableWithoutFeedback>
         <View
           style={{
-            height: 460,
             width: '85%',
             marginTop: '35%',
             backgroundColor: 'rgba(20,19,25,1.0)',
@@ -108,11 +106,9 @@ const ModalComponent = (props) => {
               </TouchableOpacity>
             )}
           </View>
-
-          <View style={Styles.ResultModal}>
-            <Text style={{color: 'white', alignSelf: 'center', marginTop: 6}}>
-              Results{' '}
-            </Text>
+{resultsData.length > 0 &&  <> 
+<View style={Styles.ResultModal}>
+            <Text style={{color: 'white', alignSelf: 'center', marginTop: 6}}>Results</Text>
             <View
               style={{
                 marginTop: 10,
@@ -140,11 +136,11 @@ const ModalComponent = (props) => {
                   color: 'white',
                   alignSelf: 'center',
                   fontWeight: 'bold',
-                }}>
-                Add
-              </Text>
+                }}>Add</Text>
             </TouchableOpacity>
-          </View>
+          </View> 
+          </>}
+         
           <TouchableOpacity onPress={() => props.setVisible(false)}>
             <Icon
               name={'angle-double-down'}
