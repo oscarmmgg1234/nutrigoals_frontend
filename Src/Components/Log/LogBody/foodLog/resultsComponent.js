@@ -51,6 +51,7 @@ const ResultsView = (props) => {
       <View style={Styles.headerContentWrapper}>
         <View style={Styles.headerContent}>
           <FlatList
+            
             initialNumToRender={5}
             showsHorizontalScrollIndicator={false}
             horizontal={true}

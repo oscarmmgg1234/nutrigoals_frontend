@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ResultsView from './resultsComponent';
 import { APIBackend } from '../../../../http_config/axios_config';
 import { app_context } from '../../../../setup';
+import { CONFIRM_PASSWORD } from '../../../../Constants';
 
 const ModalComponent = (props) => {
 
@@ -46,7 +47,8 @@ const ModalComponent = (props) => {
   ]);
 
   next = (res) => {
-    props.addFood(res.data.food);
+    console.log(res.data)
+    props.addFood(res.data);
     props.setVisible(false);
     
     

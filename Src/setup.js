@@ -260,12 +260,12 @@ editDate = (arg) =>{
     let newEntry = {
       name: value.food_name,
       id: Math.random(),
-      protein: parseFloat(value.servings.serving[0].protein),
-      fat: parseFloat(value.servings.serving[0].fat),
-      carbohydrate: parseFloat(value.servings.serving[0].carbohydrate),
-      sugar: parseFloat(value.servings.serving[0].sugar),
-      sodium: parseFloat(value.servings.serving[0].sodium),
-      servingDescription: value.servings.serving[0].serving_description,
+      protein: parseFloat(value.protein),
+      fat: parseFloat(value.fat),
+      carbohydrate: parseFloat(value.carbohydrates),
+      sugar: parseFloat(value.sugar),
+      sodium: parseFloat(value.sodium),
+      servingDescription: value.serving_description,
       quantity: '1',
       logGroup: 'BF',
     };
