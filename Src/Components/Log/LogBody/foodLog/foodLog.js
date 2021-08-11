@@ -91,7 +91,7 @@ const FoodLog = (props) => {
                   fontSize: 15,
                   marginLeft: 10,
                 }}>
-                {'1 cup(60ml)'}
+                {value.servingDescription}
               </Text>
             </View>
             <TouchableOpacity onPress={() => removeFood(value)}>

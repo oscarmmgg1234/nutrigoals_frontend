@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {FlatList, View, Text, TouchableOpacity} from 'react-native';
 import Styles from '../../../../Screens/NutrionLog/Styles';
+import colors from '../../../../Styles/Colors';
 import Colors from '../../../../Styles/Colors';
 
 const ResultsView = (props) => {
@@ -29,9 +30,16 @@ const ResultsView = (props) => {
               {
                 borderWidth: 2,
                 borderColor: value.toggle ? 'orange' : Colors.backgroundColor,
+                
+                
               },
             ]}>
-            <Text style={{color: 'white', fontSize: 12}}>{value.name}</Text>
+            <Text style={{color: 'rgba(255,255,255,0.9)', fontSize: 9, marginBottom: 3, alignSelf: 'center'}}>{'Result: '}{index + 1}</Text>
+            <View style={{height: 1, width: '70%', backgroundColor: Colors.black, alignSelf: 'center'}}/>
+            <Text style={{fontWeight: 'bold', color: 'white', fontSize: 15, alignSelf: 'center', marginTop: 6,paddingLeft: 4}}>{value.name}</Text>
+            <View style={{height: 1, width: '100%', backgroundColor: Colors.black, alignSelf: 'center', marginTop: 10}}/>
+            <Text style={{color: 'rgba(255,255,255,0.8)', fontSize: 11, alignSelf: 'center', marginTop: 6,paddingLeft: 4}}>{value.food_description}</Text>
+            
           </View>
         </TouchableOpacity>
       </>
@@ -47,7 +55,7 @@ const ResultsView = (props) => {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={props.data}
-            renderItem={({item}) => showFood(item)}
+            renderItem={({item,index}) => showFood(item, index)}
             keyExtractor={(item) => item.id}
           />
         </View>

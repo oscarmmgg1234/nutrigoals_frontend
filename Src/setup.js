@@ -255,14 +255,17 @@ editDate = (arg) =>{
   }
 
   function editBFLogData(value) {
+    
+    
     let newEntry = {
-      name: value[0].name,
+      name: value.food_name,
       id: Math.random(),
-      protein: 10,
-      fat: 20,
-      carbohydrate: 10,
-      sugar: 12,
-      sodium: 30,
+      protein: parseFloat(value.servings.serving[0].protein),
+      fat: parseFloat(value.servings.serving[0].fat),
+      carbohydrate: parseFloat(value.servings.serving[0].carbohydrate),
+      sugar: parseFloat(value.servings.serving[0].sugar),
+      sodium: parseFloat(value.servings.serving[0].sodium),
+      servingDescription: value.servings.serving[0].serving_description,
       quantity: '1',
       logGroup: 'BF',
     };
@@ -280,13 +283,14 @@ editDate = (arg) =>{
   }
   function editLunchLogData(value) {
     let newEntry = {
-      name: value[0].name,
+      name: value.food_name,
       id: Math.random(),
-      protein: 10,
-      fat: 20,
-      carbohydrate: 10,
-      sugar: 12,
-      sodium: 30,
+      protein: parseFloat(value.servings.serving[0].protein),
+      fat: parseFloat(value.servings.serving[0].fat),
+      carbohydrate: parseFloat(value.servings.serving[0].carbohydrate),
+      sugar: parseFloat(value.servings.serving[0].sugar),
+      sodium: parseFloat(value.servings.serving[0].sodium),
+      servingDescription: value.servings.serving[0].serving_description,
       quantity: '1',
       logGroup: 'LN',
     };
@@ -304,13 +308,14 @@ editDate = (arg) =>{
   }
   function editDinnerLogData(value) {
     let newEntry = {
-      name: value[0].name,
+      name: value.food_name,
       id: Math.random(),
-      protein: 10,
-      fat: 20,
-      carbohydrate: 10,
-      sugar: 12,
-      sodium: 30,
+      protein: parseFloat(value.servings.serving[0].protein),
+      fat: parseFloat(value.servings.serving[0].fat),
+      carbohydrate: parseFloat(value.servings.serving[0].carbohydrate),
+      sugar: parseFloat(value.servings.serving[0].sugar),
+      sodium: parseFloat(value.servings.serving[0].sodium),
+      servingDescription: value.servings.serving[0].serving_description,
       quantity: '1',
       logGroup: 'DN',
     };
@@ -328,13 +333,14 @@ editDate = (arg) =>{
   }
   function editSnackLogData(value) {
     let newEntry = {
-      name: value[0].name,
+      name: value.food_name,
       id: Math.random(),
-      protein: 10,
-      fat: 20,
-      carbohydrate: 10,
-      sugar: 12,
-      sodium: 30,
+      protein: parseFloat(value.servings.serving[0].protein),
+      fat: parseFloat(value.servings.serving[0].fat),
+      carbohydrate: parseFloat(value.servings.serving[0].carbohydrate),
+      sugar: parseFloat(value.servings.serving[0].sugar),
+      sodium: parseFloat(value.servings.serving[0].sodium),
+      servingDescription: value.servings.serving[0].serving_description,
       quantity: '1',
       logGroup: 'SN',
     };

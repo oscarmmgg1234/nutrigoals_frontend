@@ -11,10 +11,32 @@ import Colors from '../../../../Styles/Colors';
 import Styles from '../../../../Screens/NutrionLog/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ResultsView from './resultsComponent';
+import { APIBackend } from '../../../../http_config/axios_config';
+import { app_context } from '../../../../setup';
 
 const ModalComponent = (props) => {
 
-  
+
+  getFood = async () =>{
+    let responseObjects = await APIBackend.get('/foodSearch', {headers: {
+      'token': APItoken,
+      'food': foodSearch,
+    }});
+    
+    
+    if(responseObjects.data.foods.food.length > 0){
+      const results = responseObjects.data.foods.food.map(obj=>{
+        return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id, 
+        }
+      })
+      setData(results);
+    }
+    else{
+      alert('no results');
+    }
+    
+  }
+  const {APItoken} = React.useContext(app_context);
   const [foodSearch, setFoodSearch] = useState('');
   const [foodSearchFocus, setSFocus] = useState(false);
   function inputFocus() {
@@ -23,10 +45,30 @@ const ModalComponent = (props) => {
   const [resultsData, setData] = useState([
   ]);
 
+  next = (res) => {
+    props.addFood(res.data.food);
+    props.setVisible(false);
+    
+    
+  }
+  addFoodToLog = async (obj) => {
+    
+    await APIBackend.get('/getFood', {headers: {
+      'token': APItoken,
+      'foodId': obj[0].food_id,
+    }
+    })
+    .then((res)=>{next(res)})
+    .catch((err)=>{console.log(err)})
+    
+    
+
+    
+  }
   function addFood() {
     let temp = resultsData.filter((obj) => obj.toggle === true);
-    props.addFood(temp);
-    props.setVisible(false);
+    addFoodToLog(temp);
+    
   }
   return (
     
@@ -96,7 +138,7 @@ const ModalComponent = (props) => {
               onBlur={inputFocus}
             />
             {foodSearch.length > 0 && (
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=>getFood()}>
                 <Icon
                   name={'search'}
                   color={'white'}
