@@ -15,8 +15,8 @@ import ModalComponent from './foodLogModal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const FoodLog = (props) => {
-  const [quantity, setQuantity] = useState('');
-  const [calory, setCalorie] = useState('');
+
+
   const [modalVisible, setModalVisible] = useState(false);
   const [input, setInput] = useState([]);
   function removeFood(arg) {
@@ -141,6 +141,7 @@ const FoodLog = (props) => {
       <View style={Styles.headerContentWrapper}>
         <View style={Styles.headerContent}>
           <FlatList
+            ref={(ref)=>{this.flatList = ref}}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={props.data}

@@ -150,7 +150,7 @@ const ModalComponent = (props) => {
               </TouchableOpacity>
             )}
           </View>
-{resultsData.length > 0 &&  <> 
+{resultsData.length > 0 && foodSearch.length > 0 &&  <> 
 <View style={Styles.ResultModal}>
             <Text style={{color: 'white', alignSelf: 'center', marginTop: 6}}>Results</Text>
             <View

@@ -5,6 +5,11 @@ import colors from '../../../../Styles/Colors';
 import Colors from '../../../../Styles/Colors';
 
 const ResultsView = (props) => {
+
+  React.useEffect(()=>{
+    flatListRef.scrollToOffset({x: 0, animated: true})
+  }, [props.data])
+
   function toggleFocus(value) {
     if (value.toggle === false) {
       let temp = props.data.map((obj) =>
@@ -51,7 +56,7 @@ const ResultsView = (props) => {
       <View style={Styles.headerContentWrapper}>
         <View style={Styles.headerContent}>
           <FlatList
-            
+            ref={(ref)=>{this.flatListRef = ref}}
             initialNumToRender={5}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
