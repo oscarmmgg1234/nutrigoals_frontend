@@ -17,11 +17,14 @@ const ResultsView = (props) => {
           ? {...obj, toggle: true}
           : {...obj, toggle: false},
       );
+      
       props.setData(temp);
+      temp.map((obj)=>{if(obj.toggle === true){props.set(obj.name)}})
     } else {
       let temp = props.data.map((obj) =>
         value.name === obj.name ? {...obj, toggle: false} : obj,
       );
+      props.set('')
       props.setData(temp);
     }
   }

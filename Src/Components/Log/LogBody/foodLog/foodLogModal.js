@@ -13,10 +13,16 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ResultsView from './resultsComponent';
 import { APIBackend } from '../../../../http_config/axios_config';
 import { app_context } from '../../../../setup';
-import { CONFIRM_PASSWORD } from '../../../../Constants';
+
+
 
 const ModalComponent = (props) => {
+  
+  const selected = React.useRef('');
 
+  function setSelected(arg){
+    selected.current = arg;
+  }
 
   getFood = async () =>{
     let responseObjects = await APIBackend.get('/foodSearch', {headers: {
@@ -162,8 +168,9 @@ const ModalComponent = (props) => {
                 alignSelf: 'center',
               }}
             />
-            <ResultsView data={resultsData} setData={setData} />
+            <ResultsView data={resultsData} setData={setData} set={setSelected}/>
           </View>
+          <Text style={{alignSelf: 'center', color: 'white', fontSize: 17,marginTop: 10, fontWeight: 'bold'}}>{selected.current}</Text>
           <View
             style={{
               alignSelf: 'center',
