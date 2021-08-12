@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {FlatList, View, Text, TouchableOpacity} from 'react-native';
 import Styles from '../../../../Screens/NutrionLog/Styles';
-import colors from '../../../../Styles/Colors';
 import Colors from '../../../../Styles/Colors';
 
 const ResultsView = (props) => {
