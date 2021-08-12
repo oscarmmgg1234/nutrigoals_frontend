@@ -162,6 +162,7 @@ const SearchModal = (props) => {
                 }}>
                 <TextInput
                   onChangeText={setSearchI}
+                  onFocus={()=>setSearchI('')}
                   value={searchItem}
                   textAlign={'left'}
                   placeholder={'Search Food'}

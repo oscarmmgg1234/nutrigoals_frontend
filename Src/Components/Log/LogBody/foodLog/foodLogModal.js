@@ -135,6 +135,7 @@ const ModalComponent = (props) => {
               value={foodSearch}
               placeholder={'Search Food'}
               placeholderTextColor={'rgba(255,255,255,0.7)'}
+              onFocus={()=>{setFoodSearch('');inputFocus();}}
               style={{
                 color: 'white',
                 width: '78%',
@@ -142,7 +143,7 @@ const ModalComponent = (props) => {
                 marginRight: 18,
               }}
               textAlign={'left'}
-              onFocus={inputFocus}
+              
               onBlur={inputFocus}
             />
             {foodSearch.length > 0 && (
