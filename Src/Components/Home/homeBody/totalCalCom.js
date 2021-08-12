@@ -25,15 +25,15 @@ const CaloriesView = () => {
             <Text style={Styles.firstText}>{'Recieved'}</Text>
             <View style={{flexDirection: 'row', marginTop: 10}}>
               <Text style={Styles.firstText1}>
-                {macroData[0].macroCurrent * 4 +
+                {Math.round(macroData[0].macroCurrent * 4 +
                   macroData[1].macroCurrent * 9 +
-                  macroData[2].macroCurrent * 4}
+                  macroData[2].macroCurrent * 4)}
               </Text>
               <Text style={[Styles.firstText, {marginLeft: 7, marginTop: 3}]}>
                 {'/ '}
-                {macroData[0].macroGoal * 4 +
+                {Math.round(macroData[0].macroGoal * 4 +
                   macroData[1].macroGoal * 9 +
-                  macroData[2].macroGoal * 4}
+                  macroData[2].macroGoal * 4)}
                 {' Kcal'}
               </Text>
             </View>

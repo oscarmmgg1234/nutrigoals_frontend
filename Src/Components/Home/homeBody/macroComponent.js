@@ -45,11 +45,11 @@ const MacroScrollComponent = () => {
                           },
                         ]}>
                         <Text style={Styles.macroProgressText}>
-                          {value.macroCurrent + ' '}
+                          {Math.round(value.macroCurrent) + ' '}
                         </Text>
                         <Text style={Styles.macroProgressText1}>
                           {' / '}
-                          {value.macroGoal}
+                          {Math.round(value.macroGoal)}
                           {'g'}
                         </Text>
                       </View>
