@@ -6,10 +6,7 @@ import Styles from '../../Screens/NutrionLog/Styles';
 
 const ResultsViewSearch = (props) => {
 
-    React.useEffect(()=>{
-      flatListRef.scrollToOffset({x: 0, animated: true})
-    }, [props.data])
-  
+    
     function toggleFocus(value) {
       if (value.toggle === false) {
         let temp = props.data.map((obj) =>
@@ -58,7 +55,7 @@ const ResultsViewSearch = (props) => {
         <View style={Styles.headerContentWrapper}>
           <View style={Styles.headerContent}>
             <FlatList
-              ref={(ref)=>{this.flatListRef = ref}}
+              
               initialNumToRender={5}
               showsHorizontalScrollIndicator={false}
               horizontal={true}

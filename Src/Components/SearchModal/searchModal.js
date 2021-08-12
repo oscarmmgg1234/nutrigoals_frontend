@@ -11,9 +11,78 @@ import Colors from '../../Styles/Colors';
 import Styles from '../../Screens/NutrionLog/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ResultsViewSearch from './resultView';
+import { app_context } from '../../setup';
+import { foodLog_context } from '../../setup';
+import { APIBackend } from '../../http_config/axios_config';
+
 
 
 const SearchModal = (props) => {
+  getFood = async () =>{
+    let responseObjects = await APIBackend.get('/foodSearch', {headers: {
+      'token': APItoken,
+      'food': searchItem,
+    }});
+    
+    
+    if(responseObjects.data.foods.food.length > 0){
+      const results = responseObjects.data.foods.food.map(obj=>{
+        return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id, 
+        }
+      })
+      setData(results);
+    }
+    else{
+      alert('no results');
+    }
+    
+  }
+
+  logLevel = (res) => {
+    if(buttonFocus[0] === true){
+      editBFLogData(res);
+    }
+    else if(buttonFocus[1] === true){
+        editLunchLogData(res);
+    }
+    else if(buttonFocus[2] === true){
+      editDinnerLogData(res);
+    }
+    else if(buttonFocus[3] === true){
+      editSnackLogData(res)
+    }
+  }
+  next = (res) => {
+    logLevel(res.data)
+    props.toggleModal(false)
+    
+  }
+  addFoodToLog = async (obj) => {
+    
+    await APIBackend.get('/getFood', {headers: {
+      'token': APItoken,
+      'foodId': obj[0].food_id,
+    }
+    })
+    .then((res)=>{next(res)})
+    .catch((err)=>{console.log(err)})
+    
+    
+
+    
+  }
+  function addFood() {
+    let temp = data.filter((obj) => obj.toggle === true);
+    addFoodToLog(temp);
+    
+  }
+
+  const {APItoken} = React.useContext(app_context);
+  const { editBFLogData,
+    editLunchLogData,
+    editDinnerLogData,
+    editSnackLogData,} = React.useContext(foodLog_context);
+
   const [buttonFocus, setButtonFocus] = useState([false,false,false,false])
   const [visi, setVisi] = useState(false);
   const [data, setData] = useState([]);
@@ -105,7 +174,7 @@ const SearchModal = (props) => {
                   }}
                 />
                 {searchItem.length > 0 ? (
-                  <TouchableOpacity style={{marginRight: 10}}>
+                  <TouchableOpacity style={{marginRight: 10}} onPress={()=>getFood()}>
                     <Icon name={'search'} color={'white'} size={29} />
                   </TouchableOpacity>
                 ) : null}
@@ -147,7 +216,7 @@ const SearchModal = (props) => {
             }}>
             
 
-            <TouchableOpacity style={{width: 110}} onPress={()=>console.log('in')}>
+            <TouchableOpacity style={{width: 110}} onPress={()=>addFood()}>
               <Text
                 style={{
                   color: 'white',
