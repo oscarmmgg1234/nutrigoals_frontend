@@ -11,11 +11,31 @@ import CalendarComponent from '../../Home/HomeHeader/dateComponent';
 
 const LogHeader = () => {
 
+
+
   const [editModalVisible, SetModalV] = React.useState(false);
-  const [searchModal, setSearchM] = React.useState(false);
+  const [searchModalV, setSearchM] = React.useState(false);
   const {date, DisplayDate, decrementDate, incrementDate, editDate} = React.useContext(user_context);
   const [calendarModalVisible, setCalendarModalV] = useState(false);
-
+  const [visi, setVisib] = React.useState(false);
+  const [searchItem, setSearchIn] = React.useState('');
+  const [data, setDatad] = React.useState([]);
+  React.useEffect(()=>{setData([]);setSearchI('');},[searchModalV])
+function removeSearcModal(){
+  setSearchM(false);
+}
+  function setVisi(){
+    setVisib(true);
+  }
+  function setSearchI(value){
+    setSearchIn(value)
+  }
+  function setModalV(){
+    setModalVisible(true);
+  }
+  function setData(value){
+    setDatad(value)
+  }
   function closeCModal(){
     setCalendarModalV(false)
   }
@@ -52,7 +72,16 @@ const LogHeader = () => {
             </TouchableOpacity >
           </View>
           <EditMainModal toggleModal={setModalV} modal={editModalVisible} />
-          <SearchModal toggleModal={setSearchModal} modal={searchModal} />
+          <SearchModal
+                  toggleModal={removeSearcModal}
+                  modal={searchModalV}
+                  visi={visi}
+                  data={data}
+                  setVisi={setVisi}
+                  setData={setData}
+                  searchItem={searchItem}
+                  setSearchI={setSearchI}
+                />
           <TouchableOpacity onPress={()=>incrementDate()}>
             <Image source={Images.arrow_right} style={Styles.sideImage1} />
           </TouchableOpacity>

@@ -21,8 +21,8 @@ const SearchModal = (props) => {
   getFood = async () =>{
     let responseObjects = await APIBackend.get('/foodSearch', {headers: {
       'token': APItoken,
-      'food': searchItem,
-    }});
+      'food': props.searchItem,
+    }})
     
     
     if(responseObjects.data.foods.food.length > 0){
@@ -30,7 +30,7 @@ const SearchModal = (props) => {
         return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id, 
         }
       })
-      setData(results);
+      props.setData(results);
     }
     else{
       alert('no results');
@@ -72,8 +72,11 @@ const SearchModal = (props) => {
     
   }
   function addFood() {
-    let temp = data.filter((obj) => obj.toggle === true);
+    let temp = props.data.filter((obj) => obj.toggle === true);
+    
     addFoodToLog(temp);
+    
+    
     
   }
 
@@ -84,13 +87,7 @@ const SearchModal = (props) => {
     editSnackLogData,} = React.useContext(foodLog_context);
 
   const [buttonFocus, setButtonFocus] = useState([false,false,false,false])
-  const [visi, setVisi] = useState(false);
-  const [data, setData] = useState([]);
-  let selected = React.useRef('');
-
-  function setSelected(value){
-    selected.current = value;
-  }
+  
   
   function toggleButtonFocus(index){
     if(buttonFocus[index] === false){
@@ -102,7 +99,7 @@ const SearchModal = (props) => {
       setButtonFocus(temp)
     }
   }
-  const [searchItem, setSearchI] = useState('');
+  
   return (
     <>
       <Modal animationType={'slide'} transparent={true} visible={props.modal} onRequestClose={()=>{props.toggleModal(false)}}>
@@ -161,9 +158,9 @@ const SearchModal = (props) => {
                   alignItems: 'center',
                 }}>
                 <TextInput
-                  onChangeText={setSearchI}
-                  onFocus={()=>setSearchI('')}
-                  value={searchItem}
+                  onChangeText={props.setSearchI}
+                  onFocus={()=>{props.setSearchI('');props.setData([]);}}
+                  value={props.searchItem}
                   textAlign={'left'}
                   placeholder={'Search Food'}
                   placeholderTextColor={'rgba(255,255,255,0.6)'}
@@ -174,7 +171,7 @@ const SearchModal = (props) => {
                     fontSize: 17,
                   }}
                 />
-                {searchItem.length > 0 ? (
+                {props.searchItem.length > 0 ? (
                   <TouchableOpacity style={{marginRight: 10}} onPress={()=>getFood()}>
                     <Icon name={'search'} color={'white'} size={29} />
                   </TouchableOpacity>
@@ -182,7 +179,7 @@ const SearchModal = (props) => {
 
               </View>
               </View>
-              {data.length > 0 && (<>
+              {props.data.length > 0 && (<>
              <View style={Styles.ResultModal}>
             <Text style={{color: 'white', alignSelf: 'center', marginTop: 6}}>Results</Text>
             <View
@@ -194,9 +191,9 @@ const SearchModal = (props) => {
                 alignSelf: 'center',
               }}
             />
-            <ResultsViewSearch data={data} setData={setData} set={setSelected} visBool={setVisi}/>
+            <ResultsViewSearch data={props.data} setData={props.setData} visBool={props.setVisi}/>
           </View>
-          { visi === true && (
+          { props.visi === true && (
               <View style={{width: '93%', backgroundColor: Colors.texInputBackground, alignSelf: 'center',
               borderRadius: 20, marginTop: 40, height: 70}}>
                 <View style={{display: 'flex', flexDirection: 'row',alignSelf: 'center', justifyContent: 'space-evenly', width: '100%', height: '100%', alignItems: 'center'}}>

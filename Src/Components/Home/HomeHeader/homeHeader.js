@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {View, TouchableOpacity, Text, Image} from 'react-native';
 import Styles from '../../../Screens/Home/Styles';
 import Images from '../../../Styles/Images';
@@ -10,52 +10,78 @@ import CalendarComponent from './dateComponent';
 import moment from 'moment';
 import {user_context} from '../../../setup';
 
-class HomeHeader extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalVisible: false,
-      searchModalVisible: false,
-      calendarModalVisible: false,
-      displayDate: '',
-      date: '',
-      dateIndex: 0,
-    };
-  }
+
+class HomeHeader extends Component{
+ 
   
+  constructor(props){
+    super(props);
+    this.state = {visi: false,
+    data: [],
+    searchItem: '',
+    modalVisible: false,
+    searchModalV: false,
+    calendarModalVisible: false,
+    }
+  }
+
+componentDidUpdate(prevProps, prevState){
+  if(prevState.searchModalV != this.state.searchModalV){
+    this.setData([]);
+    this.setSearchI('');
+
+  }
+}
+
+  setVisi = (prevState) => {
+    this.setState({visi: prevState})
+  }
+  setData = (value) =>{
+    this.setState({data: value})
+  }
+  setSearchI = (value) => {
+    this.setState({searchItem: value})
+  }
   removeCalendarModalView = () => {
-    this.setState({calendarModalVisible: false})
+    this.setState({calendarModalVisible: false});
   }
 
   removeSearcModal = () => {
-    this.setState({searchModalVisible: false});
+    this.setState({searchModalV: false});
   };
+    
   removeModalView = () => {
     this.setState({modalVisible: false});
   };
+  
+  
 
-  render() {
+  render(){
     return (
-      <app_context.Consumer>
-        {({imagePath, selectImage}) => (
+        <user_context.Consumer>
+          {user_context=>(
           <View style={Styles.headerWrapper}>
             <View style={Styles.headerContainer}>
-              <TouchableOpacity onPress={selectImage}>
+              <app_context.Consumer>
+                {app_context=>(
+              <TouchableOpacity onPress={app_context.selectImage}>
                 <Image
                   source={
-                    imagePath
-                      ? {uri: imagePath}
+                    app_context.imagePath
+                      ? {uri: app_context.imagePath}
                       : Images.Profile
                   }
                   style={[Styles.profileStyle, {borderColor: 'rgba(20,20,30,0.6)', borderWidth: 4}]}
                 />
                
               </TouchableOpacity>
-               
+                )}
+               </app_context.Consumer>
+              
               <Text style={Styles.homeText}>{'Home'}</Text>
               <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
-                  onPress={() => this.setState({searchModalVisible: true})}>
+                  onPress={() => this.setState({searchModalV: true})}>
                   <Icon
                     name={'search'}
                     size={28}
@@ -73,13 +99,18 @@ class HomeHeader extends Component {
                 />
                 <SearchModal
                   toggleModal={this.removeSearcModal}
-                  modal={this.state.searchModalVisible}
+                  modal={this.state.searchModalV}
+                  visi={this.state.visi}
+                  data={this.state.data}
+                  setVisi={this.setVisi}
+                  setData={this.setData}
+                  searchItem={this.state.searchItem}
+                  setSearchI={this.setSearchI}
                 />
               </View>
             </View>
-            <user_context.Consumer>
-              {user_context=>(<>
-        <CalendarComponent visibility={this.state.calendarModalVisible} removeVis={this.removeCalendarModalView}  editDate={user_context.editDate} date={user_context.date}/>
+            
+        <CalendarComponent visibility={this.state.calendarModalVisible} removeVis={this.removeCalendarModalView}  editDate={this.editDate} date={this.state.date}/>
             <View style={Styles.headerContainer}>
               <TouchableOpacity onPress={()=>user_context.decrementDate()}>
                 <Image source={Images.arrow_left} style={Styles.sideImage} />
@@ -93,19 +124,20 @@ class HomeHeader extends Component {
                     style={{marginRight: 10, marginTop: 8}}
                   />
                 
-                <Text style={Styles.calenderText}>{user_context.DisplayDate}</Text>
+                <Text style={Styles.calenderText}>{this.state.DisplayDate}</Text>
                 </TouchableOpacity>
               </View>
               <TouchableOpacity onPress={()=>user_context.incrementDate()}>
                 <Image source={Images.arrow_right} style={Styles.sideImage1} />
               </TouchableOpacity>
-            </View></>)}
-            </user_context.Consumer>
+            </View>
           </View>
-        )}
-      </app_context.Consumer>
+          )}
+          </user_context.Consumer>
+        
     );
   }
 }
+
 
 export default HomeHeader;
