@@ -27,7 +27,7 @@ const ModalComponent = (props) => {
   getFood = async () =>{
     let responseObjects = await APIBackend.get('/foodSearch', {headers: {
       'token': APItoken,
-      'food': foodSearch,
+      'food': props.foodSearch,
     }});
     
     
@@ -36,7 +36,7 @@ const ModalComponent = (props) => {
         return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id, 
         }
       })
-      setData(results);
+      props.setData(results);
     }
     else{
       alert('no results');
@@ -44,16 +44,13 @@ const ModalComponent = (props) => {
     
   }
   const {APItoken} = React.useContext(app_context);
-  const [foodSearch, setFoodSearch] = useState('');
   const [foodSearchFocus, setSFocus] = useState(false);
   function inputFocus() {
     setSFocus(!foodSearchFocus);
   }
-  const [resultsData, setData] = useState([
-  ]);
+ 
 
   next = (res) => {
-    console.log(res.data)
     props.addFood(res.data);
     props.setVisible(false);
     
@@ -123,7 +120,7 @@ const ModalComponent = (props) => {
               {
                 borderWidth: 2,
                 borderColor:
-                  foodSearch.length > 0
+                  props.foodSearch.length > 0
                     ? '#62FF68'
                     : foodSearchFocus
                     ? Colors.buttonColor
@@ -131,11 +128,11 @@ const ModalComponent = (props) => {
               },
             ]}>
             <TextInput
-              onChangeText={setFoodSearch}
-              value={foodSearch}
+              onChangeText={props.setFoodSearch}
+              value={props.foodSearch}
               placeholder={'Search Food'}
               placeholderTextColor={'rgba(255,255,255,0.7)'}
-              onFocus={()=>{setFoodSearch('');inputFocus();}}
+              onFocus={()=>{props.setFoodSearch('');inputFocus();}}
               style={{
                 color: 'white',
                 width: '78%',
@@ -146,7 +143,7 @@ const ModalComponent = (props) => {
               
               onBlur={inputFocus}
             />
-            {foodSearch.length > 0 && (
+            {props.foodSearch.length > 0 && (
               <TouchableOpacity onPress={()=>getFood()}>
                 <Icon
                   name={'search'}
@@ -157,7 +154,7 @@ const ModalComponent = (props) => {
               </TouchableOpacity>
             )}
           </View>
-{resultsData.length > 0 && foodSearch.length > 0 &&  <> 
+{props.resultsData.length > 0 && props.foodSearch.length > 0 &&  <> 
 <View style={Styles.ResultModal}>
             <Text style={{color: 'white', alignSelf: 'center', marginTop: 6}}>Results</Text>
             <View
@@ -169,7 +166,7 @@ const ModalComponent = (props) => {
                 alignSelf: 'center',
               }}
             />
-            <ResultsView data={resultsData} setData={setData} set={setSelected}/>
+            <ResultsView data={props.resultsData} setData={props.setData} set={setSelected}/>
           </View>
           <Text style={{alignSelf: 'center', color: 'white', fontSize: 17,marginTop: 10, fontWeight: 'bold'}}>{selected.current}</Text>
           <View

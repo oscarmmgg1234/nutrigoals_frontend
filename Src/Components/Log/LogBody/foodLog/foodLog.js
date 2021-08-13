@@ -17,6 +17,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const FoodLog = (props) => {
 
 
+  const [resultsData, setData] = useState([
+  ]);
+  const [foodSearch, setFoodSearch] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [input, setInput] = useState([]);
   function removeFood(arg) {
@@ -30,6 +33,8 @@ const FoodLog = (props) => {
     }
   }
 
+
+  React.useEffect(()=>{if(foodSearch != ''){setData([]);setFoodSearch('');}},[modalVisible])
   const showFood = (value, index) => {
     return (
       <>
@@ -120,6 +125,7 @@ const FoodLog = (props) => {
                 }}>
                 {'Or scan it'}
               </Text>
+              
               <ModalComponent
                 state={modalVisible}
                 setVisible={setModalVisible}
@@ -127,6 +133,10 @@ const FoodLog = (props) => {
                 context={props.data}
                 addFood={props.addLog}
                 removeFood={props.removeLog}
+                resultsData={resultsData}
+                setData={setData}
+                foodSearch={foodSearch}
+                setFoodSearch={setFoodSearch}
               />
               <Icon name={'barcode'} size={36} color={'white'} style={{marginTop: 10}}/>
             </View>

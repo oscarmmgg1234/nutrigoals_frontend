@@ -20,7 +20,7 @@ const LogHeader = () => {
   const [visi, setVisib] = React.useState(false);
   const [searchItem, setSearchIn] = React.useState('');
   const [data, setDatad] = React.useState([]);
-  React.useEffect(()=>{if(searchItem != ''){console.log('rerender');setData([]);setSearchI('');}},[searchModalV])
+  React.useEffect(()=>{if(searchItem != ''){setData([]);setSearchI('');}},[searchModalV])
 
 function removeSearcModal(){
   setSearchM(false);
@@ -43,9 +43,7 @@ function removeSearcModal(){
   function setModalV() {
     SetModalV(false);
   }
-  function setSearchModal() {
-    setSearchM(false);
-  }
+  
   return (
     <>
       <View style={Styles.headerWrapper}>
