@@ -26,7 +26,8 @@ class HomeHeader extends Component{
   }
 
 componentDidUpdate(prevProps, prevState){
-  if(prevState.searchModalV != this.state.searchModalV){
+  if(prevState.searchModalV != this.state.searchModalV && this.state.searchModalV != ''){
+    console.log('rerender triggered')
     this.setData([]);
     this.setSearchI('');
 
