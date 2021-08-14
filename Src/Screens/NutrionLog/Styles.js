@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
   },
   homeText: {
-    fontSize: 23,
+    fontSize: 30,
     fontWeight: '600',
     color: Colors.White,
     marginTop: 8,

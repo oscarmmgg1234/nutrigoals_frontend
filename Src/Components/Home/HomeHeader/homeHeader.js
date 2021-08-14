@@ -124,7 +124,7 @@ componentDidUpdate(prevProps, prevState){
                     style={{marginRight: 10, marginTop: 8}}
                   />
                 
-                <Text style={Styles.calenderText}>{this.state.DisplayDate}</Text>
+                <Text style={Styles.calenderText}>{user_context.DisplayDate}</Text>
                 </TouchableOpacity>
               </View>
               <TouchableOpacity onPress={()=>user_context.incrementDate()}>

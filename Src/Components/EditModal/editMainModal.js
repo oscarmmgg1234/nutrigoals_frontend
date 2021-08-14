@@ -7,17 +7,11 @@ import Colors from '../../Styles/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MacroModal from './macroModal/macroModal';
 import WaterModal from './waterModal/waterModal';
+import CalcHomeComponent from './calculatorModal/calculatorHome';
 import { set } from 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EditMainModal = (props) => {
-  const [modalVisibility, setModalV] = useState({
-    macroM: false,
-    waterM: false,
-    weightM: false,
-    notiM: false,
-    calc: false,
-  });
 
   async function signOuty(){
     await AsyncStorage.setItem('@authStatus', '0');
@@ -108,7 +102,7 @@ const EditMainModal = (props) => {
           </View>
           <View style={Styles.seperator} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setModalV({weightM: true})}>
+        <TouchableOpacity onPress={() => setWeightM(true)}>
           <View style={Styles.listWrapper}>
             <View style={{flexDirection: 'row'}}>
               <Icon
@@ -123,7 +117,7 @@ const EditMainModal = (props) => {
           </View>
           <View style={Styles.seperator} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setModalV({notiM: true})}>
+        <TouchableOpacity onPress={() => setNotiM(true)}>
           <View style={Styles.listWrapper}>
             <View style={{flexDirection: 'row'}}>
               <Icon
@@ -138,7 +132,7 @@ const EditMainModal = (props) => {
           </View>
           <View style={Styles.seperator} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setModalV({calc: true})}>
+        <TouchableOpacity onPress={() => setCalc(true)}>
           <View style={Styles.listWrapper}>
             <View style={{flexDirection: 'row'}}>
               <Icon
@@ -164,6 +158,7 @@ const EditMainModal = (props) => {
         </TouchableOpacity>
         <MacroModal visibility={macroM} setModalV={setModalVisibility}/>
         <WaterModal visibility={waterM} setModalV={setModalVisibility}/>
+        <CalcHomeComponent visibility={calc} setModalV={setModalVisibility} toggleModal={setModalVisibility}/>
       </View>
     </Modal>
   );
