@@ -3,7 +3,7 @@ import { ScrollView,View, Text, TouchableOpacity,Dimensions } from 'react-native
 import Styles from './Style';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Colors from '../../../Styles/Colors';
-import { data } from 'browserslist';
+
 
 class CalcHomeScroll extends React.Component{
     constructor(props){
@@ -15,13 +15,26 @@ class CalcHomeScroll extends React.Component{
         }
     }
 
+    runIndex = (index) =>{
+        switch (index) {
+            case 0: {
+                this.props.runModal(0);
+                break;
+            }
+            case 1: {
+                this.props.runModal(1);
+                break;
+            }
+        }
+    }
+    
     setActiveIndex = (value) =>{
         this.setState({activeIndex: value})
     }
 
     _renderItem = ({item, index}) => {
         
-        return (<TouchableOpacity>
+        return (<TouchableOpacity onPress={()=>this.runIndex(index)}>
             <View style={{width: '100%', height: '97%', backgroundColor: 'rgba(100,100,150,1)', marginTop: 10, borderRadius: 20, alignItems: 'center', justifyContent: 'center'}}>
                 
                 <Text style={{color: 'white', fontSize: 30, fontWeight: 'bold'}}>{ item.title }</Text>
@@ -32,7 +45,7 @@ class CalcHomeScroll extends React.Component{
     render () {
         
         return (<>
-            <View style={{alignSelf: 'center', height: Dimensions.get('window').height / 1.3, borderRadius: 20, marginTop: 17}}>
+            <View style={{alignSelf: 'center', height: Dimensions.get('window').height / 1.37, borderRadius: 20, marginTop: 17}}>
             <Carousel
               ref={(c) => { this._carousel = c; }}
               data={this.state.data}

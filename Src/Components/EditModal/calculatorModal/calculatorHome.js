@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Modal, Text, View, TouchableOpacity} from 'react-native';
 import Styles from '../../../Screens/Home/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -6,7 +6,41 @@ import Colors from '../../../Styles/Colors';
 import CalcHomeScroll from './calculatorHomeScroll';
 import BMRcalc from './calculatorComponents/BMRcalc';
 
+
 const CalcHomeComponent = (props) => {
+  const [modal_bmr_v, setVisiBMR] = useState(false);
+  const [modal_bmi_v, setVisiBMI] = useState(false);
+
+  
+
+  
+  const toggleModal = (index) => {
+    
+    switch(index){
+      case 0: {
+        
+        setVisiBMR(false);
+        break;
+      }
+      case 1: {
+        
+        setVisiBMI(false);
+        break;
+      }
+    }
+  }
+  const runModal = (index) => {
+    switch(index){
+      case 0:{
+        setVisiBMR(true);
+        break;
+      }
+      case 1: {
+        setVisiBMI(true);
+        break;
+      }
+    }
+  }
     return (
         
         <Modal visible={props.visibility} transparent={true} animationType={'fade'} onRequestClose={()=>props.toggleModal}>
@@ -28,9 +62,9 @@ const CalcHomeComponent = (props) => {
             </TouchableOpacity>
           </View>
           </View> 
-          <CalcHomeScroll/>
+          <CalcHomeScroll runModal={runModal} />
         </View>
-        <BMRcalc title={"BMR"}/>
+        <BMRcalc title={"BMR"} visibility={modal_bmr_v} toggleModal={toggleModal} />
         </Modal>
         
     )
