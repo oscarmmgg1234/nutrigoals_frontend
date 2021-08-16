@@ -8,7 +8,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MacroModal from './macroModal/macroModal';
 import WaterModal from './waterModal/waterModal';
 import CalcHomeComponent from './calculatorModal/calculatorHome';
-import { set } from 'react-native-reanimated';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EditMainModal = (props) => {

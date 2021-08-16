@@ -4,8 +4,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ScrollPicker from 'react-native-wheely-simple-picker'
 import Styles from './Styles';
 import Colors from '../../../Styles/Colors';
-import { CARBS } from '../../../Constants';
-import { useEffect } from 'react/cjs/react.production.min';
 const MacroRatio = (props)=> {
 
     const [TI, setTI] = React.useState('')

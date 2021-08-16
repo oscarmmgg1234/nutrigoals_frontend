@@ -265,6 +265,99 @@ const styles = StyleSheet.create({
     color: Colors.White,
     fontSize: 20,
     fontWeight: '600',
+  }, 
+  InputView: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 30,
+  
   },
+  InputView1: {
+    marginTop: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+    
+  },
+  InputText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+    width: 50
+  }, InputText2: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'white',
+    width: 70
+  },
+  InputStyles1: {
+    width: '35%',
+    backgroundColor: 'rgba(10,10,10,0.4)',
+    borderRadius: 20,
+    paddingLeft: 10,
+    color: 'white',
+    fontSize: 18,
+    paddingRight: 10,
+    height: 40,
+    flexDirection: 'row'
+  }, InputStyles2: {
+    width: '28%',
+    backgroundColor: 'rgba(10,10,10,0.4)',
+    borderRadius: 20,
+    paddingLeft: 10,
+    color: 'white',
+    fontSize: 18,
+    paddingRight: 10,
+    height: 40,
+    flexDirection: 'row'
+  },
+  InputStyles: {
+    width: '100%',
+    borderRadius: 20,
+    paddingLeft: 10,
+    color: 'white',
+    fontSize: 18,
+    paddingRight: 10,
+    height: 40,
+    flexDirection: 'row'
+  },
+  InputSubview: {
+    paddingLeft: 8,
+    borderRadius: 20,
+    width: '90%',
+    backgroundColor: Colors.backgroundColor,
+    display: 'flex',
+    flexDirection: 'row',
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'space-around'
+  },
+  pickerContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    
+  },
+  pickerTextContainer:{
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  pickerText:{
+    marginVertical: 20,
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: 12,
+    fontWeight: 'bold'
+  }
+
 });
 export default styles;
