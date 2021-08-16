@@ -71,7 +71,7 @@ const ModalComponent = (props) => {
     
   }
   function addFood() {
-    let temp = resultsData.filter((obj) => obj.toggle === true);
+    let temp = props.resultsData.filter((obj) => obj.toggle === true);
     addFoodToLog(temp);
     
   }

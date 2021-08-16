@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
   
   },
   InputView1: {
-    marginTop: 20,
+    marginTop: 25,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
