@@ -18,6 +18,7 @@ const BMRcalc = (props) =>{
     const [weight, setWeight] = React.useState('');
     const [heightM, setHeightM] = React.useState('');
     const [selectedA, setSelectedA] = React.useState(1.2);
+    let formulaData = React.useRef(['Benedict', 'Meteor'])
     let data = React.useRef(['Sedentary Active','Lightly Active', 'Moderately Active', 'Very Active', 'Extremely Active'])
 
 
@@ -71,10 +72,10 @@ const BMRcalc = (props) =>{
     </View>
   </View >
 
-  <ScrollView contentContainerStyle={{height: Dimensions.get('window').height * 1.5}} scrollEnabled={true}>
+  <ScrollView contentContainerStyle={{height: Dimensions.get('window').height * 1.6}} scrollEnabled={true}>
   <Text style={{color: 'white', fontSize: 20, alignSelf: 'center', marginTop: 20}}>{'Fill out form to calculate BMR'}</Text>
   <View style={{height: 2, width: '50%', backgroundColor: 'black', alignSelf: 'center', marginVertical: 20}}/>
-  <View style={{height: '67%', width: '90%', backgroundColor: 'rgba(0,0,0,0.5)', alignSelf: 'center', marginTop: 20, borderRadius: 20}}>
+  <View style={{height: '73%', width: '90%', backgroundColor: 'rgba(0,0,0,0.5)', alignSelf: 'center', marginTop: 20, borderRadius: 20}}>
       <Text style={{color: 'white', fontSize: 12,alignSelf: 'center', marginTop: 6}}>{'Use your account Info?'}</Text>
       <Switch value={userInfo} onChange={()=>setUserChoice(!userInfo)} style={{alignSelf: 'center', marginTop: 10, marginBottom: 10}}/>
     <View style={{height: 1, width: '65%', backgroundColor: 'rgba(255,255,255,0.4)', alignSelf: 'center', marginVertical: 20}}/>
@@ -276,7 +277,26 @@ const BMRcalc = (props) =>{
           
 
         </View> 
-        
+        <View style={{height: 120, marginTop: 25}}>
+            <Text style={{color: 'white', fontWeight: 'bold',fontSize: 15,alignSelf: 'center', marginBottom: 8}}>{'Formula: '}</Text>
+        <ScrollPicker
+            dataSource={formulaData.current}
+            selectedIndex={0}
+            onValueChange={(data, selectedIndex) => {
+             pickerOnchange(selectedIndex);
+            }}
+            wrapperHeight={90}
+            wrapperWidth={'100%'}
+            wrapperBackground="#FFFFFF"
+            itemHeight={35}
+            highlightColor="#d8d8d8"
+            highlightBorderWidth={2}
+            activeItemColor="#222121"
+            itemColor="#222121"
+          />
+          
+
+        </View> 
         </View>   
         <TouchableOpacity style={{height: 55, width: '50%', backgroundColor: Colors.buttonColor, borderRadius: 20, justifyContent: 'center', alignSelf: 'center', marginTop: 65, alignItems: 'center'}}>
             <Text style={{color: 'white', fontWeight: 'bold',fontSize: 15,alignSelf: 'center'}}>Submit</Text>
