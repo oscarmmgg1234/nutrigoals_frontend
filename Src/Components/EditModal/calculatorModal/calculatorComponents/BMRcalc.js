@@ -206,8 +206,8 @@ const BMRcalc = (props) =>{
           />
           
           </View>
-          {Age.length > 0 ? (
-              <TouchableOpacity onPress={() => setAge('')}>
+          {heightM.length > 0 ? (
+              <TouchableOpacity onPress={() => setHeightM('')}>
                 <Icon
                   name={'remove'}
                   size={17}
