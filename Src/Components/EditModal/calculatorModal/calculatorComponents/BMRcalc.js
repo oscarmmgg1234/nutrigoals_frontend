@@ -1,14 +1,18 @@
 import React from 'react';
 
-import {Modal, ScrollView, Text, TouchableOpacity, View, Switch, TextInput, Dimensions} from 'react-native';
+import {Modal, ScrollView, Text, TouchableOpacity, View, Switch, TextInput, Dimensions, ActivityIndicator} from 'react-native';
 import Styles from '../../../../Screens/Home/Styles';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../../../Styles/Colors';
 import ScrollPicker from 'react-native-wheely-simple-picker';
+import { CalcBackend } from '../../../../http_config/axios_config';
+import ActivityComponent from '../../../activityIndicator';
+
 
 
 const BMRcalc = (props) =>{
+    const [activityI, setActivity] = React.useState(false);
     const [userInfo, setUserChoice] = React.useState(false); 
     const [genderSwitch, setGSwitch] = React.useState(false)
     const [unitSystem, setUnitSystem] = React.useState(false)
@@ -16,11 +20,41 @@ const BMRcalc = (props) =>{
     const [heightFeet, setHeightFeet] = React.useState('');
     const [heightInches, setHeightInches] = React.useState('');
     const [weight, setWeight] = React.useState('');
-    const [heightM, setHeightM] = React.useState('');
-    const [selectedA, setSelectedA] = React.useState(1.2);
-    let formulaData = React.useRef(['Benedict', 'Meteor'])
-    let data = React.useRef(['Sedentary Active','Lightly Active', 'Moderately Active', 'Very Active', 'Extremely Active'])
+    const [heightCM, setHeightCM] = React.useState('');
+    const [serverResponse, setServerResponse] = React.useState(null)
+    const [formula, setFormula] = React.useState('Harris-Benedict');
+    let formulaData = React.useRef(['Harris-Benedict', 'Mifflin St Jeor'])
 
+    let data = React.useRef(['Sedentary Active','Lightly Active', 'Moderately Active', 'Very Active', 'Extremely Active'])
+    
+    function scrollToE(){
+      _scroll.scrollToEnd({animated: true});
+    }
+
+    submit = () =>{
+      setActivity(true);
+      setTimeout(()=>{setActivity(false)}, 1000);
+      initSubmit();
+      scrollToE();
+      
+      
+    }
+
+    initSubmit =  async () =>{
+     if(unitSystem){
+      await CalcBackend.get('/BMR',{headers: {'gender': genderSwitch ? 'female' : 'male', 'format': 'metric', 'age': Age, 'height': heightM,'weight': weight,
+      'formula': formula}})
+      .then((res)=>setServerResponse(res.data))
+      .catch(err=>setTimeout(()=>{setActivity(false)}, 2000))
+     }
+     else{
+      const heightInch = (parseFloat(heightFeet) * 12) + parseFloat(heightInches)
+      await CalcBackend.get('/BMR',{headers: {'gender': genderSwitch ? 'female' : 'male', 'format': 'imperial', 'age': Age, 'height': heightInch,'weight': weight,
+      'formula': formula}})
+      .then((res)=>{setServerResponse(res.data);console.log(res.data.value)})
+      .catch(err=>setTimeout(()=>{setActivity(false)}, 2000))
+     }
+    }
 
     const pickerOnchange = (value) => {
         switch(value){
@@ -53,7 +87,9 @@ const BMRcalc = (props) =>{
 
     return(
         <Modal visible={props.visibility} transparent={true} animationType={'fade'}>
+          
              <View style={Styles.ModalContainer}>
+             <ActivityComponent visibility={activityI}/>
     <View style={Styles.modalHeader}>
     <View style={Styles.ModalHeaderView}>
       <View style={{display: 'flex', flexDirection: 'row'}}>
@@ -72,10 +108,10 @@ const BMRcalc = (props) =>{
     </View>
   </View >
 
-  <ScrollView contentContainerStyle={{height: Dimensions.get('window').height * 1.6}} scrollEnabled={true}>
+  <ScrollView contentContainerStyle={{height: Dimensions.get('window').height * 1.5}} scrollEnabled={true} ref={(ref)=>{this._scroll = ref}}>
   <Text style={{color: 'white', fontSize: 20, alignSelf: 'center', marginTop: 20}}>{'Fill out form to calculate BMR'}</Text>
   <View style={{height: 2, width: '50%', backgroundColor: 'black', alignSelf: 'center', marginVertical: 20}}/>
-  <View style={{height: '73%', width: '90%', backgroundColor: 'rgba(0,0,0,0.5)', alignSelf: 'center', marginTop: 20, borderRadius: 20}}>
+  <View style={{height: '68%', width: '90%', backgroundColor: 'rgba(0,0,0,0.5)', alignSelf: 'center', marginTop: 20, borderRadius: 20}}>
       <Text style={{color: 'white', fontSize: 12,alignSelf: 'center', marginTop: 6}}>{'Use your account Info?'}</Text>
       <Switch value={userInfo} onChange={()=>setUserChoice(!userInfo)} style={{alignSelf: 'center', marginTop: 10, marginBottom: 10}}/>
     <View style={{height: 1, width: '65%', backgroundColor: 'rgba(255,255,255,0.4)', alignSelf: 'center', marginVertical: 20}}/>
@@ -198,17 +234,17 @@ const BMRcalc = (props) =>{
             />
             <View style={Styles.InputStyles1}> 
           <TextInput
-            value={heightM}
-            onChangeText={setHeightM}
-            placeholder={'Meters'}
+            value={heightCM}
+            onChangeText={setHeightCM}
+            placeholder={'Centimeters'}
             placeholderTextColor={'rgba(255,255,255,0.6)'}
             style={Styles.InputStyles}
             keyboardType={'decimal-pad'}
           />
           
           </View>
-          {heightM.length > 0 ? (
-              <TouchableOpacity onPress={() => setHeightM('')}>
+          {heightCM.length > 0 ? (
+              <TouchableOpacity onPress={() => setHeightCM('')}>
                 <Icon
                   name={'remove'}
                   size={17}
@@ -257,33 +293,14 @@ const BMRcalc = (props) =>{
         </View>
         </View>
         
-        <View style={{height: 120, marginTop: 25}}>
-            <Text style={{color: 'white', fontWeight: 'bold',fontSize: 15,alignSelf: 'center', marginBottom: 8}}>{'Activity Level: '}</Text>
-        <ScrollPicker
-            dataSource={data.current}
-            selectedIndex={0}
-            onValueChange={(data, selectedIndex) => {
-             pickerOnchange(selectedIndex);
-            }}
-            wrapperHeight={90}
-            wrapperWidth={'100%'}
-            wrapperBackground="#FFFFFF"
-            itemHeight={35}
-            highlightColor="#d8d8d8"
-            highlightBorderWidth={2}
-            activeItemColor="#222121"
-            itemColor="#222121"
-          />
-          
-
-        </View> 
+    
         <View style={{height: 120, marginTop: 25}}>
             <Text style={{color: 'white', fontWeight: 'bold',fontSize: 15,alignSelf: 'center', marginBottom: 8}}>{'Formula: '}</Text>
         <ScrollPicker
             dataSource={formulaData.current}
             selectedIndex={0}
             onValueChange={(data, selectedIndex) => {
-             pickerOnchange(selectedIndex);
+              setFormula(data);
             }}
             wrapperHeight={90}
             wrapperWidth={'100%'}
@@ -298,10 +315,17 @@ const BMRcalc = (props) =>{
 
         </View> 
         </View>   
-        <TouchableOpacity style={{height: 55, width: '50%', backgroundColor: Colors.buttonColor, borderRadius: 20, justifyContent: 'center', alignSelf: 'center', marginTop: 65, alignItems: 'center'}}>
+        <TouchableOpacity onPress={()=>submit()} style={{height: 55, width: '50%', backgroundColor: Colors.buttonColor, borderRadius: 20, justifyContent: 'center', alignSelf: 'center', marginTop: 65, alignItems: 'center'}}>
             <Text style={{color: 'white', fontWeight: 'bold',fontSize: 15,alignSelf: 'center'}}>Submit</Text>
         </TouchableOpacity>
   </View>
+
+  {serverResponse != null &&
+  <View style={{alignSelf: 'center', width: '100%', height: 200, backgroundColor: 'rgba(20,20,20,0.8)', marginTop: 60}}>
+  <Text style={{color: 'white', fontSize: 12,alignSelf: 'center', marginTop: 6}}>{'ServerResponse: BMR-Calculation'}</Text>
+  <Text style={{color: 'white', fontSize: 40,alignSelf: 'center', marginTop: 40}}>{Math.round(serverResponse.value)} {' kcal / day'}</Text>
+  </View>
+  }
 </ScrollView>
  
   </View>
