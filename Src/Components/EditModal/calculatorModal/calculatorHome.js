@@ -5,13 +5,15 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Colors from '../../../Styles/Colors';
 import CalcHomeScroll from './calculatorHomeScroll';
 import BMRcalc from './calculatorComponents/BMRcalc';
+import TDEEcalc from './calculatorComponents/TDEEcalc';
+import Macrocalc from './calculatorComponents/Macrocalc';
 
 
 const CalcHomeComponent = (props) => {
   const [modal_bmr_v, setVisiBMR] = useState(false);
   const [modal_bmi_v, setVisiBMI] = useState(false);
-
-  
+  const [modal_tdee_v, setVisiTDEE] = useState(false);
+  const [modal_macro_v, setVisiMacro] = useState(false);
 
   
   const toggleModal = (index) => {
@@ -24,7 +26,11 @@ const CalcHomeComponent = (props) => {
       }
       case 1: {
         
-        setVisiBMI(false);
+        setVisiTDEE(false);
+        break;
+      }
+      case 2: {
+        setVisiMacro(false);
         break;
       }
     }
@@ -36,7 +42,11 @@ const CalcHomeComponent = (props) => {
         break;
       }
       case 1: {
-        setVisiBMI(true);
+        setVisiTDEE(true);
+        break;
+      }
+      case 2: {
+        setVisiMacro(true);
         break;
       }
     }
@@ -65,6 +75,8 @@ const CalcHomeComponent = (props) => {
           <CalcHomeScroll runModal={runModal} />
         </View>
         <BMRcalc title={"BMR"} visibility={modal_bmr_v} toggleModal={toggleModal} />
+        <TDEEcalc visibility={modal_tdee_v} toggleModal={toggleModal}/>
+        <Macrocalc visibility={modal_macro_v} toggleModal={toggleModal} />
         </Modal>
         
     )
