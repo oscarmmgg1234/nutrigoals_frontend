@@ -25,7 +25,6 @@ const BMRcalc = (props) =>{
     const [formula, setFormula] = React.useState('Harris-Benedict');
     let formulaData = React.useRef(['Harris-Benedict', 'Mifflin St Jeor'])
 
-    let data = React.useRef(['Sedentary Active','Lightly Active', 'Moderately Active', 'Very Active', 'Extremely Active'])
     
     function scrollToE(){
       _scroll.scrollToEnd({animated: true});

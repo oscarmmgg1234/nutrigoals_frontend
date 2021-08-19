@@ -7,6 +7,7 @@ import CalcHomeScroll from './calculatorHomeScroll';
 import BMRcalc from './calculatorComponents/BMRcalc';
 import TDEEcalc from './calculatorComponents/TDEEcalc';
 import Macrocalc from './calculatorComponents/Macrocalc';
+import BodyFatcalc from './calculatorComponents/BodyFatcalc';
 
 
 const CalcHomeComponent = (props) => {
@@ -14,6 +15,8 @@ const CalcHomeComponent = (props) => {
   const [modal_bmi_v, setVisiBMI] = useState(false);
   const [modal_tdee_v, setVisiTDEE] = useState(false);
   const [modal_macro_v, setVisiMacro] = useState(false);
+  const [modal_bodyf_v, setVisiBodyF] = useState(false);
+
 
   
   const toggleModal = (index) => {
@@ -33,6 +36,10 @@ const CalcHomeComponent = (props) => {
         setVisiMacro(false);
         break;
       }
+      case 3: {
+        setVisiBodyF(false);
+        break;
+      }
     }
   }
   const runModal = (index) => {
@@ -48,6 +55,9 @@ const CalcHomeComponent = (props) => {
       case 2: {
         setVisiMacro(true);
         break;
+      }
+      case 3: {
+        setVisiBodyF(true);
       }
     }
   }
@@ -77,6 +87,7 @@ const CalcHomeComponent = (props) => {
         <BMRcalc title={"BMR"} visibility={modal_bmr_v} toggleModal={toggleModal} />
         <TDEEcalc visibility={modal_tdee_v} toggleModal={toggleModal}/>
         <Macrocalc visibility={modal_macro_v} toggleModal={toggleModal} />
+        <BodyFatcalc visibility={modal_bodyf_v} toggleModal={toggleModal}/>
         </Modal>
         
     )

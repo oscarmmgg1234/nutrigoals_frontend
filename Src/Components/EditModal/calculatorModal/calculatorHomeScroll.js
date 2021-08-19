@@ -9,7 +9,7 @@ class CalcHomeScroll extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            data: [{title: "BMR"},{title: "TDEE"}, {title: "Macro"}],
+            data: [{title: "BMR"},{title: "TDEE"}, {title: "Macro"}, {title: "Body Fat"}],
             activeIndex: 0
             
         }
@@ -27,6 +27,10 @@ class CalcHomeScroll extends React.Component{
             }
             case 2: {
                 this.props.runModal(2);
+                break;
+            }
+            case 3: {
+                this.props.runModal(3);
                 break;
             }
         }
