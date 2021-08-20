@@ -341,6 +341,7 @@ const TDEEcalc = (props) =>{
   </View>
 
   {serverResponse != null &&
+  
   <View style={{alignSelf: 'center', width: '100%', height: 200, backgroundColor: 'rgba(20,20,20,0.8)', marginTop: 40}}>
   <Text style={{color: 'white', fontSize: 12,alignSelf: 'center', marginTop: 6}}>{'ServerResponse: TDEE-Calculation'}</Text>
   <Text style={{color: 'white', fontSize: 40,alignSelf: 'center', marginTop: 40}}>{Math.round(picker * serverResponse.value)} {' kcal / day'}</Text>

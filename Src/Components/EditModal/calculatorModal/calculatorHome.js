@@ -8,6 +8,7 @@ import BMRcalc from './calculatorComponents/BMRcalc';
 import TDEEcalc from './calculatorComponents/TDEEcalc';
 import Macrocalc from './calculatorComponents/Macrocalc';
 import BodyFatcalc from './calculatorComponents/BodyFatcalc';
+import BMIcalc from './calculatorComponents/BMIcalc';
 
 
 const CalcHomeComponent = (props) => {
@@ -41,6 +42,10 @@ const CalcHomeComponent = (props) => {
         setVisiBodyF(false);
         break;
       }
+      case 4: {
+        setVisiBMI(false);
+        break;
+      }
     }
   }
   const runModal = (index) => {
@@ -59,6 +64,9 @@ const CalcHomeComponent = (props) => {
       }
       case 3: {
         setVisiBodyF(true);
+      }
+      case 4: {
+        setVisiBMI(true)
       }
     }
   }
@@ -89,6 +97,7 @@ const CalcHomeComponent = (props) => {
         <TDEEcalc visibility={modal_tdee_v} toggleModal={toggleModal}/>
         <Macrocalc visibility={modal_macro_v} toggleModal={toggleModal} />
         <BodyFatcalc visibility={modal_bodyf_v} toggleModal={toggleModal}/>
+        <BMIcalc visibility={modal_bmi_v} toggleModal={toggleModal}/>
         </Modal>
         
     )
