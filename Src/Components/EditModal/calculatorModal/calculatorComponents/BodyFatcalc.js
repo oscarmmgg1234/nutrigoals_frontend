@@ -50,7 +50,7 @@ const BodyFatcalc = (props) =>{
 
     initSubmit =  async () =>{
      if(unitSystem){
-      await CalcBackend.get('/BodyFatCalculator',{headers: {'gender': genderSwitch ? 'female' : 'male', 'format': 'metric', 'age': Age, 'height': heightM,'weight': weight,
+      await CalcBackend.get('/BodyFatCalculator',{headers: {'gender': genderSwitch ? 'female' : 'male', 'format': 'metric', 'age': Age, 'height': heightCM,'weight': weight,
       'formula': formula, 'waist': waistM, 'neck': neckM}})
       .then((res)=>setServerResponse(res.data))
       .catch(err=>setTimeout(()=>{setActivity(false)}, 2000))
@@ -59,7 +59,7 @@ const BodyFatcalc = (props) =>{
       const heightInch = (parseFloat(heightFeet) * 12) + parseFloat(heightInches);
       const waistInch = (parseFloat(waistFeet) * 12) + parseFloat(waistInches);
       const neckInch = (parseFloat(neckFeet) * 12) + parseFloat(neckInches);
-      await CalcBackend.get('/BMR',{headers: {'gender': genderSwitch ? 'female' : 'male', 'format': 'imperial', 'age': Age, 'height': heightInch,'weight': weight,
+      await CalcBackend.get('/BodyFatCalculator',{headers: {'gender': genderSwitch ? 'female' : 'male', 'format': 'imperial', 'age': Age, 'height': heightInch,'weight': weight,
       'formula': formula, 'waist': waistInch, 'neck': neckInch }})
       .then((res)=>{setServerResponse(res.data);console.log(res.data.value)})
       .catch(err=>setTimeout(()=>{setActivity(false)}, 2000))
@@ -480,7 +480,7 @@ const BodyFatcalc = (props) =>{
   {serverResponse != null &&
   <View style={{alignSelf: 'center', width: '100%', height: 200, backgroundColor: 'rgba(20,20,20,0.8)', marginTop: 60}}>
   <Text style={{color: 'white', fontSize: 12,alignSelf: 'center', marginTop: 6}}>{'ServerResponse: BodyFat-Calculation'}</Text>
-  <Text style={{color: 'white', fontSize: 40,alignSelf: 'center', marginTop: 40}}>{Math.round(serverResponse.value)} {' kcal / day'}</Text>
+  <Text style={{color: 'white', fontSize: 40,alignSelf: 'center', marginTop: 40}}>{Math.round(serverResponse.data)} {'%'}</Text>
   </View>
   }
 </ScrollView>

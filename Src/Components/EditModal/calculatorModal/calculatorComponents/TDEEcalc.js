@@ -95,7 +95,7 @@ const TDEEcalc = (props) =>{
     <View style={Styles.ModalHeaderView}>
       <View style={{display: 'flex', flexDirection: 'row'}}>
 
-        <Text style={Styles.homeText}>{props.title}</Text>
+        <Text style={Styles.homeText}>{'TDEE'}</Text>
       </View>
 
       <TouchableOpacity onPress={() => props.toggleModal(1)}>

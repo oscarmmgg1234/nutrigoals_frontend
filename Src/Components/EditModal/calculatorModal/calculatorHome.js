@@ -16,6 +16,7 @@ const CalcHomeComponent = (props) => {
   const [modal_tdee_v, setVisiTDEE] = useState(false);
   const [modal_macro_v, setVisiMacro] = useState(false);
   const [modal_bodyf_v, setVisiBodyF] = useState(false);
+  
 
 
   
