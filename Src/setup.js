@@ -23,7 +23,10 @@ const Root = (props) => {
     const ccday = day.dateString;
     setMarked({[ccday]: {selected: true}})
 }
-  
+  const editMarkedDate = (day) =>{
+    const nday = day;
+    setMarked({[nday]: {selected: true}})
+  }
 
 
   useEffect(async ()=>{
@@ -45,12 +48,17 @@ const Root = (props) => {
   incrementDate = () => {
     let newDate = moment(date).add(1, 'days');
     let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
+    let newMarked = moment(newDate).format('YYYY-MM-DD');
+    editMarkedDate(newMarked);
+    
     setDate(newDate);
     setDisplayText(newDisplayDate);
  }
  decrementDate = () => {
   let newDate = moment(date).subtract(1, 'days');
   let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
+  let newMarked = moment(newDate).format('YYYY-MM-DD');
+    editMarkedDate(newMarked);
   setDate(newDate);
   setDisplayText(newDisplayDate);
 }
