@@ -110,7 +110,8 @@ componentDidUpdate(prevProps, prevState){
               </View>
             </View>
             
-        <CalendarComponent visibility={this.state.calendarModalVisible} removeVis={this.removeCalendarModalView}  editDate={this.editDate} date={this.state.date}/>
+        <CalendarComponent visibility={this.state.calendarModalVisible} removeVis={this.removeCalendarModalView}  editDate={user_context.editDate} date={this.state.date} 
+        markedDate={user_context.markedDate} setMarkedDate={user_context.setMarkedDate}/>
             <View style={Styles.headerContainer}>
               <TouchableOpacity onPress={()=>user_context.decrementDate()}>
                 <Image source={Images.arrow_left} style={Styles.sideImage} />

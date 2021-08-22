@@ -3,16 +3,18 @@ import {View, Modal, Text, TouchableOpacity, TouchableWithoutFeedback} from 'rea
 import { CalendarList } from 'react-native-calendars';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment';
+import Colors from '../../../Styles/Colors';
 
 const CalendarComponent = (props) => {
-    
+  
     function dateFormat(arg){
         props.editDate(arg)
         
 
     }
-    
 
+    
+    
     return(
         <Modal transparent={true} visible={props.visibility} animationType={'slide'}>
 
@@ -22,7 +24,8 @@ const CalendarComponent = (props) => {
             <View style={{width: 300, height: 345,alignSelf: 'center', marginBottom: 50, backgroundColor: 'white', borderRadius:20, justifyContent: 'flex-end'}}>
              
             <CalendarList horizontal={true} style={{width: 300, height: 300, borderRadius: 20,}} calendarWidth={300} calendarHeight={300}
-            pagingEnabled={true} onDayPress={(day)=>dateFormat(day)} markingType={'period'} markedDates={{'2021-08-05': {selected: true, color: 'red'}}} />
+            pagingEnabled={true} theme={{todayTextColor: Colors.buttonColor}}
+            onDayPress={(day)=>{dateFormat(day); props.setMarkedDate(day)}} markingType={'simple'}  markedDates={props.markedDate}/>
             <View style={{height: 1, width: '87%',backgroundColor: 'rgba(0,0,0,0.3)', alignSelf: 'center', marginTop: 15}}/>
                <TouchableOpacity style={{alignSelf: 'center', marginTop: 15}} onPress={()=>props.removeVis()}><Icon name={'angle-double-down'} size={26} color={'rgba(0,0,0,0.8)'}/></TouchableOpacity>
         </View></TouchableWithoutFeedback>

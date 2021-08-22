@@ -17,7 +17,12 @@ const Root = (props) => {
   const [waterTracker, setWaterT] = useState('')
   const [waterText, setWaterText] = useState('Drink Water');
   const [APIT,setAPIT] = useState('');
-
+  const [markedDate, setMarked] = useState({});
+  
+  const setMarkedDate = (day) =>{
+    const ccday = day.dateString;
+    setMarked({[ccday]: {selected: true}})
+}
   
 
 
@@ -502,7 +507,9 @@ async function saveData(key, value){
             DisplayDate,
             incrementDate,
             decrementDate,
-             editDate
+             editDate,
+             markedDate,
+             setMarkedDate
             
           }}>
           <water_context.Provider

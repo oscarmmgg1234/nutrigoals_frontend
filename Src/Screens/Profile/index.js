@@ -10,7 +10,7 @@ import {
   ImageBackground,
   StatusBar,
 } from 'react-native';
-import ToggleSwitch from 'toggle-switch-react-native';
+
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import Styles from './Styles';
 import * as Constants from '../../Constants';
@@ -18,16 +18,49 @@ import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
 import {app_context} from '../../setup';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { NavigationContainer } from '@react-navigation/native';
+import CalcHomeComponent from '../../Components/EditModal/calculatorModal/calculatorHome';
+import EditMainModal from '../../Components/EditModal/editMainModal';
+
 
 class Profile extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
       toogleOn: true,
       imageProfile: '',
+      modal_calc_v: false,
+      modal_edit_v: false
+      
     };
   }
+
+  mountModal = (index) => {
+    switch(index){
+      case 0:{
+        this.setState({modal_calc_v: true});
+        break;
+      }
+      case 1: {
+        this.setState({modal_edit_v: true});
+        break;
+      }
+
+
+    }
+    }
+
+   
+    unmountModal = (index) =>{
+      switch(index){
+        case 0:{
+          this.setState({modal_calc_v: false})
+        }
+        case 1: {
+          this.setState({modal_edit_v: false})
+        }
+      }
+    }
 
   signOuty = async () => {
     await AsyncStorage.setItem('@authStatus', '0').then(() => {
@@ -68,6 +101,8 @@ class Profile extends Component {
     return (
       <>
         <StatusBar barStyle={'light-content'} hidden={false} />
+        <CalcHomeComponent visibility={this.state.modal_calc_v} toggleModal={()=>this.unmountModal(0)}/>
+        <EditMainModal modal={this.state.modal_edit_v} toggleModal={()=>this.unmountModal(1)}/>
         <SafeAreaView style={Styles.safeViewStyle1} />
         <app_context.Consumer>
           {({User, imagePath, selectImage}) => (
@@ -101,6 +136,7 @@ class Profile extends Component {
                   <View style={Styles.seperator} />
 
                   {/* Setting */}
+                  <TouchableOpacity onPress={()=>this.mountModal(1)}>
                   <View style={Styles.listWrapper}>
                     <View style={{flexDirection: 'row'}}>
                       <Icon name={'cog'} color={'white'} size={30} />
@@ -109,7 +145,7 @@ class Profile extends Component {
                     <Image source={Images.chevron} style={Styles.userImage} />
                   </View>
                   <View style={Styles.seperator} />
-
+</TouchableOpacity>
                   {/* Goals */}
                   <View style={Styles.listWrapper}>
                     <View style={{flexDirection: 'row'}}>
@@ -135,7 +171,8 @@ class Profile extends Component {
                       />
                     </View>
                     <View style={Styles.seperator} />
-                  </TouchableOpacity>
+                  </TouchableOpacity >
+                  <TouchableOpacity onPress={()=>this.mountModal(0)}>
                   <View style={Styles.listWrapper}>
                     <View style={{flexDirection: 'row'}}>
                       <Icon name={'calculator'} color={'white'} size={30} />
@@ -143,8 +180,10 @@ class Profile extends Component {
                     </View>
                     <Image source={Images.chevron} style={Styles.userImage} />
                   </View>
+                  
                   <View style={Styles.seperator} />
-
+                  </TouchableOpacity>
+                
                   {/* Remainder */}
                   <View style={Styles.listWrapper}>
                     <View style={{flexDirection: 'row'}}>

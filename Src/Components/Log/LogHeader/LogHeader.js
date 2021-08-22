@@ -15,7 +15,7 @@ const LogHeader = () => {
 
   const [editModalVisible, SetModalV] = React.useState(false);
   const [searchModalV, setSearchM] = React.useState(false);
-  const {date, DisplayDate, decrementDate, incrementDate, editDate} = React.useContext(user_context);
+  const {date, DisplayDate, decrementDate, incrementDate, editDate, setMarkedDate, markedDate} = React.useContext(user_context);
   const [calendarModalVisible, setCalendarModalV] = useState(false);
   const [visi, setVisib] = React.useState(false);
   const [searchItem, setSearchIn] = React.useState('');
@@ -58,7 +58,7 @@ function removeSearcModal(){
             </TouchableOpacity>
           </View>
         </View>
-        <CalendarComponent visibility={calendarModalVisible} removeVis={closeCModal}  editDate={editDate} date={date}/>
+        <CalendarComponent visibility={calendarModalVisible} removeVis={closeCModal}  editDate={editDate} date={date}  markedDate={markedDate} setMarkedDate={setMarkedDate}/>
         <View style={Styles.headerContainer}>
           <TouchableOpacity onPress={()=>decrementDate()}>
             <Image source={Images.arrow_left} style={Styles.sideImage} />
