@@ -1,4 +1,4 @@
-# NutriGoals-1\
+# NutriGoals-1
 
 Installing and running application on android or ios
 
