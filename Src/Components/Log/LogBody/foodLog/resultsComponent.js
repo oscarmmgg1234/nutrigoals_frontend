@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, View, Text, TouchableOpacity} from 'react-native';
 import Styles from '../../../../Screens/NutrionLog/Styles';
 import Colors from '../../../../Styles/Colors';
+
+
+
 
 const ResultsView = (props) => {
 
@@ -9,22 +12,33 @@ const ResultsView = (props) => {
     flatListRef.scrollToOffset({x: 0, animated: true})
   }, [props.data])
 
+
+  
+
   function toggleFocus(value) {
+
     if (value.toggle === false) {
       let temp = props.data.map((obj) =>
         value.name === obj.name
           ? {...obj, toggle: true}
           : {...obj, toggle: false},
       );
-      
       props.setData(temp);
+      console.log(props.data[0])
+      
+      let temp1 = props.data.filter((obj) => obj.toggle === true);
+      props.getServ(temp1);
+      
       temp.map((obj)=>{if(obj.toggle === true){props.set(obj.name)}})
+      
     } else {
       let temp = props.data.map((obj) =>
         value.name === obj.name ? {...obj, toggle: false} : obj,
       );
       props.set('')
-      props.setData(temp);
+      props.setPortionData([])
+      props.setData(temp)
+      
     }
   }
   const showFood = (value, index) => {

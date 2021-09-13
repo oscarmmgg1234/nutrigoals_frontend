@@ -19,6 +19,7 @@ const FoodLog = (props) => {
 
   const [resultsData, setData] = useState([
   ]);
+  const [portionData, setPortionData] = useState([]);
   const [foodSearch, setFoodSearch] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [input, setInput] = useState([]);
@@ -32,6 +33,8 @@ const FoodLog = (props) => {
       props.updateQuantity(obj, '1');
     }
   }
+
+
 
 
   React.useEffect(()=>{if(foodSearch != ''){setData([]);setFoodSearch('');}},[modalVisible])
@@ -137,6 +140,8 @@ const FoodLog = (props) => {
                 setData={setData}
                 foodSearch={foodSearch}
                 setFoodSearch={setFoodSearch}
+                portionData={portionData}
+                setPortionD={setPortionData}
               />
               <Icon name={'barcode'} size={36} color={'white'} style={{marginTop: 10}}/>
             </View>
