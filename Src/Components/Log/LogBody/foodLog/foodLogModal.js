@@ -13,11 +13,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ResultsView from './resultsComponent';
 import { APIBackend } from '../../../../http_config/axios_config';
 import { app_context } from '../../../../setup';
-
+import {Picker} from '@react-native-picker/picker';
 
 
 const ModalComponent = (props) => {
-  
+  const [selectedLanguage, setSelectedLanguage] = useState();
   const selected = React.useRef('');
 
   function setSelected(arg){
@@ -169,10 +169,31 @@ const ModalComponent = (props) => {
             <ResultsView data={props.resultsData} setData={props.setData} set={setSelected}/>
           </View>
           <Text style={{alignSelf: 'center', color: 'white', fontSize: 17,marginTop: 10, fontWeight: 'bold'}}>{selected.current}</Text>
+          
+          <Picker 
+            selectedValue={selectedLanguage} 
+            style={{ 
+              alignSelf: 'center',
+              height: 50, 
+              width: 150,
+              marginTop: 20,
+              justifyContent: 'center',
+            }}
+            onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+            itemStyle={{
+              color: 'white',
+              textDecorationColor: 'white',
+              fontWeight: 'bold',
+              fontSize: 17,
+            }}>
+              <Picker.Item label="Java" value="java" />
+              <Picker.Item label="JavaScript" value="js" />
+          </Picker>
+
           <View
             style={{
               alignSelf: 'center',
-              marginTop: 30,
+              marginTop: 50,
               backgroundColor: Colors.buttonColor,
               height: 40,
               alignItems: 'center',
