@@ -11,6 +11,7 @@ import Colors from '../../../../Styles/Colors';
 import Styles from '../../../../Screens/NutrionLog/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ResultsView from './resultsComponent';
+import PortionView from './portionComponent';
 import { APIBackend } from '../../../../http_config/axios_config';
 import { app_context } from '../../../../setup';
 import {Picker} from '@react-native-picker/picker';
@@ -20,10 +21,14 @@ const ModalComponent = (props) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   const selected = React.useRef('');
 
+  const [portionData, setPortionData] = React.useState([]);
+
+
   function setSelected(arg){
     selected.current = arg;
   }
 
+  
   getFood = async () =>{
     let responseObjects = await APIBackend.get('/foodSearch', {headers: {
       'token': APItoken,
@@ -44,11 +49,14 @@ const ModalComponent = (props) => {
     
   }
   const {APItoken} = React.useContext(app_context);
+  
   const [foodSearchFocus, setSFocus] = useState(false);
+  
   function inputFocus() {
     setSFocus(!foodSearchFocus);
   }
  
+  
 
   next = (res) => {
     props.addFood(res.data);
@@ -57,24 +65,38 @@ const ModalComponent = (props) => {
     
   }
   addFoodToLog = async (obj) => {
+    let num = 0;
+    portionData.map((obj, ind)=>{if(obj.toggle === true){num = ind;}} )
     
     await APIBackend.get('/getFood', {headers: {
       'token': APItoken,
       'foodId': obj[0].food_id,
+      'serving_index': num,
+
     }
     })
-    .then((res)=>{next(res)})
+    .then((res)=>{next(res);foodServings(obj);})
     .catch((err)=>{console.log(err)})
     
-    
+  }
 
+  
+
+  foodServings = async (obj) => {
     
+    await APIBackend.get('/getFoodServingSize', {headers: {'token': APItoken,
+  'foodId': obj[0].food_id,}})
+
+  .then((res)=>{let temp = res.data.data.map(obj=>{return {...obj, toggle: false}});console.log(res.data.data);setPortionData(temp)})
   }
   function addFood() {
     let temp = props.resultsData.filter((obj) => obj.toggle === true);
+
     addFoodToLog(temp);
     
   }
+
+  
   return (
     
     <Modal
@@ -88,7 +110,7 @@ const ModalComponent = (props) => {
         <View
           style={{
             width: '85%',
-            marginTop: '35%',
+            marginTop: '20%',
             backgroundColor: 'rgba(20,19,25,1.0)',
             borderRadius: 20,
             alignSelf: 'center',
@@ -166,9 +188,13 @@ const ModalComponent = (props) => {
                 alignSelf: 'center',
               }}
             />
-            <ResultsView data={props.resultsData} setData={props.setData} set={setSelected}/>
+            
+            <ResultsView data={props.resultsData} setData={props.setData} set={setSelected} getServ={foodServings} PortionData={portionData} setPortionData={setPortionData}/>
+            
+            
           </View>
           <Text style={{alignSelf: 'center', color: 'white', fontSize: 17,marginTop: 10, fontWeight: 'bold'}}>{selected.current}</Text>
+<<<<<<< HEAD
           
           <Picker 
             selectedValue={selectedLanguage} 
@@ -190,6 +216,11 @@ const ModalComponent = (props) => {
               <Picker.Item label="JavaScript" value="js" />
           </Picker>
 
+=======
+          {portionData.length > 0 && 
+          <PortionView data={portionData} setData={setPortionData} />
+  }
+>>>>>>> d44bedca3e9cb18022543132f5118941b4d4b7f6
           <View
             style={{
               alignSelf: 'center',
@@ -209,8 +240,19 @@ const ModalComponent = (props) => {
                 }}>Add</Text>
             </TouchableOpacity>
           </View> 
-          </>}
-         
+
+          {}
+
+          </>
+        
+          
+          }
+          
+          
+
+          
+
+
           <TouchableOpacity onPress={() => props.setVisible(false)}>
             <Icon
               name={'angle-double-down'}

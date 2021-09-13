@@ -11,85 +11,22 @@ export const water_context = createContext();
 export const foodLog_context = createContext();
 
 
-const Root = (props) => {
+const Root = () => {
+
+  
+  
+  {'Core App States'}
+
+  
+
+
+
   const [date, setDate] = useState('');
   const [DisplayDate, setDisplayText] = useState('');
   const [waterTracker, setWaterT] = useState('')
   const [waterText, setWaterText] = useState('Drink Water');
   const [APIT,setAPIT] = useState('');
   const [markedDate, setMarked] = useState({});
-  
-  const setMarkedDate = (day) =>{
-    const ccday = day.dateString;
-    setMarked({[ccday]: {selected: true}})
-}
-  const editMarkedDate = (day) =>{
-    const nday = day;
-    setMarked({[nday]: {selected: true}})
-  }
-
-
-  useEffect(async ()=>{
-    //eventually to improve throughput we will eventually store and check if its valid or not then take action
-    let response = await APITokenCall.get('getFoodAccessToken');
-    setAPIT(response.data.access_token);
-  },[])
-
-  updateWaterTracker = () =>{
-    const dateTime = moment.now();
-    const dateTimeText = moment(dateTime).format('h:mm a')
-    setWaterT(dateTime);
-    setWaterText(dateTimeText);
-    }
-   
-  
-  
-
-  incrementDate = () => {
-    let newDate = moment(date).add(1, 'days');
-    let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
-    let newMarked = moment(newDate).format('YYYY-MM-DD');
-    editMarkedDate(newMarked);
-    
-    setDate(newDate);
-    setDisplayText(newDisplayDate);
- }
- decrementDate = () => {
-  let newDate = moment(date).subtract(1, 'days');
-  let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
-  let newMarked = moment(newDate).format('YYYY-MM-DD');
-    editMarkedDate(newMarked);
-  setDate(newDate);
-  setDisplayText(newDisplayDate);
-}
-editDate = (arg) =>{
-  const dateString = arg.dateString;
-  const date = moment(dateString).format();
-  const DisplayDate = moment(date).format('MMMM Do, YYYY');
-  setDate(date);
-  setDisplayText(DisplayDate);
-  
-}
-  const BFLogRef = useRef([{name: 'add', id: Math.random() % 5000}]);
-  const LunchLogRef = useRef([
-    {
-      name: 'add',
-      id: Math.random() % 5000,
-    },
-  ]);
-  const DinnerLogRef = useRef([
-    {
-      name: 'add',
-      id: Math.random() % 5000,
-    },
-  ]);
-  const SnackLogRef = useRef([
-    {
-      name: 'add',
-      id: Math.random() % 5000,
-    },
-  ]);
-
   const [ThemeStyle, setThemeStyle] = useState('dark');
   const [User, setUserInfo] = useState({
     name: '',
@@ -120,8 +57,6 @@ editDate = (arg) =>{
     sodiumGoal: 0,
     sugarGoal: 0,
   });
-
-
   const [macroData, setMacroData] = useState({
     data: [
       {
@@ -166,13 +101,34 @@ editDate = (arg) =>{
       },
     ],
   });
-
   const [imagePath, setImagePath] = useState('');
+  const [AuthStatus, setAuthStatus] = useState('1');
+
+  {'Core App Refs'}
+
+  const BFLogRef = useRef([{name: 'add', id: Math.random() % 5000}]);
+  const LunchLogRef = useRef([
+    {
+      name: 'add',
+      id: Math.random() % 5000,
+    },
+  ]);
+  const DinnerLogRef = useRef([
+    {
+      name: 'add',
+      id: Math.random() % 5000,
+    },
+  ]);
+  const SnackLogRef = useRef([
+    {
+      name: 'add',
+      id: Math.random() % 5000,
+    },
+  ]);
+
+  {'useEffect functionailties'}
+
   
-  async function getData(key){
-    let response = await AsyncStorage.getItem(key);
-    return response;
-  }
 
   React.useEffect(async ()=>{if(imagePath === ''){
     const response = await getData('@userImageURI')
@@ -183,8 +139,120 @@ editDate = (arg) =>{
     setDisplayText(cDate);
     
   }})
+  useEffect(() => {
+    setMacroData({
+      data: [
+        {
+          name: 'Protein',
+          macroGoal: userGoals.proteinGoal,
+          macroCurrent: userGoals.proteinCurrent,
+          colorStart: '#fb8be3',
+          colorMiddle: '#fa7be8',
+          colorEnd: '#ff67ea',
+        },
+        {
+          name: 'Fat',
+          macroGoal: userGoals.fatGoal,
+          macroCurrent: userGoals.fatCurrent,
+          colorStart: '#fada7a',
+          colorMiddle: '#ffd968',
+          colorEnd: '#ffd454',
+        },
+        {
+          name: 'Carbohydrates',
+          macroGoal: userGoals.carbGoal,
+          macroCurrent: userGoals.carbCurrent,
+          colorStart: '#6ae7bd',
+          colorMiddle: '#5beebc',
+          colorEnd: '#49ffc2',
+        },
+        {
+          name: 'Sugar',
+          macroGoal: missGoals.sugarGoal,
+          macroCurrent: missGoals.sugarCurrent,
+          colorStart: '#74abdf',
+          colorMiddle: '#6aaeee',
+          colorEnd: '#4fa0ed',
+        },
+        {
+          name: 'Sodium',
+          macroGoal: missGoals.sodiumGoal,
+          macroCurrent: missGoals.sodiumCurrent,
+          colorStart: '#a064e0',
+          colorMiddle: '#9754de',
+          colorEnd: '#9046df',
+        },
+      ],
+    });
+  }, [userGoals]);
 
-  const [AuthStatus, setAuthStatus] = useState('1');
+  useEffect(async ()=>
+    {
+      let response = await APITokenCall.get('getFoodAccessToken');
+      setAPIT(response.data.access_token);
+    }
+  ,[])
+
+
+  {'Handler functions'}
+
+  async function getData(key){
+    let response = await AsyncStorage.getItem(key);
+    return response;
+  }
+
+
+
+  
+  const setMarkedDate = (day) =>{
+    const ccday = day.dateString;
+    setMarked({[ccday]: {selected: true}})
+}
+  const editMarkedDate = (day) =>{
+    const nday = day;
+    setMarked({[nday]: {selected: true}})
+  }
+
+
+  
+  updateWaterTracker = () =>{
+    const dateTime = moment.now();
+    const dateTimeText = moment(dateTime).format('h:mm a')
+    setWaterT(dateTime);
+    setWaterText(dateTimeText);
+    }
+   
+  
+  
+
+  incrementDate = () => {
+    let newDate = moment(date).add(1, 'days');
+    let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
+    let newMarked = moment(newDate).format('YYYY-MM-DD');
+    editMarkedDate(newMarked);
+    
+    setDate(newDate);
+    setDisplayText(newDisplayDate);
+ }
+ decrementDate = () => {
+  let newDate = moment(date).subtract(1, 'days');
+  let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
+  let newMarked = moment(newDate).format('YYYY-MM-DD');
+    editMarkedDate(newMarked);
+  setDate(newDate);
+  setDisplayText(newDisplayDate);
+}
+editDate = (arg) =>{
+  const dateString = arg.dateString;
+  const date = moment(dateString).format();
+  const DisplayDate = moment(date).format('MMMM Do, YYYY');
+  setDate(date);
+  setDisplayText(DisplayDate);
+  
+}
+  
+  
+  
 
   function setLogQuantity(object, value) {
     console.log(`entry: will now begin to setValue with value ${value}`);
@@ -237,6 +305,7 @@ editDate = (arg) =>{
         soc += obj.sodium * parseFloat(obj.quantity);
       }
     });
+    
     LunchLogRef.current.map((obj, index) => {
       if (index > 0) {
         pc += obj.protein * obj.quantity;
@@ -388,52 +457,7 @@ editDate = (arg) =>{
     }
   }
 
-  useEffect(() => {
-    setMacroData({
-      data: [
-        {
-          name: 'Protein',
-          macroGoal: userGoals.proteinGoal,
-          macroCurrent: userGoals.proteinCurrent,
-          colorStart: '#fb8be3',
-          colorMiddle: '#fa7be8',
-          colorEnd: '#ff67ea',
-        },
-        {
-          name: 'Fat',
-          macroGoal: userGoals.fatGoal,
-          macroCurrent: userGoals.fatCurrent,
-          colorStart: '#fada7a',
-          colorMiddle: '#ffd968',
-          colorEnd: '#ffd454',
-        },
-        {
-          name: 'Carbohydrates',
-          macroGoal: userGoals.carbGoal,
-          macroCurrent: userGoals.carbCurrent,
-          colorStart: '#6ae7bd',
-          colorMiddle: '#5beebc',
-          colorEnd: '#49ffc2',
-        },
-        {
-          name: 'Sugar',
-          macroGoal: missGoals.sugarGoal,
-          macroCurrent: missGoals.sugarCurrent,
-          colorStart: '#74abdf',
-          colorMiddle: '#6aaeee',
-          colorEnd: '#4fa0ed',
-        },
-        {
-          name: 'Sodium',
-          macroGoal: missGoals.sodiumGoal,
-          macroCurrent: missGoals.sodiumCurrent,
-          colorStart: '#a064e0',
-          colorMiddle: '#9754de',
-          colorEnd: '#9046df',
-        },
-      ],
-    });
-  }, [userGoals]);
+ 
 
   function setGoalsR(val, val2, val3, val4, val5) {
     setUserGoals({
@@ -547,7 +571,7 @@ async function saveData(key, value){
               }}>
               <View style={{flex: 1}}>
                 
-                <RootNavigation />
+                <RootNavigation /> 
                 
               </View>
             </foodLog_context.Provider>
