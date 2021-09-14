@@ -18,10 +18,15 @@ import { app_context } from '../../../../setup';
 
 
 const ModalComponent = (props) => {
+
   
   const selected = React.useRef('');
 
+  
   const [portionData, setPortionData] = React.useState([]);
+
+  
+
 
 
   function setSelected(arg){
@@ -38,7 +43,7 @@ const ModalComponent = (props) => {
     
     if(responseObjects.data.foods.food.length > 0){
       const results = responseObjects.data.foods.food.map(obj=>{
-        return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id, 
+        return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id,
         }
       })
       props.setData(results);
@@ -84,10 +89,11 @@ const ModalComponent = (props) => {
 
   foodServings = async (obj) => {
     
+    
     await APIBackend.get('/getFoodServingSize', {headers: {'token': APItoken,
   'foodId': obj[0].food_id,}})
 
-  .then((res)=>{let temp = res.data.data.map(obj=>{return {...obj, toggle: false}});console.log(res.data.data);setPortionData(temp)})
+  .then((res)=>{let temp = res.data.data.map(obj=>{return {...obj, toggle: false}});setPortionData(temp)})
   }
   function addFood() {
     let temp = props.resultsData.filter((obj) => obj.toggle === true);
@@ -190,7 +196,8 @@ const ModalComponent = (props) => {
             />
             
             <ResultsView data={props.resultsData} setData={props.setData} set={setSelected} getServ={foodServings} PortionData={portionData} setPortionData={setPortionData}/>
-            
+            <View style={{}}>
+              </View>
             
           </View>
           <Text style={{alignSelf: 'center', color: 'white', fontSize: 17,marginTop: 10, fontWeight: 'bold'}}>{selected.current}</Text>

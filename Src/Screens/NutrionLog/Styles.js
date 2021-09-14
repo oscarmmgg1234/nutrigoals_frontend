@@ -2,7 +2,9 @@ import {StyleSheet, Dimensions} from 'react-native';
 import Colors from '../../Styles/Colors';
 import {color} from 'react-native-reanimated';
 const widthScreen = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
+
   safeViewStyle1: {
     backgroundColor: Colors.ok,
   },
