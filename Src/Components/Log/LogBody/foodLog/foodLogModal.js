@@ -38,18 +38,20 @@ const ModalComponent = (props) => {
   getFood = async (pageNumber) =>{
     
     props.setData([]);
-    setPortionData([]);
+    
     let responseObjects = await APIBackend.get('/foodSearch', {headers: {
       'token': APItoken,
       'food': props.foodSearch,
       'page_number' : pageNumber
     }});
+    
     totalResults.current = responseObjects.data.foods;
     if(responseObjects.data.foods.food.length > 0){
       const results = responseObjects.data.foods.food.map(obj=>{
         return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id,
         }
       })
+      setPortionData([]);
       props.setData(results);
     }
     else{
