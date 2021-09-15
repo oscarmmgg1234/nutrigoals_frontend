@@ -37,7 +37,8 @@ const ModalComponent = (props) => {
   
   getFood = async (pageNumber) =>{
     
-    props.setData([])
+    props.setData([]);
+    setPortionData([]);
     let responseObjects = await APIBackend.get('/foodSearch', {headers: {
       'token': APItoken,
       'food': props.foodSearch,
