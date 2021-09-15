@@ -21,6 +21,7 @@ const ModalComponent = (props) => {
 
   
   const selected = React.useRef('');
+  const totalResults = React.useRef(0);
 
   
   const [portionData, setPortionData] = React.useState([]);
@@ -34,13 +35,15 @@ const ModalComponent = (props) => {
   }
 
   
-  getFood = async () =>{
+  getFood = async (pageNumber) =>{
+    
+    props.setData([])
     let responseObjects = await APIBackend.get('/foodSearch', {headers: {
       'token': APItoken,
       'food': props.foodSearch,
+      'page_number' : pageNumber
     }});
-    
-    
+    totalResults.current = responseObjects.data.foods;
     if(responseObjects.data.foods.food.length > 0){
       const results = responseObjects.data.foods.food.map(obj=>{
         return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id,
@@ -96,8 +99,9 @@ const ModalComponent = (props) => {
   .then((res)=>{let temp = res.data.data.map(obj=>{return {...obj, toggle: false}});setPortionData(temp)})
   }
   function addFood() {
+    
     let temp = props.resultsData.filter((obj) => obj.toggle === true);
-
+    
     addFoodToLog(temp);
     
   }
@@ -172,7 +176,7 @@ const ModalComponent = (props) => {
               onBlur={inputFocus}
             />
             {props.foodSearch.length > 0 && (
-              <TouchableOpacity onPress={()=>getFood()}>
+              <TouchableOpacity onPress={()=>getFood(0)}>
                 <Icon
                   name={'search'}
                   color={'white'}
@@ -184,7 +188,7 @@ const ModalComponent = (props) => {
           </View>
 {props.resultsData.length > 0 && props.foodSearch.length > 0 &&  <> 
 <View style={Styles.ResultModal}>
-            <Text style={{color: 'white', alignSelf: 'center', marginTop: 6}}>Results</Text>
+            <Text style={{color: 'white', alignSelf: 'center', marginTop: 6}}>Results: {totalResults.current.total_results}</Text>
             <View
               style={{
                 marginTop: 10,
@@ -196,11 +200,29 @@ const ModalComponent = (props) => {
             />
             
             <ResultsView data={props.resultsData} setData={props.setData} set={setSelected} getServ={foodServings} PortionData={portionData} setPortionData={setPortionData}/>
-            <View style={{}}>
+            
+             
+              <View style={Styles.PageResultContainer}>
+                {parseFloat(totalResults.current.page_number) > 0 ? 
+                <TouchableOpacity onPress={()=>getFood(parseFloat(totalResults.current.page_number) - 1)}>
+                <Icon name={'chevron-circle-left'} color={'white'} size={25}/>
+                </TouchableOpacity> : 
+                <Icon name={'chevron-circle-left'} color={'grey'} size={25}/>
+                }
+                <Text style={{color: 'white'}}>
+                {'Page: '} {totalResults.current.page_number}
+                </Text>
+                { (parseFloat(totalResults.current.page_number)+1) < Math.ceil(parseFloat(totalResults.current.total_results) / 20) ? 
+                <TouchableOpacity onPress={()=>getFood(parseFloat(totalResults.current.page_number) + 1)}>
+                <Icon name={'chevron-circle-right'} color={'white'} size={25}/>
+                </TouchableOpacity> :
+                <Icon name={'chevron-circle-right'} color={'grey'} size={25}/>
+                }
+                </View>
               </View>
             
-          </View>
-          <Text style={{alignSelf: 'center', color: 'white', fontSize: 17,marginTop: 10, fontWeight: 'bold'}}>{selected.current}</Text>
+          
+          <Text style={{alignSelf: 'center', color: 'white', fontSize: 17,marginVertical: 20, fontWeight: 'bold'}}>{selected.current}</Text>
           {portionData.length > 0 && 
           <PortionView data={portionData} setData={setPortionData} />
   }
