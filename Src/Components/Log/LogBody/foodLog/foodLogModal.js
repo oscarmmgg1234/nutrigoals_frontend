@@ -194,7 +194,6 @@ const ModalComponent = (props) => {
             
           </View>
           <Text style={{alignSelf: 'center', color: 'white', fontSize: 17,marginTop: 10, fontWeight: 'bold'}}>{selected.current}</Text>
-<<<<<<< HEAD
           
           <Picker 
             selectedValue={selectedLanguage} 
@@ -216,11 +215,9 @@ const ModalComponent = (props) => {
               <Picker.Item label="JavaScript" value="js" />
           </Picker>
 
-=======
           {portionData.length > 0 && 
           <PortionView data={portionData} setData={setPortionData} />
   }
->>>>>>> d44bedca3e9cb18022543132f5118941b4d4b7f6
           <View
             style={{
               alignSelf: 'center',
