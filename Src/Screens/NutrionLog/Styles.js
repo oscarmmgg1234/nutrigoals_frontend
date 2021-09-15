@@ -2,7 +2,9 @@ import {StyleSheet, Dimensions} from 'react-native';
 import Colors from '../../Styles/Colors';
 import {color} from 'react-native-reanimated';
 const widthScreen = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
+
   safeViewStyle1: {
     backgroundColor: Colors.ok,
   },
@@ -232,13 +234,22 @@ const styles = StyleSheet.create({
   ResultModal: {
 
     width: '80%',
-    height: 260,
+    height: 280,
     backgroundColor: Colors.backgroundColor,
     alignSelf: 'center',
     borderRadius: 20,
-    marginTop: 20,
+    marginTop: 15,
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.2)'
+  },
+  PageResultContainer: {
+    width: '90%',
+    flexDirection: 'row',
+    display: 'flex',
+    alignSelf: 'center',
+    justifyContent: 'space-around',
+    alignItems: 'center'
   }
+
 });
 export default styles;

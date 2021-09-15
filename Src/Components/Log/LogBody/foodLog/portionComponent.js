@@ -10,9 +10,7 @@ const PortionView = (props) => {
 
 
   function toggleFocus(value, index) {
-    
-    
-
+  
     if (value.toggle === false) {
       let temp = props.data.map((obj, ind) =>
         index === ind

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, View, Text, TouchableOpacity} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import Styles from '../../../../Screens/NutrionLog/Styles';
 import Colors from '../../../../Styles/Colors';
 
@@ -15,25 +16,28 @@ const ResultsView = (props) => {
 
   
 
-  function toggleFocus(value) {
+  function toggleFocus(value, index) {
 
     if (value.toggle === false) {
-      let temp = props.data.map((obj) =>
-        value.name === obj.name
+      let temp = props.data.map((obj, ind) =>
+        index === ind
           ? {...obj, toggle: true}
           : {...obj, toggle: false},
       );
+     
       props.setData(temp);
-      console.log(props.data[0])
       
-      let temp1 = props.data.filter((obj) => obj.toggle === true);
+      // use temp to filter obj to get servings for food
+      let temp1 = temp.filter((obj) => obj.toggle === true);
       props.getServ(temp1);
+      
+      
       
       temp.map((obj)=>{if(obj.toggle === true){props.set(obj.name)}})
       
     } else {
-      let temp = props.data.map((obj) =>
-        value.name === obj.name ? {...obj, toggle: false} : obj,
+      let temp = props.data.map((obj, ind) =>
+        index === ind ? {...obj, toggle: false} : obj,
       );
       props.set('')
       props.setPortionData([])
@@ -44,7 +48,7 @@ const ResultsView = (props) => {
   const showFood = (value, index) => {
     return (
       <>
-        <TouchableOpacity onPress={() => toggleFocus(value)}>
+        <TouchableOpacity onPress={() => toggleFocus(value, index)}>
           <View
             style={[
               Styles.showbackGroundContent2,
@@ -71,6 +75,8 @@ const ResultsView = (props) => {
     <>
       <View style={Styles.headerContentWrapper}>
         <View style={Styles.headerContent}>
+          
+
           <FlatList
             ref={(ref)=>{this.flatListRef = ref}}
             initialNumToRender={5}
@@ -79,6 +85,7 @@ const ResultsView = (props) => {
             data={props.data}
             renderItem={({item,index}) => showFood(item, index)}
             keyExtractor={(item) => item.id}
+            
           />
         </View>
       </View>
