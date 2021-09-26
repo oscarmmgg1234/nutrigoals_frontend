@@ -6,28 +6,39 @@ import Styles from '../../Screens/NutrionLog/Styles';
 
 const ResultsViewSearch = (props) => {
 
+  React.useEffect(()=>{
+    flatListRef.scrollToOffset({x: 0, animated: true})
+  }, [props.data])
     
-    function toggleFocus(value) {
+    function toggleFocus(value, index) {
       if (value.toggle === false) {
-        let temp = props.data.map((obj) =>
-          value.name === obj.name
+        let temp = props.data.map((obj, ind) =>
+          index === ind
             ? {...obj, toggle: true}
             : {...obj, toggle: false},
         );
         props.visBool(true)
         props.setData(temp);
+      
+      // use temp to filter obj to get servings for food
+      let temp1 = temp.filter((obj) => obj.toggle === true);
+      props.getServ(temp1);
+      
+      temp.map((obj)=>{if(obj.toggle === true){props.set(obj.name)}})
+
       } else {
-        let temp = props.data.map((obj) =>
-          value.name === obj.name ? {...obj, toggle: false} : obj,
+        let temp = props.data.map((obj, ind) =>
+          index === ind ? {...obj, toggle: false} : obj,
         );
         props.setData(temp);
+        props.setPortionData([])
         props.visBool(false)
       }
     }
     const showFood = (value, index) => {
       return (
         <>
-          <TouchableOpacity onPress={() => toggleFocus(value)}>
+          <TouchableOpacity onPress={() => toggleFocus(value, index)}>
             <View
               style={[
                 Styles.showbackGroundContent2,
@@ -55,7 +66,7 @@ const ResultsViewSearch = (props) => {
         <View style={Styles.headerContentWrapper}>
           <View style={Styles.headerContent}>
             <FlatList
-              
+              ref={(ref)=>{this.flatListRef = ref}}
               initialNumToRender={5}
               showsHorizontalScrollIndicator={false}
               horizontal={true}

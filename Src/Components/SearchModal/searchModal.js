@@ -11,6 +11,7 @@ import Colors from '../../Styles/Colors';
 import Styles from '../../Screens/NutrionLog/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ResultsViewSearch from './resultView';
+import PortionView from '../Log/LogBody/foodLog/portionComponent';
 import { app_context } from '../../setup';
 import { foodLog_context } from '../../setup';
 import { APIBackend } from '../../http_config/axios_config';
@@ -18,24 +19,43 @@ import { APIBackend } from '../../http_config/axios_config';
 
 
 const SearchModal = (props) => {
-  getFood = async () =>{
+  const selected = React.useRef('');
+  const totalResults = React.useRef(0);
+
+  const [portionData, setPortionData] = React.useState([]);
+
+  getFood = async (pageNumber) =>{
+    
+    props.setData([]);
+    
     let responseObjects = await APIBackend.get('/foodSearch', {headers: {
       'token': APItoken,
-      'food': props.searchItem,
-    }})
+      'food': props.foodSearch,
+      'page_number' : pageNumber
+    }});
     
-    
+    totalResults.current = responseObjects.data.foods;
     if(responseObjects.data.foods.food.length > 0){
       const results = responseObjects.data.foods.food.map(obj=>{
-        return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id, 
+        return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id,
         }
       })
+      setPortionData([]);
       props.setData(results);
     }
     else{
       alert('no results');
     }
     
+  }
+
+
+  const {APItoken} = React.useContext(app_context);
+
+  const [foodSearchFocus, setSFocus] = useState(false);
+  
+  function inputFocus() {
+    setSFocus(!foodSearchFocus);
   }
 
   logLevel = (res) => {
@@ -58,18 +78,25 @@ const SearchModal = (props) => {
     
   }
   addFoodToLog = async (obj) => {
-    
+    let num = 0;
+    portionData.map((obj, ind)=>{if(obj.toggle === true){num = ind;}} )
+
     await APIBackend.get('/getFood', {headers: {
       'token': APItoken,
       'foodId': obj[0].food_id,
+      'serving_index': num,
     }
     })
     .then((res)=>{next(res)})
     .catch((err)=>{console.log(err)})
+  }
+  foodServings = async (obj) => {
     
     
+    await APIBackend.get('/getFoodServingSize', {headers: {'token': APItoken,
+  'foodId': obj[0].food_id,}})
 
-    
+  .then((res)=>{let temp = res.data.data.map(obj=>{return {...obj, toggle: false}});setPortionData(temp)})
   }
   function addFood() {
     let temp = props.data.filter((obj) => obj.toggle === true);
@@ -80,7 +107,6 @@ const SearchModal = (props) => {
     
   }
 
-  const {APItoken} = React.useContext(app_context);
   const { editBFLogData,
     editLunchLogData,
     editDinnerLogData,
@@ -181,7 +207,7 @@ const SearchModal = (props) => {
               </View>
               {props.data.length > 0 && (<>
              <View style={Styles.ResultModal}>
-            <Text style={{color: 'white', alignSelf: 'center', marginTop: 6}}>Results</Text>
+            <Text style={{color: 'white', alignSelf: 'center', marginTop: 6}}>Results: {totalResults.current.totalResults}</Text>
             <View
               style={{
                 marginTop: 10,
@@ -191,7 +217,7 @@ const SearchModal = (props) => {
                 alignSelf: 'center',
               }}
             />
-            <ResultsViewSearch data={props.data} setData={props.setData} visBool={props.setVisi}/>
+        <ResultsViewSearch data={props.data} setData={props.setData} visBool={props.setVisi}  set={setSelected} getServ={foodServings} PortionData={portionData} setPortionData={setPortionData}/>
           </View>
           { props.visi === true && (
               <View style={{width: '93%', backgroundColor: Colors.texInputBackground, alignSelf: 'center',
