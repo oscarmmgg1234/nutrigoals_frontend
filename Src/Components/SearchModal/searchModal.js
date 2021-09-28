@@ -24,13 +24,17 @@ const SearchModal = (props) => {
 
   const [portionData, setPortionData] = React.useState([]);
 
+
+  function setSelected(arg){
+    selected.current = arg;
+  }
   getFood = async (pageNumber) =>{
     
-    props.setData([]);
+    // props.setData([]);
     
     let responseObjects = await APIBackend.get('/foodSearch', {headers: {
       'token': APItoken,
-      'food': props.foodSearch,
+      'food': props.searchItem,
       'page_number' : pageNumber
     }});
     
@@ -199,7 +203,7 @@ const SearchModal = (props) => {
                   }}
                 />
                 {props.searchItem.length > 0 ? (
-                  <TouchableOpacity style={{marginRight: 10}} onPress={()=>getFood()}>
+                  <TouchableOpacity style={{marginRight: 10}} onPress={()=>getFood(0)}>
                     <Icon name={'search'} color={'white'} size={29} />
                   </TouchableOpacity>
                 ) : null}
@@ -219,7 +223,31 @@ const SearchModal = (props) => {
               }}
             />
         <ResultsViewSearch data={props.data} setData={props.setData} visBool={props.setVisi}  set={setSelected} getServ={foodServings} PortionData={portionData} setPortionData={setPortionData}/>
+        {/* View for Page buttons */}
+        <View style={Styles.PageResultContainer}>
+                {parseFloat(totalResults.current.page_number) > 0 ? 
+                <TouchableOpacity onPress={()=>getFood(parseFloat(totalResults.current.page_number) - 1)} onLongPress={()=>getFood(0)}>
+                <Icon name={'chevron-circle-left'} color={'white'} size={25}/>
+                </TouchableOpacity> : 
+                <Icon name={'chevron-circle-left'} color={'grey'} size={25}/>
+                }
+                <Text style={{color: 'white'}}>
+                {'Page: '} {totalResults.current.page_number}
+                </Text>
+                { (parseFloat(totalResults.current.page_number)+1) < Math.ceil(parseFloat(totalResults.current.total_results) / 20) ? 
+                <TouchableOpacity onPress={()=>getFood(parseFloat(totalResults.current.page_number) + 1)}  onLongPress={()=>getFood((Math.ceil(parseFloat(totalResults.current.total_results) / 20 )) -1)}>
+                <Icon name={'chevron-circle-right'} color={'white'} size={25}/>
+                </TouchableOpacity> :
+                <Icon name={'chevron-circle-right'} color={'grey'} size={25}/>
+                }
           </View>
+          {/* End of page buttons */}
+          </View>
+          {/* Portion data function */}
+          {portionData.length > 0 && 
+          <PortionView data={portionData} setData={setPortionData} />
+          }
+                
           { props.visi === true && (
               <View style={{width: '93%', backgroundColor: Colors.texInputBackground, alignSelf: 'center',
               borderRadius: 20, marginTop: 40, height: 70}}>

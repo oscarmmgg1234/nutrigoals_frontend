@@ -46,6 +46,7 @@ const ModalComponent = (props) => {
     }});
     
     totalResults.current = responseObjects.data.foods;
+    console.log(totalResults.current)
     if(responseObjects.data.foods.food.length > 0){
       const results = responseObjects.data.foods.food.map(obj=>{
         return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id,
@@ -203,11 +204,10 @@ const ModalComponent = (props) => {
             />
             
             <ResultsView data={props.resultsData} setData={props.setData} set={setSelected} getServ={foodServings} PortionData={portionData} setPortionData={setPortionData}/>
-            
-             
+              {/* Start of Page buttons */}
               <View style={Styles.PageResultContainer}>
                 {parseFloat(totalResults.current.page_number) > 0 ? 
-                <TouchableOpacity onPress={()=>getFood(parseFloat(totalResults.current.page_number) - 1)}>
+                <TouchableOpacity onPress={()=>getFood(parseFloat(totalResults.current.page_number) - 1)} onLongPress={()=>getFood(0)}>
                 <Icon name={'chevron-circle-left'} color={'white'} size={25}/>
                 </TouchableOpacity> : 
                 <Icon name={'chevron-circle-left'} color={'grey'} size={25}/>
@@ -216,17 +216,19 @@ const ModalComponent = (props) => {
                 {'Page: '} {totalResults.current.page_number}
                 </Text>
                 { (parseFloat(totalResults.current.page_number)+1) < Math.ceil(parseFloat(totalResults.current.total_results) / 20) ? 
-                <TouchableOpacity onPress={()=>getFood(parseFloat(totalResults.current.page_number) + 1)}>
+                <TouchableOpacity onPress={()=>getFood(parseFloat(totalResults.current.page_number) + 1)} onLongPress={()=>getFood((Math.ceil(parseFloat(totalResults.current.total_results) / 20 )) -1)}>
                 <Icon name={'chevron-circle-right'} color={'white'} size={25}/>
                 </TouchableOpacity> :
                 <Icon name={'chevron-circle-right'} color={'grey'} size={25}/>
                 }
                 </View>
+                {/* End of Page Buttons */}
               </View>
             
           
           <Text style={{alignSelf: 'center', color: 'white', fontSize: 17,marginVertical: 20, fontWeight: 'bold'}}>{selected.current}</Text>
           {portionData.length > 0 && 
+          // Portion data function
           <PortionView data={portionData} setData={setPortionData} />
   }
           <View
