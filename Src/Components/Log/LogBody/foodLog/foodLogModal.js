@@ -37,7 +37,7 @@ const ModalComponent = (props) => {
   
   getFood = async (pageNumber) =>{
     
-    props.setData([]);
+    //props.setData([]);
     
     let responseObjects = await APIBackend.get('/foodSearch', {headers: {
       'token': APItoken,
@@ -46,13 +46,14 @@ const ModalComponent = (props) => {
     }});
     
     totalResults.current = responseObjects.data.foods;
-    console.log(totalResults.current)
+    
     if(responseObjects.data.foods.food.length > 0){
       const results = responseObjects.data.foods.food.map(obj=>{
-        return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id,
+        return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id, 
+          brandName: obj.brand_name 
         }
       })
-      setPortionData([]);
+      //setPortionData([]);
       props.setData(results);
     }
     else{
@@ -100,7 +101,7 @@ const ModalComponent = (props) => {
     await APIBackend.get('/getFoodServingSize', {headers: {'token': APItoken,
   'foodId': obj[0].food_id,}})
 
-  .then((res)=>{let temp = res.data.data.map(obj=>{return {...obj, toggle: false}});setPortionData(temp)})
+  .then((res)=>{let temp = res.data.data.map(obj=>{return {...obj, toggle: false}});setPortionData(temp);})
   }
   function addFood() {
     
@@ -227,7 +228,7 @@ const ModalComponent = (props) => {
             
           
           <Text style={{alignSelf: 'center', color: 'white', fontSize: 17,marginVertical: 20, fontWeight: 'bold'}}>{selected.current}</Text>
-          {portionData.length > 0 && 
+          {portionData.length > 0 &&
           // Portion data function
           <PortionView data={portionData} setData={setPortionData} />
   }

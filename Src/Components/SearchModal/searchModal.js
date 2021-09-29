@@ -17,7 +17,6 @@ import { foodLog_context } from '../../setup';
 import { APIBackend } from '../../http_config/axios_config';
 
 
-
 const SearchModal = (props) => {
   const selected = React.useRef('');
   const totalResults = React.useRef(0);
@@ -39,13 +38,13 @@ const SearchModal = (props) => {
     }});
     
     totalResults.current = responseObjects.data.foods;
-    console.log(totalResults.current)
     if(responseObjects.data.foods.food.length > 0){
       const results = responseObjects.data.foods.food.map(obj=>{
         return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id,
+          brand_name: obj.brand_name,
         }
       })
-      setPortionData([]);
+      //setPortionData([]);
       props.setData(results);
     }
     else{

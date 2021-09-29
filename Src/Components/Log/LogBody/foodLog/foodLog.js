@@ -53,6 +53,15 @@ const FoodLog = (props) => {
                   }}>
                   {value.name}
                 </Text>
+                {value.brand_name != null &&  <Text
+                  style={{
+                    color: 'rgba(195,150,200,1)',
+                    fontSize: 12,
+                    fontWeight: '500',
+                    marginTop: 4
+                  }}>
+                  {'(' + value.brand_name + ')'}
+                </Text>}
               </View>
             </TouchableOpacity>
             <View style={Styles.divider} />
