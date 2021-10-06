@@ -6,9 +6,9 @@ import Styles from '../../Screens/NutrionLog/Styles';
 
 const ResultsViewSearch = (props) => {
 
-  React.useEffect(()=>{
-    flatListRef.scrollToOffset({x: 0, animated: true})
-  }, [props.data])
+  // React.useEffect(()=>{
+  //   flatListRef.scrollToOffset({x: 0, animated: true})
+  // }, [props.data])
     
     function toggleFocus(value, index) {
       if (value.toggle === false) {
@@ -54,7 +54,9 @@ const ResultsViewSearch = (props) => {
               <Text style={{fontWeight: 'bold', color: 'white', fontSize: 15, alignSelf: 'center', marginTop: 6,paddingLeft: 4}}>{value.name}</Text>
               <View style={{height: 1, width: '100%', backgroundColor: Colors.black, alignSelf: 'center', marginTop: 10}}/>
               <Text style={{color: 'rgba(255,255,255,0.8)', fontSize: 11, alignSelf: 'center', marginTop: 6,paddingLeft: 4}}>{value.food_description}</Text>
-              
+              {value.brandName != null && 
+              <Text style={{color: 'rgba(255,255,255,0.8)', fontSize: 11, alignSelf: 'center', marginTop: 2,paddingLeft: 1}}>brand name: {value.brandName}</Text>
+            }
             </View>
           </TouchableOpacity>
         </>

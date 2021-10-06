@@ -20,7 +20,7 @@ import {app_context} from '../../setup';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CalcHomeComponent from '../../Components/EditModal/calculatorModal/calculatorHome';
 import EditMainModal from '../../Components/EditModal/editMainModal';
-
+import ProfileSettings from '../../Components/EditModal/profileSettingsModal/profileSettings';
 
 class Profile extends Component {
   
@@ -30,8 +30,8 @@ class Profile extends Component {
       toogleOn: true,
       imageProfile: '',
       modal_calc_v: false,
-      modal_edit_v: false
-      
+      modal_edit_v: false,
+      modal_profile_v: false,
     };
   }
 
@@ -45,6 +45,10 @@ class Profile extends Component {
         this.setState({modal_edit_v: true});
         break;
       }
+      case 2: {
+        this.setState({modal_profile_v: true});
+        break;
+      }
 
 
     }
@@ -54,10 +58,17 @@ class Profile extends Component {
     unmountModal = (index) =>{
       switch(index){
         case 0:{
-          this.setState({modal_calc_v: false})
+          this.setState({modal_calc_v: false});
+          break;
         }
         case 1: {
           this.setState({modal_edit_v: false})
+          break;
+        }
+        case 2: {
+          this.setState({modal_profile_v: false})
+          console.log('pressed button')
+          break;
         }
       }
     }
@@ -103,6 +114,7 @@ class Profile extends Component {
         <StatusBar barStyle={'light-content'} hidden={false} />
         <CalcHomeComponent visibility={this.state.modal_calc_v} toggleModal={()=>this.unmountModal(0)}/>
         <EditMainModal modal={this.state.modal_edit_v} toggleModal={()=>this.unmountModal(1)}/>
+        <ProfileSettings modal={this.state.modal_profile_v} toggleModal={()=>this.unmountModal(2)}/>
         <SafeAreaView style={Styles.safeViewStyle1} />
         <app_context.Consumer>
           {({User, imagePath, selectImage}) => (
@@ -123,9 +135,9 @@ class Profile extends Component {
                     </View>
                   </ImageBackground>
                 </TouchableOpacity>
-
                 <View style={Styles.profileMain}>
                   {/* Profile */}
+                <TouchableOpacity onPress={()=>this.mountModal(2)}>
                   <View style={Styles.listWrapper}>
                     <View style={{flexDirection: 'row'}}>
                       <Icon name={'user-o'} color={'white'} size={30} />
@@ -133,8 +145,8 @@ class Profile extends Component {
                     </View>
                     <Image source={Images.chevron} style={Styles.userImage} />
                   </View>
-                  <View style={Styles.seperator} />
-
+                <View style={Styles.seperator} />
+                </TouchableOpacity>
                   {/* Setting */}
                   <TouchableOpacity onPress={()=>this.mountModal(1)}>
                   <View style={Styles.listWrapper}>
@@ -145,7 +157,7 @@ class Profile extends Component {
                     <Image source={Images.chevron} style={Styles.userImage} />
                   </View>
                   <View style={Styles.seperator} />
-</TouchableOpacity>
+                  </TouchableOpacity>
                   {/* Goals */}
                   <View style={Styles.listWrapper}>
                     <View style={{flexDirection: 'row'}}>

@@ -49,7 +49,7 @@ const ModalComponent = (props) => {
     console.log(totalResults.current)
     if(responseObjects.data.foods.food.length > 0){
       const results = responseObjects.data.foods.food.map(obj=>{
-        return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id,
+        return {name: obj.food_name, toggle: false,id: (Math.random() % 100), foodType: obj.food_type,food_description: obj.food_description, food_id: obj.food_id, brandName: obj.brand_name,
         }
       })
       setPortionData([]);
