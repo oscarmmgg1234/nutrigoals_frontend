@@ -47,8 +47,7 @@ class RegisterUserName extends Component {
   };
 
   UsernameStatus = () => {
-    registerUser(this.state.userName, this.state.name, this.state.email);
-    registerUserCredentials(this.state.userName, this.state.password);
+    registerUser(this.state.userName, this.state.name, this.state.email, this.state.password);
     this.props.navigation.navigate('Login');
   };
 

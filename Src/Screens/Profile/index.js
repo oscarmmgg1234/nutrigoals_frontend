@@ -14,7 +14,6 @@ import {
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import Styles from './Styles';
 import * as Constants from '../../Constants';
-import Colors from '../../Styles/Colors';
 import Images from '../../Styles/Images';
 import {app_context} from '../../setup';
 import Icon from 'react-native-vector-icons/FontAwesome';

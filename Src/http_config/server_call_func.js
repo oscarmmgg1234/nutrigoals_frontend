@@ -11,7 +11,7 @@ const saltRounds = 5;
 {
   /*auth server calls*/
 }
-AuthSeverCall.defaults.timeout = 1500;
+AuthSeverCall.defaults.timeout = 2000;
 export const checkUsernameStatus = (username) => {
   let result;
   AuthSeverCall.get('/usernameStatus', {username: username}).then(function (
@@ -22,17 +22,12 @@ export const checkUsernameStatus = (username) => {
   return result;
 };
 
-export const registerUser = (username, name, email) => {
+export const registerUser = (username, name, email, password) => {
   AuthSeverCall.post('/register/user', {
     username: username,
     name: name,
     email: email,
+    password: password
   });
 };
 
-export const registerUserCredentials = (username, password) => {
-  AuthSeverCall.post('/register', {
-    username: username,
-    password: password,
-  });
-};

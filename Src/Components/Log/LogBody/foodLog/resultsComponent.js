@@ -9,9 +9,9 @@ import Colors from '../../../../Styles/Colors';
 
 const ResultsView = (props) => {
 
-  // React.useEffect(()=>{
-  //   flatListRef.scrollToOffset({x: 0, animated: true})
-  // }, [props.data])
+  //React.useEffect(()=>{
+   // flatListRef.scrollToOffset({x: 0, animated: true})
+  //}, [props.data])
 
 
   
@@ -54,7 +54,7 @@ const ResultsView = (props) => {
               Styles.showbackGroundContent2,
               {
                 borderWidth: 2,
-                borderColor: value.toggle ? 'orange' : Colors.backgroundColor,
+                borderColor: value.toggle ? 'violet' : Colors.backgroundColor,
                 
                 
               },
@@ -62,11 +62,10 @@ const ResultsView = (props) => {
             <Text style={{color: 'rgba(255,255,255,0.9)', fontSize: 9, marginBottom: 3, alignSelf: 'center'}}>{'Result: '}{index + 1}</Text>
             <View style={{height: 1, width: '70%', backgroundColor: Colors.black, alignSelf: 'center'}}/>
             <Text style={{fontWeight: 'bold', color: 'white', fontSize: 15, alignSelf: 'center', marginTop: 6,paddingLeft: 4}}>{value.name}</Text>
+            {value.brandName != null && <Text style={{color: 'rgba(195,150,200,1)', fontSize: 11, alignSelf: 'center', marginTop: 3,paddingLeft: 4}}>{'(' + value.brandName + ')'}</Text>}
             <View style={{height: 1, width: '100%', backgroundColor: Colors.black, alignSelf: 'center', marginTop: 10}}/>
             <Text style={{color: 'rgba(255,255,255,0.8)', fontSize: 11, alignSelf: 'center', marginTop: 6,paddingLeft: 4}}>{value.food_description}</Text>
-            {value.brandName != null && 
-              <Text style={{color: 'rgba(255,255,255,0.8)', fontSize: 11, alignSelf: 'center', marginTop: 2,paddingLeft: 1}}>brand name: {value.brandName}</Text>
-            }
+            
           </View>
         </TouchableOpacity>
       </>

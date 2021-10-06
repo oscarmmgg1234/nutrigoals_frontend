@@ -12,14 +12,8 @@ export const foodLog_context = createContext();
 
 
 const Root = () => {
-
-  
   
   {'Core App States'}
-
-  
-
-
 
   const [date, setDate] = useState('');
   const [DisplayDate, setDisplayText] = useState('');
@@ -348,6 +342,7 @@ editDate = (arg) =>{
       sugar: parseFloat(value.sugar),
       sodium: parseFloat(value.sodium),
       servingDescription: value.serving_description,
+      brand_name: value.brand_name,
       quantity: '1',
       logGroup: 'BF',
     };
@@ -373,6 +368,7 @@ editDate = (arg) =>{
       sugar: parseFloat(value.sugar),
       sodium: parseFloat(value.sodium),
       servingDescription: value.serving_description,
+      brand_name: value.brand_name,
       quantity: '1',
       logGroup: 'LN',
     };
@@ -398,6 +394,7 @@ editDate = (arg) =>{
       sugar: parseFloat(value.sugar),
       sodium: parseFloat(value.sodium),
       servingDescription: value.serving_description,
+      brand_name: value.brand_name,
       quantity: '1',
       logGroup: 'DN',
     };
@@ -423,6 +420,7 @@ editDate = (arg) =>{
       sugar: parseFloat(value.sugar),
       sodium: parseFloat(value.sodium),
       servingDescription: value.serving_description,
+      brand_name: value.brand_name,
       quantity: '1',
       logGroup: 'SN',
     };
