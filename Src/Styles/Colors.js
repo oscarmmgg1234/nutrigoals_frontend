@@ -17,6 +17,8 @@ const colors = {
   linkedinColor: '#0170b0',
   facebook: '#3A559F',
   ok: '#24242F',
+  purple: '#9B18A7',
+  red: '#D12644',
 };
 
 export default colors;

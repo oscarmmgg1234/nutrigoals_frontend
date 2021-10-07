@@ -66,7 +66,6 @@ class Profile extends Component {
         }
         case 2: {
           this.setState({modal_profile_v: false})
-          console.log('pressed button')
           break;
         }
       }
