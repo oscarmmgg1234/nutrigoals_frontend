@@ -31,3 +31,20 @@ export const registerUser = (username, name, email, password) => {
   });
 };
 
+export const login_user = async (userOBJ, callback) =>{
+  
+  await AuthSeverCall.post('/loginUser', {
+    username: userOBJ.username,
+    password: userOBJ.password,
+    user_id: userOBJ.user_id
+  })
+    .then((res) => {
+      if (res.data.valid === true) {
+        return callback(res.data)
+      } else {
+        return callback(false)
+      }
+    })
+    .catch((err) => alert(err));
+}
+

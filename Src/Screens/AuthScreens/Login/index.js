@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import moment from 'moment'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   View,
@@ -16,8 +17,12 @@ import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
 import { AuthSeverCall} from '../../../http_config/axios_config';
+import {app_context} from  '../../../setup'
+import {login_user} from '../../../http_config/server_call_func'
 
 class Login extends Component {
+
+  static contextType = app_context;
   constructor(props) {
     super(props);
     this.state = {
@@ -33,21 +38,26 @@ class Login extends Component {
        this.props.navigation.navigate('UserStack');
   }
 
-  loginValidator = async () => {
-    await AuthSeverCall.post('/login', {
-      username: this.state.email,
-      password: this.state.password,
-    })
-      .then((res) => {
-        if (res.data.valid === true) {
-          this.next();
-        
-          
-        } else {
-          alert('wrong username/password');
-        }
-      })
-      .catch((err) => alert('Network Error'));
+  loginValidator = () => {
+    const context = this.context;
+    if(context.User.user_id != ""){login_user({username: this.state.email, password: this.state.password, user_id: context.User.user_id}, (res)=>{if(!res){alert("Wrong username or password")} 
+    else {context.setUserInfo({
+      name: "",
+      age: 0,
+      weight: 0,
+      gender: "",
+      username: res.username,
+      user_id: res.user_id,}); this.next();}})}
+      else{
+    login_user({username: this.state.email, password: this.state.password, user_id: ""}, (res)=>{if(!res){alert("Wrong username or password")} 
+    else {context.setUserInfo({
+      name: "",
+      age: 0,
+      weight: 0,
+      gender: "",
+      username: res.username,
+      user_id: res.user_id,}); this.next();}})
+    }
   };
 
   focusEmail = () => {

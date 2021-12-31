@@ -14,7 +14,6 @@ export const foodLog_context = createContext();
 const Root = () => {
   
   {'Core App States'}
-
   const [date, setDate] = useState('');
   const [DisplayDate, setDisplayText] = useState('');
   const [waterTracker, setWaterT] = useState('')
@@ -27,7 +26,8 @@ const Root = () => {
     age: 0,
     weight: 0,
     gender: '',
-    username: 'Oscarmmgg',
+    username: '',
+    user_id: ""
   });
   const [graphData, setGraphData] = useState({
     graphLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -526,6 +526,7 @@ async function saveData(key, value){
           imagePath,
           User,
           APItoken: APIT,
+          setUserInfo
         }}>
         <user_context.Provider
           value={{
