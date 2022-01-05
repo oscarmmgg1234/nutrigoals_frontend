@@ -1,4 +1,5 @@
 import React, {useEffect, useState, createContext, useRef} from 'react';
+import upload_image from './Services/image_upload';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View} from 'react-native';
 import moment from 'moment';
@@ -12,8 +13,7 @@ export const foodLog_context = createContext();
 
 
 const Root = () => {
-  
-  {'Core App States'}
+    {'Core App States'}
   const [date, setDate] = useState('');
   const [DisplayDate, setDisplayText] = useState('');
   const [waterTracker, setWaterT] = useState('')
@@ -25,9 +25,11 @@ const Root = () => {
     name: '',
     age: 0,
     weight: 0,
+    height: 0,
     gender: '',
     username: '',
-    user_id: ""
+    user_id: "",
+    profile_image: "",
   });
   const [graphData, setGraphData] = useState({
     graphLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -499,7 +501,8 @@ async function saveData(key, value){
 
    const selectImage = () => {
     const options = {
-      quality: 0.1,
+      quality: 0.4,
+      includeBase64: true,
       storageOptions: {
         skipBackup: true,
       },
@@ -510,10 +513,8 @@ async function saveData(key, value){
       } else if (response.error) {
       } else if (response.customButton) {
       } else {
-        const {fileName, type, uri, fileSize} = response;
-
-        setImagePath(uri);
-        saveData('@userImageURI', uri)
+        setUserInfo({...User, profile_image: "data:image/jpg;base64,"+response.assets[0].base64}) 
+        upload_image({image: "data:image/jpg;base64,"+response.assets[0].base64, userID: User.user_id});
       }
     });
   };
@@ -523,7 +524,6 @@ async function saveData(key, value){
       <app_context.Provider
         value={{
           selectImage,
-          imagePath,
           User,
           APItoken: APIT,
           setUserInfo

@@ -13,7 +13,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* NutrigoalsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NutrigoalsTests.m */; };
 		451EB6CDFEF9E0601AD8CBE7 /* libPods-Nutrigoals-NutrigoalsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 392B32BAFA429B1346793E2E /* libPods-Nutrigoals-NutrigoalsTests.a */; };
 		55645EEF228A9F58003D8CD4 /* libPods-Nutrigoals-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 254C0C694A0178932E0FB8F3 /* libPods-Nutrigoals-tvOSTests.a */; };
@@ -227,7 +226,6 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				657B1B994201912B2658005C /* [CP] Copy Pods Resources */,
-				580488348EEAEC922816C127 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -250,7 +248,6 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				49A013E72916B257C7416F67 /* [CP] Copy Pods Resources */,
-				C17DCF8507C0994D4CEEA2D1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -313,7 +310,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = VD8587FWU6;
+						DevelopmentTeam = LJJPXXS8KT;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -527,24 +524,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nutrigoals/Pods-Nutrigoals-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		580488348EEAEC922816C127 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Nutrigoals-NutrigoalsTests/Pods-Nutrigoals-NutrigoalsTests-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nutrigoals-NutrigoalsTests/Pods-Nutrigoals-NutrigoalsTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		60769A299BB5FA5EA8F0DCAB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -617,24 +596,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nutrigoals-NutrigoalsTests/Pods-Nutrigoals-NutrigoalsTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C17DCF8507C0994D4CEEA2D1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Nutrigoals/Pods-Nutrigoals-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nutrigoals/Pods-Nutrigoals-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -697,7 +658,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */,
 				2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -776,7 +736,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = VD8587FWU6;
+				DEVELOPMENT_TEAM = LJJPXXS8KT;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Nutrigoals/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
@@ -801,7 +761,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = VD8587FWU6;
+				DEVELOPMENT_TEAM = LJJPXXS8KT;
 				INFOPLIST_FILE = Nutrigoals/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

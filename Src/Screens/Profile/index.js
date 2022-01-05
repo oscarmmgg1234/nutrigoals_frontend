@@ -10,8 +10,6 @@ import {
   ImageBackground,
   StatusBar,
 } from 'react-native';
-
-import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import Styles from './Styles';
 import * as Constants from '../../Constants';
 import Images from '../../Styles/Images';
@@ -21,19 +19,19 @@ import CalcHomeComponent from '../../Components/EditModal/calculatorModal/calcul
 import EditMainModal from '../../Components/EditModal/editMainModal';
 import ProfileSettings from '../../Components/EditModal/profileSettingsModal/profileSettings';
 
+
 class Profile extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      toogleOn: true,
-      imageProfile: '',
       modal_calc_v: false,
       modal_edit_v: false,
       modal_profile_v: false,
     };
   }
 
+  static contextType = app_context;
   mountModal = (index) => {
     switch(index){
       case 0:{
@@ -77,36 +75,9 @@ class Profile extends Component {
     });
   };
 
-  selectImage = () => {
-    const options = {
-      quality: 0.1,
-      storageOptions: {
-        skipBackup: true,
-      },
-    };
 
-    launchImageLibrary(options, (response) => {
-      if (response.didCancel) {
-        // console.log('User cancelled photo picker');
-        //dispatch(TASKS.hideLoader());
-      } else if (response.error) {
-        // console.log('ImagePicker Error: ', response.error);
-        //dispatch(TASKS.hideLoader());
-      } else if (response.customButton) {
-        // console.log('User tapped custom button: ', response.customButton);
-      } else {
-        // let source = { uri: response.uri };
-        // You can also display the image using data:
-        const {fileName, type, uri, fileSize} = response;
-
-        // `${utilities.BASE_URL}register`
-        this.setState({imageProfile: uri});
-        // dispatch(TASKS.hideLoader());
-      }
-    });
-  };
   render() {
-    const {toogleOn, imageProfile} = this.state;
+    
     return (
       <>
         <StatusBar barStyle={'light-content'} hidden={false} />
@@ -115,17 +86,22 @@ class Profile extends Component {
         <ProfileSettings modal={this.state.modal_profile_v} toggleModal={()=>this.unmountModal(2)}/>
         <SafeAreaView style={Styles.safeViewStyle1} />
         <app_context.Consumer>
-          {({User, imagePath, selectImage}) => (
+          {({User, selectImage}) => (
             <SafeAreaView style={Styles.safeViewStyle}>
               <View style={Styles.headerWrapper}>
                 <View style={Styles.headerContainer}>
-                  <Text style={Styles.homeText}>{User.username}</Text>
+                  <Text  style={Styles.homeText}>Account</Text>
+                  <Text style={Styles.usernameText}>{"acc-user: " +User.username}</Text>
                 </View>
               </View>
               <ScrollView>
                 <TouchableOpacity onPress={selectImage}>
                   <ImageBackground
-                    source={imagePath ? {uri: imagePath} : Images.Profile}
+                    source={
+                      User.profile_image !== null
+                        ? {uri: User.profile_image}
+                        : Images.Profile
+                    }
                     imageStyle={{borderRadius: 110}}
                     style={Styles.profileStyle}>
                     <View style={Styles.editIconContainer}>

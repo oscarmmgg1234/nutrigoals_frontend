@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import moment from 'moment'
+import React, { useContext, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ActivityComponent from '../../../Components/activityIndicator';
 import {
   View,
   Text,
@@ -16,67 +16,82 @@ import Styles from './Styles';
 import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
-import { AuthSeverCall} from '../../../http_config/axios_config';
-import {app_context} from  '../../../setup'
-import {login_user} from '../../../http_config/server_call_func'
+import { app_context } from '../../../setup'
+import { login_user } from '../../../http_config/server_call_func'
 
-class Login extends Component {
 
-  static contextType = app_context;
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      emailFocus: false,
-      password: '',
-      passwordFocus: false,
-      loggedInStatus: '',
-    };
-  }
+const Login = (props) => {
+  const [state, setState] = useState({
+    indicatorDelay: false,
+    email: '',
+    emailFocus: false,
+    password: '',
+    passwordFocus: false,
+    loggedInStatus: '',
+  })
+  const { User, setUserInfo } = useContext(app_context)
 
   next = () => {
-       this.props.navigation.navigate('UserStack');
+    props.navigation.navigate('UserStack');
   }
 
   loginValidator = () => {
-    const context = this.context;
-    if(context.User.user_id != ""){login_user({username: this.state.email, password: this.state.password, user_id: context.User.user_id}, (res)=>{if(!res){alert("Wrong username or password")} 
-    else {context.setUserInfo({
-      name: "",
-      age: 0,
-      weight: 0,
-      gender: "",
-      username: res.username,
-      user_id: res.user_id,}); this.next();}})}
-      else{
-    login_user({username: this.state.email, password: this.state.password, user_id: ""}, (res)=>{if(!res){alert("Wrong username or password")} 
-    else {context.setUserInfo({
-      name: "",
-      age: 0,
-      weight: 0,
-      gender: "",
-      username: res.username,
-      user_id: res.user_id,}); this.next();}})
+
+    if (User.user_id != "") {
+      setState({ ...state, indicatorDelay: true })
+      setTimeout(() => { setState({ ...state, indicatorDelay: false }); this.next(); }, 1000);
+      //cache call if user has been authenticated before
+      login_user({ username: state.email, password: state.password, user_id: User.user_id }, (res) => {
+        if (!res) { alert("Wrong username or password") }
+        else {
+          setUserInfo({
+            name: "",
+            age: 0,
+            weight: 0,
+            gender: "",
+            username: res.username,
+            user_id: res.user_id,
+            profile_image: res.image
+          });
+          this.next();
+        }
+      });
+      
+    }
+    else {
+      login_user({ username: state.email, password: state.password, user_id: "" }, (res) => {
+        setState({ ...state, indicatorDelay: true })
+        setTimeout(() => { setState({ ...state, indicatorDelay: false }); }, 1000);
+        if (!res) { alert("Wrong username or password") }
+        else {
+          setUserInfo({
+            name: res,
+            age: 0,
+            weight: 0,
+            gender: "",
+            username: res.username,
+            user_id: res.user_id,
+            profile_image: res.image
+          });
+          this.next();
+        }
+      })
+      
     }
   };
 
-  focusEmail = () => {
-    this.setState({emailFocus: !this.state.emailFocus});
-  };
-  focusPassword = () => {
-    this.setState({passwordFocus: !this.state.passwordFocus});
-  };
-  render() {
-    const {email, emailFocus, password, passwordFocus} = this.state;
-    return (
-      <>
-      <StatusBar 
-      barStyle={'light-content'}
-      hidden={false}
+
+  return (
+    <>
+      <StatusBar
+        barStyle={'light-content'}
+        hidden={false}
       />
-        <SafeAreaView style={Styles.safeViewStyle}>
-          <KeyboardAvoidingView behavior={'padding'}>
+      <SafeAreaView style={Styles.safeViewStyle}>
+        <KeyboardAvoidingView behavior={'padding'}>
+          <ActivityComponent visibility={state.indicatorDelay} />
           <ScrollView keyboardDismissMode={'on-drag'}>
+
             <View style={Styles.mainContainer}>
               <Text style={Styles.headerText}>{Constants.LOGIN}</Text>
 
@@ -88,26 +103,26 @@ class Login extends Component {
                     Styles.emailWrapper,
                     {
                       borderColor:
-                        email.length > 0
+                        state.email.length > 0
                           ? '#62FF68'
-                          : emailFocus
-                          ? Colors.buttonColor
-                          : Colors.backgroundColor,
+                          : state.emailemailFocus
+                            ? Colors.buttonColor
+                            : Colors.backgroundColor,
                     },
                   ]}>
                   <TextInput
                     style={Styles.emailInput}
-                    value={email}
+                    value={state.email}
                     placeholder={'Enter your Username'}
                     placeholderTextColor={Colors.primary}
                     onFocus={this.focusEmail}
                     onBlur={this.focusEmail}
                     autoCapitalize="none"
                     onChangeText={(value) => {
-                      this.setState({email: value});
+                      setState({ ...state, email: value });
                     }}
                   />
-                  {email.length > 0 && (
+                  {state.email.length > 0 && (
                     <Image source={Images.check} style={Styles.checkImage} />
                   )}
                 </View>
@@ -119,16 +134,16 @@ class Login extends Component {
                     Styles.emailWrapper,
                     {
                       borderColor:
-                        password.length > 0
+                        state.password.length > 0
                           ? '#62FF68'
-                          : passwordFocus
-                          ? Colors.buttonColor
-                          : Colors.backgroundColor,
+                          : state.passwordFocus
+                            ? Colors.buttonColor
+                            : Colors.backgroundColor,
                     },
                   ]}>
                   <TextInput
                     style={Styles.emailInput}
-                    value={password}
+                    value={state.password}
                     placeholder={'Enter your password'}
                     placeholderTextColor={Colors.primary}
                     secureTextEntry={true}
@@ -136,10 +151,10 @@ class Login extends Component {
                     onBlur={this.focusPassword}
                     autoCapitalize="none"
                     onChangeText={(value) => {
-                      this.setState({password: value});
+                      setState({ ...state, password: value });
                     }}
                   />
-                  {password.length > 0 && (
+                  {state.password.length > 0 && (
                     <Image source={Images.check} style={Styles.checkImage} />
                   )}
                 </View>
@@ -148,14 +163,14 @@ class Login extends Component {
               <TouchableOpacity
                 style={Styles.buttonContainer}
                 onPress={
-                  ()=>this.loginValidator()
-                 
+                  () => this.loginValidator()
+
                 }
-                  
-                
-                  
-              
-                >
+
+
+
+
+              >
                 <Text style={Styles.buttonText}>{Constants.LOGIN}</Text>
               </TouchableOpacity>
 
@@ -165,7 +180,7 @@ class Login extends Component {
                 </Text>
                 <TouchableOpacity
                   onPress={() => {
-                    this.props.navigation.navigate('Register');
+                    props.navigation.navigate('Register');
                   }}>
                   <Text style={Styles.loginTextBottom}>{Constants.SIGNUP}</Text>
                 </TouchableOpacity>
@@ -188,10 +203,10 @@ class Login extends Component {
               </TouchableOpacity>
             </View>
           </ScrollView>
-          </KeyboardAvoidingView>
-        </SafeAreaView>
-      </>
-    );
-  }
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </>
+  )
 }
+
 export default Login;

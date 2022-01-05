@@ -23,10 +23,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   homeText: {
-    fontSize: 23,
+    fontSize: 30,
     fontWeight: '600',
     color: Colors.White,
     marginTop: 10,
+  },
+  usernameText: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: Colors.White,
+    marginTop: 23,
   },
   darkModeText: {
     fontSize: 18,

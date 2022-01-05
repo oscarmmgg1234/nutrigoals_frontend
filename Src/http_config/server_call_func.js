@@ -11,7 +11,7 @@ const saltRounds = 5;
 {
   /*auth server calls*/
 }
-AuthSeverCall.defaults.timeout = 2000;
+AuthSeverCall.defaults.timeout = 4000;
 export const checkUsernameStatus = (username) => {
   let result;
   AuthSeverCall.get('/usernameStatus', {username: username}).then(function (
@@ -48,3 +48,11 @@ export const login_user = async (userOBJ, callback) =>{
     .catch((err) => alert(err));
 }
 
+export const upload_image_http_handler = async (uploadOBJ) =>{
+  
+  await AuthSeverCall.post('/uploadImage', {
+    image: uploadOBJ.image,
+    user_id: uploadOBJ.userID
+  })
+
+}

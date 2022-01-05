@@ -67,8 +67,8 @@ componentDidUpdate(prevProps, prevState){
               <TouchableOpacity onPress={app_context.selectImage}>
                 <Image
                   source={
-                    app_context.imagePath
-                      ? {uri: app_context.imagePath}
+                    app_context.User.profile_image !== null
+                      ? {uri: app_context.User.profile_image}
                       : Images.Profile
                   }
                   style={[Styles.profileStyle, {borderColor: 'rgba(20,20,30,0.6)', borderWidth: 4}]}
