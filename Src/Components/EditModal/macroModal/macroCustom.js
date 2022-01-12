@@ -10,7 +10,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../../Styles/Colors';
 import Styles from './Styles';
 import { macroGoal_update } from '../../../Services/user_goal_update';
-import { macroGoal_update_http_handler } from '../../../http_config/server_call_func';
+import {validation_input} from '../../../Utilities/input_validation'
+
 
 const CustomForm = (props) => {
   const [PI, setPI] = useState('');
@@ -20,7 +21,8 @@ const CustomForm = (props) => {
   const [SOI, setSOI] = useState('');
 
   function submit(){
-    macroGoal_update_http_handler({protein: parseFloat(PI), fat: parseFloat(FI), carbohydrate: parseFloat(CI), sugar: parseFloat(SI), sodium: parseFloat(SOI), userID: props.userID})
+    let piIsValid = validation_input
+    macroGoal_update({protein: parseFloat(PI), fat: parseFloat(FI), carbohydrate: parseFloat(CI), sugar: parseFloat(SI), sodium: parseFloat(SOI), userID: props.userID})
     props.setG(parseFloat(PI), parseFloat(FI), parseFloat(CI), parseFloat(SI), parseFloat(SOI));
     props.vis(0);
 }
