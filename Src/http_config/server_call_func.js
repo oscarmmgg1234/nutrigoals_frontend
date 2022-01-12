@@ -1,4 +1,5 @@
 //Create server call func for app
+import {call} from 'react-native-reanimated';
 import {
   AuthSeverCall,
   APIBackend,
@@ -22,37 +23,57 @@ export const checkUsernameStatus = (username) => {
   return result;
 };
 
-export const registerUser = (username, name, email, password) => {
-  AuthSeverCall.post('/register/user', {
-    username: username,
-    name: name,
-    email: email,
-    password: password
+export const register_user_http_handler = async (userOBJ, callback) => {
+  await AuthSeverCall.post('/registerUser', userOBJ).then((res) => {
+    if (res.data.valid === true) {
+      return callback(true);
+    } else {
+      return callback(false);
+    }
   });
 };
 
-export const login_user = async (userOBJ, callback) =>{
-  
+export const login_user = async (userOBJ, callback) => {
   await AuthSeverCall.post('/loginUser', {
     username: userOBJ.username,
     password: userOBJ.password,
-    user_id: userOBJ.user_id
+    user_id: userOBJ.user_id,
   })
     .then((res) => {
       if (res.data.valid === true) {
-        return callback(res.data)
+        return callback(res.data);
       } else {
-        return callback(false)
+        return callback(false);
       }
     })
     .catch((err) => alert(err));
-}
+};
 
-export const upload_image_http_handler = async (uploadOBJ) =>{
-  
+export const upload_image_http_handler = async (uploadOBJ) => {
   await AuthSeverCall.post('/uploadImage', {
     image: uploadOBJ.image,
-    user_id: uploadOBJ.userID
-  })
+    user_id: uploadOBJ.userID,
+  });
+};
 
+export const account_update_http_handler = async (userOBJ, callback) => {
+  await AuthSeverCall.post('/updateUserAccountInfo', userOBJ)
+  .then((res)=>{
+    if(res.data){
+      return callback(res.data)
+    }
+    else{
+      return callback(false)
+    }
+  })
+  .catch((err)=>{console.log(err)})
 }
+
+export const macroGoal_update_http_handler = async (userOBJ) => {
+  await AuthSeverCall.post('/updateMacroGoals', userOBJ);
+}
+
+export const waterGoal_update_http_handler = async (userOBJ) =>{
+  await AuthSeverCall.post('/updateWaterGoals', userOBJ);
+}
+

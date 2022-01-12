@@ -50,7 +50,7 @@ const MacroScrollComponent = () => {
                         <Text style={Styles.macroProgressText1}>
                           {' / '}
                           {Math.round(value.macroGoal)}
-                          {'g'}
+                          {value.name === "Sodium" ? 'mg' : 'g'}
                         </Text>
                       </View>
                       <GradientCircularProgress

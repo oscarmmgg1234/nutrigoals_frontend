@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ActivityComponent from '../../../Components/activityIndicator';
 import {
@@ -10,14 +10,15 @@ import {
   Image,
   TextInput,
   StatusBar,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from 'react-native';
 import Styles from './Styles';
 import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
-import { app_context } from '../../../setup'
-import { login_user } from '../../../http_config/server_call_func'
+import {app_context} from '../../../setup';
+import {login_user} from '../../../http_config/server_call_func';
+import { validate_input } from '../../../utilities.js/input_validation';
 
 
 const Login = (props) => {
@@ -28,70 +29,102 @@ const Login = (props) => {
     password: '',
     passwordFocus: false,
     loggedInStatus: '',
-  })
-  const { User, setUserInfo } = useContext(app_context)
+  });
+  const {User, setUserInfo, setUserGoals, userGoals, waterGoals, setWaterGoals, missGoals, setMissGoals} = useContext(app_context);
 
   next = () => {
     props.navigation.navigate('UserStack');
-  }
-
-  loginValidator = () => {
-
-    if (User.user_id != "") {
-      setState({ ...state, indicatorDelay: true })
-      setTimeout(() => { setState({ ...state, indicatorDelay: false }); this.next(); }, 1000);
-      //cache call if user has been authenticated before
-      login_user({ username: state.email, password: state.password, user_id: User.user_id }, (res) => {
-        if (!res) { alert("Wrong username or password") }
-        else {
-          setUserInfo({
-            name: "",
-            age: 0,
-            weight: 0,
-            gender: "",
-            username: res.username,
-            user_id: res.user_id,
-            profile_image: res.image
-          });
-          this.next();
-        }
-      });
-      
-    }
-    else {
-      login_user({ username: state.email, password: state.password, user_id: "" }, (res) => {
-        setState({ ...state, indicatorDelay: true })
-        setTimeout(() => { setState({ ...state, indicatorDelay: false }); }, 1000);
-        if (!res) { alert("Wrong username or password") }
-        else {
-          setUserInfo({
-            name: res,
-            age: 0,
-            weight: 0,
-            gender: "",
-            username: res.username,
-            user_id: res.user_id,
-            profile_image: res.image
-          });
-          this.next();
-        }
-      })
-      
-    }
   };
 
+  loginValidator = () => {
+    let passwordIsValid = validate_input(state.password,{type: "password"})
+    let usernameIsValid = validate_input(state.email, {type: "text",valueRequired: true, minLength: 4, maxLength: 30, customRegex: "^[a-zA-Z0-9 ]*$"})
+    if(passwordIsValid.status && usernameIsValid.status){
+    if (User.user_id != '') {
+      setState({...state, indicatorDelay: true});
+      setTimeout(() => {
+        setState({...state, indicatorDelay: false});
+      }, 1000);
+      //cache call if user has been authenticated before
+      login_user(
+        {
+          username: state.email,
+          password: state.password,
+          user_id: User.user_id,
+        },
+        (res) => {
+          let parseObject = {};
+          if (!res) {
+            alert('Wrong username or password');
+          } else {
+            setUserInfo({
+              name: res.fullname,
+              age: res.age,
+              weight: res.weight,
+              gender: res.gender,
+              height: res.height,
+              username: res.username,
+              user_id: res.user_id,
+              profile_image: res.image,
+              email: res.email,
+              fitnessLevel: res.fitnessLevel,
+              weeklyLossGoal: res.weeklyLossGoal,
+            });
+            parseObject = JSON.parse(res.userGoals)
+            setUserGoals({...userGoals, fatGoal: parseObject.fats, carbGoal: parseObject.carbohydrates, proteinGoal: parseObject.proteins })
+            setWaterGoals({...waterGoals, waterGoal: res.waterGoal})
+            setMissGoals({...missGoals, sugarGoal: parseObject.sugars, sodiumGoal: parseObject.sodiums})
+            this.next();
+          }
+        },
+      );
+    } else {
+      login_user(
+        {username: state.email, password: state.password, user_id: ''},
+        (res) => {
+          setState({...state, indicatorDelay: true});
+          setTimeout(() => {
+            setState({...state, indicatorDelay: false});
+          }, 1000);
+          if (!res) {
+            alert('Wrong username or password');
+          } else {
+            
+            setUserInfo({
+              name: res.fullname,
+              age: res.age,
+              weight: res.weight,
+              gender: res.gender,
+              height: res.height,
+              username: res.username,
+              user_id: res.user_id,
+              profile_image: res.image,
+              email: res.email,
+              fitnessLevel: res.fitnessLevel,
+              weeklyLossGoal: res.weeklyLossGoal,
+            });
+            parseObject = JSON.parse(res.userGoals)
+            setUserGoals({...userGoals, fatGoal: parseObject.fats, carbGoal: parseObject.carbohydrates, proteinGoal: parseObject.proteins })
+            setWaterGoals({...waterGoals, waterGoal: res.waterGoal})
+            
+            this.next();
+          }
+        },
+      );
+    }
+  }
+  else{
+    null
+  }
+}
 
   return (
     <>
-      <StatusBar
-        barStyle={'light-content'}
-        hidden={false}
-      />
+      <StatusBar barStyle={'light-content'} hidden={false} />
       <SafeAreaView style={Styles.safeViewStyle}>
-        <KeyboardAvoidingView behavior={'padding'}>
+        <KeyboardAvoidingView behavior={'padding'} >
           <ActivityComponent visibility={state.indicatorDelay} />
           <ScrollView keyboardDismissMode={'on-drag'}>
-
             <View style={Styles.mainContainer}>
               <Text style={Styles.headerText}>{Constants.LOGIN}</Text>
 
@@ -106,8 +139,8 @@ const Login = (props) => {
                         state.email.length > 0
                           ? '#62FF68'
                           : state.emailemailFocus
-                            ? Colors.buttonColor
-                            : Colors.backgroundColor,
+                          ? Colors.buttonColor
+                          : Colors.backgroundColor,
                     },
                   ]}>
                   <TextInput
@@ -119,7 +152,7 @@ const Login = (props) => {
                     onBlur={this.focusEmail}
                     autoCapitalize="none"
                     onChangeText={(value) => {
-                      setState({ ...state, email: value });
+                      setState({...state, email: value});
                     }}
                   />
                   {state.email.length > 0 && (
@@ -137,8 +170,8 @@ const Login = (props) => {
                         state.password.length > 0
                           ? '#62FF68'
                           : state.passwordFocus
-                            ? Colors.buttonColor
-                            : Colors.backgroundColor,
+                          ? Colors.buttonColor
+                          : Colors.backgroundColor,
                     },
                   ]}>
                   <TextInput
@@ -151,7 +184,7 @@ const Login = (props) => {
                     onBlur={this.focusPassword}
                     autoCapitalize="none"
                     onChangeText={(value) => {
-                      setState({ ...state, password: value });
+                      setState({...state, password: value});
                     }}
                   />
                   {state.password.length > 0 && (
@@ -162,15 +195,7 @@ const Login = (props) => {
 
               <TouchableOpacity
                 style={Styles.buttonContainer}
-                onPress={
-                  () => this.loginValidator()
-
-                }
-
-
-
-
-              >
+                onPress={() => this.loginValidator()}>
                 <Text style={Styles.buttonText}>{Constants.LOGIN}</Text>
               </TouchableOpacity>
 
@@ -206,7 +231,7 @@ const Login = (props) => {
         </KeyboardAvoidingView>
       </SafeAreaView>
     </>
-  )
-}
+  );
+};
 
 export default Login;

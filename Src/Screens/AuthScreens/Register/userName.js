@@ -12,43 +12,97 @@ import Styles from './Styles';
 import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
-import {
-  registerUser,
-  registerUserCredentials,
-  checkUsernameStatus,
-} from '../../../http_config/server_call_func';
-import { app_context } from '../../../setup';
+import {register_user} from '../../../Services/register_user';
+import {validate_input} from '../../../utilities.js/input_validation';
 
 class RegisterUserName extends Component {
   constructor(props) {
     super(props);
+    this.usernameIsValid = null;
+    this.nameIsValid = null;
+    this.emailIsValid = null;
+    this.passwordIsvalid = null;
+    this.ageIsValid = null;
+    this.weightIsValid = null;
+    this.heightIsValid = null;
+
     this.state = {
       userName: '',
       userFocus: false,
-      name: '',
-      password: '',
-      email: '',
       userNameError: false,
     };
-  }
-  componentDidMount() {
-    this.setState({
-      
-      name: this.props.route.params.name ,
-      email: this.props.route.params.email,
-      password: this.props.route.params.password,
-      
-    });
-    console.log(this.state.password)
   }
 
   focusEmail = () => {
     this.setState({userFocus: !this.state.userFocus});
   };
 
-  UsernameStatus = () => {
-    registerUser(this.state.userName, this.state.name, this.state.email, this.state.password);
-    this.props.navigation.navigate('Login');
+  register = () => {
+    this.usernameIsValid = validate_input(this.state.username, {
+      type: 'text',
+      valueRequired: true,
+      minLength: 5,
+      maxLength: 30,
+      customRegex: '^[a-zA-Z0-9 ]*$',
+    });
+    this.nameIsValid = validate_input(this.props.route.params.name, {
+      type: 'text',
+      valueRequired: true,
+      minLength: 1,
+      maxLength: 30,
+    });
+    this.emailIsValid = validate_input(this.props.route.params.email, {
+      type: 'email',
+    });
+    this.passwordIsvalid = validate_input(this.props.route.params.password, {
+      type: 'password',
+    });
+    this.ageIsValid = validate_input(parseInt(this.props.route.params.age), {
+      type: 'number',
+      minNum: 0,
+      maxNum: 100,
+    });
+    this.weightIsValid = validate_input(
+      parseFloat(this.props.route.params.weight),
+      {type: 'number', minNum: 0, maxNum: 1000},
+    );
+    this.heightIsValid = validate_input(this.props.route.params.height, {
+      type: 'number',
+      minNum: 0,
+      maxNum: 150,
+    });
+    if (
+      (this.usernameIsValid.status &&
+        this.nameIsValid.status &&
+        this.emailIsValid.status &&
+        this.passwordIsvalid.status &&
+        this.ageIsValid.status,
+      this.weightIsValid.status && this.heightIsValid.status)
+    ) {
+      register_user(
+        {
+          username: this.state.userName,
+          name: this.props.route.params.name,
+          email: this.props.route.params.email,
+          password: this.props.route.params.password,
+          age: parseInt(this.props.route.params.age),
+          gender: this.props.route.params.gender,
+          weight: parseFloat(this.props.route.params.weight),
+          height: this.props.route.params.height,
+          fitnessLevel: parseInt(this.props.route.params.physicalLevel),
+          weeklyLossGoal: parseInt(this.props.route.params.weeklyLoseGoal),
+        },
+        (res) => {
+          if (res) {
+            this.props.navigation.navigate('Login');
+          } else {
+            alert('email or username already in use');
+          }
+        },
+      );
+    } else {
+      null;
+    }
   };
 
   //useEffect to check for availabilty
@@ -72,7 +126,7 @@ class RegisterUserName extends Component {
   };
 
   render() {
-    const {userName, userFocus} = this.state;
+    const {userName, userFocus, indicatorDelay} = this.state;
     return (
       <>
         <SafeAreaView style={Styles.safeViewStyle}>
@@ -116,7 +170,7 @@ class RegisterUserName extends Component {
 
             <TouchableOpacity
               style={Styles.buttonContainer}
-              onPress={() => this.UsernameStatus()}>
+              onPress={() => this.register()}>
               <Text style={Styles.buttonText}>{Constants.FINISH_SIGNUP}</Text>
             </TouchableOpacity>
           </ScrollView>

@@ -17,7 +17,7 @@ import { user_context } from '../../../setup';
 
 const MacroModal = (props) => {
 
-  const {setGoalsR} = React.useContext(user_context);
+  const {setGoalsR, User} = React.useContext(user_context);
 
   const [switchBool, setSwitch] = useState(false);
   return (
@@ -112,9 +112,9 @@ const MacroModal = (props) => {
           </View>
         </View>
         {switchBool === true ? (
-          <MacroRatio setG={setGoalsR} vis={props.setModalV}/>
+          <MacroRatio setG={setGoalsR} vis={props.setModalV} userID={User.user_id}/>
         ) : (
-          <CustomForm setG={setGoalsR} vis={props.setModalV}/>
+          <CustomForm setG={setGoalsR} vis={props.setModalV} userID={User.user_id}/>
         )}
       </View>
     </Modal>

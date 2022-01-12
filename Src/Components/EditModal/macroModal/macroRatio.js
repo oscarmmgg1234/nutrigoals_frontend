@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ScrollPicker from 'react-native-wheely-simple-picker'
 import Styles from './Styles';
 import Colors from '../../../Styles/Colors';
+import { macroGoal_update } from '../../../Services/user_goal_update';
 const MacroRatio = (props)=> {
 
     const [TI, setTI] = React.useState('')
@@ -38,6 +39,8 @@ const MacroRatio = (props)=> {
           const Protein = Math.round(((PS.current / 100) * TI) / 4);
           const Fat = Math.round(((FS.current / 100) * TI) / 9);
           const Carbs = Math.round(((CS.current / 100) * TI) / 4);
+          macroGoal_update({protein: Protein, fat: Fat, carbohydrate: Carbs, sugar: parseFloat(SI), sodium: parseFloat(SOI), userID: props.userID})
+
           props.setG(Protein, Fat, Carbs, parseFloat(SI), parseFloat(SOI))
           props.vis(0);
           }

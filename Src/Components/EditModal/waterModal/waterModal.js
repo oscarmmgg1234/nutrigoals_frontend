@@ -5,12 +5,13 @@ import Styles from '../../../Screens/Home/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ScrollPicker from 'react-native-wheely-simple-picker';
 import {water_context} from '../../../setup';
+import {waterGoal_update} from '../../../Services/user_goal_update';
 
 const WaterModal = (props) => {
   const data = React.useRef([
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ]);
-  const {setWaterGoal} = React.useContext(water_context);
+  const {setWaterGoal, User, waterGoals} = React.useContext(water_context);
   const waterGoal = React.useRef(15);
 
   return (
@@ -61,7 +62,7 @@ const WaterModal = (props) => {
         <View style={{height: 315, width: '100%'}}>
           <ScrollPicker
             dataSource={data.current}
-            selectedIndex={15}
+            selectedIndex={waterGoals.waterGoal}
             renderItem={(data, index, isSelected) => {}}
             onValueChange={(data, selectedIndex) => {
               waterGoal.current = data;
@@ -79,6 +80,7 @@ const WaterModal = (props) => {
           <TouchableOpacity
             style={{alignSelf: 'center', marginBottom: 40, marginTop: 20}}
             onPress={() => {
+              waterGoal_update({water: waterGoal.current, userID: User.user_id});
               setWaterGoal(waterGoal.current);
               props.setModalV(1);
             }}>

@@ -21,6 +21,7 @@ const Root = () => {
   const [APIT,setAPIT] = useState('');
   const [markedDate, setMarked] = useState({});
   const [ThemeStyle, setThemeStyle] = useState('dark');
+
   const [User, setUserInfo] = useState({
     name: '',
     age: 0,
@@ -30,6 +31,9 @@ const Root = () => {
     username: '',
     user_id: "",
     profile_image: "",
+    email: "",
+    fitnessLevel: 0,
+    weeklyLossGoal: 0
   });
   const [graphData, setGraphData] = useState({
     graphLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -526,7 +530,13 @@ async function saveData(key, value){
           selectImage,
           User,
           APItoken: APIT,
-          setUserInfo
+          setUserInfo,
+          userGoals,
+          setUserGoals,
+          waterGoals,
+          setWaterGoals,
+          missGoals,
+          setMissGoals
         }}>
         <user_context.Provider
           value={{
@@ -540,7 +550,9 @@ async function saveData(key, value){
             decrementDate,
              editDate,
              markedDate,
-             setMarkedDate
+             setMarkedDate,
+             User
+
             
           }}>
           <water_context.Provider
@@ -551,6 +563,7 @@ async function saveData(key, value){
               setWaterGoal,
               updateWaterTracker,
               waterText,
+              User
             }}>
             <foodLog_context.Provider
               value={{

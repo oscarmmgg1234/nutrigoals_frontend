@@ -98,5 +98,31 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
   },
+  genderInputView: {
+    marginTop: 15,
+    flexDirection: 'row',
+    width: '100%',
+    height: 30,
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  genderInputText: {
+    marginHorizontal: 25,
+    color: 'white',
+    fontSize: 19,
+  },
+  checkText: {
+    color: '#CACBC6',
+    fontSize: 15,
+    alignSelf: 'center',
+    paddingRight: 10,
+  },
+  scrollWrapper: {
+     backgroundColor: "rgba(0,0,0,0.3)", 
+     borderRadius: 20, 
+     alignSelf: 'center', 
+     marginTop: 20
+  }
 });
+
 export default styles;

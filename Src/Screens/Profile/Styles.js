@@ -111,15 +111,16 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   SettingsInnerText: {
-    fontSize: 23,
+    fontSize: 14,
     fontWeight: '600',
     color: Colors.White,
-    textAlign: 'center',
+    textAlign: 'left',
     justifyContent: 'center',
     marginLeft: 20,
+    width: '70%',
   },
   UnitText: {
-    fontSize: 23,
+    fontSize: 14,
     fontWeight: '600',
     color: Colors.White,
     textAlign: 'center',
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   SettingsHalfInnerText: {
-    fontSize: 23,
+    fontSize: 14,
     fontWeight: '600',
     color: Colors.White,
     textAlign: 'center',
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
   SelectableText: {
-    fontSize: 23,
+    fontSize: 15,
     fontWeight: '600',
     color: Colors.White,
     textAlign: 'center',
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
     width: widthScreen / 1.15,
     backgroundColor: Colors.backgroundColor,
     alignSelf: 'center',
-    height: 80,
+    height: 60,
     shadowColor: '#000',
     borderRadius: 20,
     shadowOffset: {
@@ -182,30 +183,31 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   HalfTextContainers: {
-    width: 150,
-    height: 70,
-    borderRadius: 20,
+    width: 1,
+    height: 50,
+    borderRadius: 30,
     elevation: 3,
     margin: 0,
     justifyContent: 'center',
   },
   AccountSettingsContainerHeaderText: {
-    fontSize: 17,
+    fontSize: 18,
     fontWeight: '600',
     color: Colors.White,
     marginTop: 15,
     marginLeft: 30,
     marginBottom: 10,
-    marginRight: 94
+    marginRight: 94,
+    
   },
   PairTextContainer: {
-    height: 45,
+    height: "auto",
     width: widthScreen / 1.15,
     flexDirection: 'row',
     alignSelf: 'flex-start',
+
   },
   PairContainer: {
-    height: 90,
     width: widthScreen / 1.15,
     flexDirection: 'row',
     alignSelf: 'center'
@@ -213,7 +215,7 @@ const styles = StyleSheet.create({
   HalfContainer: {
     width: 150,
     backgroundColor: Colors.backgroundColor,
-    height: 70,
+    height: 60,
     marginRight: 40,
     shadowColor: '#000',
     borderRadius: 20,
@@ -248,6 +250,10 @@ const styles = StyleSheet.create({
   },
   SettingsEditIcon: {
     marginRight: 20,
+  },
+  SwitchInnerText: {
+    fontSize: 15,
+    paddingHorizontal: 10
   }
 });
 export default styles;
