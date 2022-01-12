@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Modal, View, Text, TouchableOpacity, Image, Switch} from 'react-native';
 import Styles from '../../Screens/Home/Styles';
 import * as Constants from '../../Constants/index';
 import Images from '../../Styles/Images';
-import Colors from '../../Styles/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MacroModal from './macroModal/macroModal';
 import WaterModal from './waterModal/waterModal';

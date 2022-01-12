@@ -34,7 +34,11 @@ const MacroRatio = (props)=> {
 
     
     function submit(){
-        if(TI != '' && SI != '' && SOI != ''){
+      let tiIsValid = validate_input(parseFloat(TI), {type: "number", minNum: 0, maxNum: 1000})
+      let siIsValid = validate_input(parseFloat(SI), {type: "number", minNum: 0, maxNum: 1000})
+      let soiIsValid = validate_input(parseFloat(SOI), {type: "number", minNum: 0, maxNum: 1000})
+
+        if(tiIsValid.status === true && siIsValid.status === true && soiIsValid.status === true){
           if((PS.current + FS.current + CS.current) === 100){
           const Protein = Math.round(((PS.current / 100) * TI) / 4);
           const Fat = Math.round(((FS.current / 100) * TI) / 9);

@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../../Styles/Colors';
 import Styles from './Styles';
 import { macroGoal_update } from '../../../Services/user_goal_update';
-import {validation_input} from '../../../Utilities/input_validation'
+import {validate_input, validation_input} from '../../../Utilities/input_validation'
 
 
 const CustomForm = (props) => {
@@ -21,10 +21,20 @@ const CustomForm = (props) => {
   const [SOI, setSOI] = useState('');
 
   function submit(){
-    let piIsValid = validation_input
+    let piIsValid = validation_input(parse(PI),{type: "number", minNum: 0, maxNum: 1000});
+    let fiIsValid = validate_input(parseFloat(FI), {type: "number", minNum: 0, maxNum: 1000})
+    let ciIsValid = validate_input(parseFloat(CI), {type: "number", minNum: 0, maxNum: 1000})
+    let siIsValid = validate_input(parseFloat(SI), {type: "number", minNum: 0, maxNum: 1000})
+    let soiIsValid = validate_input(parseFloat(SOI), {type: "number", minNum: 0, maxNum: 1000})
+
+    if( piIsValid.status===true && fiIsValid.status===true && ciIsValid.status ===true && siIsValid.status === true  && soiIsValid.status === true){
     macroGoal_update({protein: parseFloat(PI), fat: parseFloat(FI), carbohydrate: parseFloat(CI), sugar: parseFloat(SI), sodium: parseFloat(SOI), userID: props.userID})
     props.setG(parseFloat(PI), parseFloat(FI), parseFloat(CI), parseFloat(SI), parseFloat(SOI));
     props.vis(0);
+    }
+    else{
+      null
+    }
 }
   return (
     <ScrollView scrollEnabled={true}>
