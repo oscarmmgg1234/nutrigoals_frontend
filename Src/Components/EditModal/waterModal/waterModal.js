@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ScrollPicker from 'react-native-wheely-simple-picker';
 import {water_context} from '../../../setup';
 import {waterGoal_update} from '../../../Services/user_goal_update';
+import { local_waterGoal_update } from '../../../Services/user_goal_update';
+import { user_water_goals_key } from '../../../Constants';
 
 const WaterModal = (props) => {
   const data = React.useRef([
@@ -81,7 +83,8 @@ const WaterModal = (props) => {
             style={{alignSelf: 'center', marginBottom: 40, marginTop: 20}}
             onPress={() => {
               waterGoal_update({water: waterGoal.current, userID: User.user_id});
-              setWaterGoal(waterGoal.current);
+              setWaterGoal({...waterGoal, waterGoal: waterGoal.current});
+              local_waterGoal_update(user_water_goals_key, {...waterGoals, waterGoal: waterGoal.current})
               props.setModalV(1);
             }}>
             <View

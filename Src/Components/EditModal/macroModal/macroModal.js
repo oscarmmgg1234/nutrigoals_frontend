@@ -1,22 +1,15 @@
 import React, {useState} from 'react';
-import {
-  Modal,
-  View,
-  Text,
-  Switch,
-  TouchableOpacity,
-} from 'react-native';
+import {Modal, View, Text, Switch, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Styles from '../../../Screens/Home/Styles';
 import Colors from '../../../Styles/Colors';
 import * as Constants from '../../../Constants';
 import CustomForm from './macroCustom';
 import MacroRatio from './macroRatio';
-import { user_context } from '../../../setup';
+import {user_context} from '../../../setup';
 
 const MacroModal = (props) => {
-
-  const {setGoalsR, User} = React.useContext(user_context);
+  const {setGoalsR, User, userGoals, missGoals} = React.useContext(user_context);
 
   const [switchBool, setSwitch] = useState(false);
   return (
@@ -111,9 +104,21 @@ const MacroModal = (props) => {
           </View>
         </View>
         {switchBool === true ? (
-          <MacroRatio setG={setGoalsR} vis={props.setModalV} userID={User.user_id}/>
+          <MacroRatio
+            setG={setGoalsR}
+            vis={props.setModalV}
+            userID={User.user_id}
+            userG={userGoals}
+            userM={missGoals}
+          />
         ) : (
-          <CustomForm setG={setGoalsR} vis={props.setModalV} userID={User.user_id}/>
+          <CustomForm
+            setG={setGoalsR}
+            vis={props.setModalV}
+            userID={User.user_id}
+            userG={userGoals}
+            userM={missGoals}
+          />
         )}
       </View>
     </Modal>

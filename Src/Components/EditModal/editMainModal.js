@@ -7,13 +7,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import MacroModal from './macroModal/macroModal';
 import WaterModal from './waterModal/waterModal';
 import CalcHomeComponent from './calculatorModal/calculatorHome';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EditMainModal = (props) => {
 
-  async function signOuty(){
-    await AsyncStorage.setItem('@authStatus', '0');
-  }
+  
   const [macroM, setMacroM] = React.useState(false);
   const [waterM, setWaterM] = React.useState(false);
   const [weightM, setWeightM] = React.useState(false);
@@ -75,7 +72,7 @@ const EditMainModal = (props) => {
             <View style={{flexDirection: 'row'}}>
               <Icon
                 name={'bullseye'}
-                color={'coral'}
+                color={"white"}
                 size={27}
                 style={{marginTop: 3}}
               />
@@ -120,7 +117,7 @@ const EditMainModal = (props) => {
             <View style={{flexDirection: 'row'}}>
               <Icon
                 name={'newspaper-o'}
-                color={'purple'}
+                color={'white'}
                 size={23}
                 style={{marginTop: 3}}
               />
@@ -135,7 +132,7 @@ const EditMainModal = (props) => {
             <View style={{flexDirection: 'row'}}>
               <Icon
                 name={'calculator'}
-                color={'violet'}
+                color={'white'}
                 size={25}
                 style={{marginTop: 3}}
               />
@@ -144,15 +141,6 @@ const EditMainModal = (props) => {
             <Image source={Images.chevron} style={Styles.userImage} />
           </View>
           <View style={Styles.seperator} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={Styles.buttonContainer}
-          onPress={() => {
-            signOuty();
-            props.signOut();
-            
-          }}>
-          <Text style={Styles.buttonText}>{Constants.SIGNOUT}</Text>
         </TouchableOpacity>
         <MacroModal visibility={macroM} setModalV={setModalVisibility}/>
         <WaterModal visibility={waterM} setModalV={setModalVisibility}/>

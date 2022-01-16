@@ -48,3 +48,9 @@ export const validation_status = {
 
 export const passRegex = RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,30}$');
 export const emailRegex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
+
+export const user_account_key = "userkey0";
+export const navigation_key = "userkey1";
+export const user_macro_goals_key = "userkey2";
+export const user_water_goals_key = "userkey3";
+export const user_soi_goals_key = "userkey4";

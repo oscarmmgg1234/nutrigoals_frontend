@@ -1,11 +1,12 @@
 //Create server call func for app
-import {call} from 'react-native-reanimated';
 import {
   AuthSeverCall,
   APIBackend,
   UserBackend,
   APITokenCall,
 } from './axios_config';
+import { Alert } from 'react-native';
+import { call } from 'react-native-reanimated';
 
 const saltRounds = 5;
 
@@ -46,7 +47,7 @@ export const login_user = async (userOBJ, callback) => {
         return callback(false);
       }
     })
-    .catch((err) => alert(err));
+    .catch((err) => Alert.alert(err));
 };
 
 export const upload_image_http_handler = async (uploadOBJ) => {
@@ -76,4 +77,3 @@ export const macroGoal_update_http_handler = async (userOBJ) => {
 export const waterGoal_update_http_handler = async (userOBJ) =>{
   await AuthSeverCall.post('/updateWaterGoals', userOBJ);
 }
-

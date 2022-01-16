@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {
   View,
   Text,
@@ -18,10 +18,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CalcHomeComponent from '../../Components/EditModal/calculatorModal/calculatorHome';
 import EditMainModal from '../../Components/EditModal/editMainModal';
 import ProfileSettings from '../../Components/EditModal/profileSettingsModal/profileSettings';
-
+import { remove_with_multikeys, save_bool_data } from '../../Utilities/local_storage';
 
 class Profile extends Component {
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -33,8 +32,8 @@ class Profile extends Component {
 
   static contextType = app_context;
   mountModal = (index) => {
-    switch(index){
-      case 0:{
+    switch (index) {
+      case 0: {
         this.setState({modal_calc_v: true});
         break;
       }
@@ -46,52 +45,61 @@ class Profile extends Component {
         this.setState({modal_profile_v: true});
         break;
       }
-
-
     }
-    }
-
-   
-    unmountModal = (index) =>{
-      switch(index){
-        case 0:{
-          this.setState({modal_calc_v: false});
-          break;
-        }
-        case 1: {
-          this.setState({modal_edit_v: false})
-          break;
-        }
-        case 2: {
-          this.setState({modal_profile_v: false})
-          break;
-        }
-      }
-    }
-
-  signOuty = async () => {
-    await AsyncStorage.setItem('@authStatus', '0').then(() => {
-      this.props.navigation.navigate('Login');
-    });
   };
 
+  unmountModal = (index) => {
+    switch (index) {
+      case 0: {
+        this.setState({modal_calc_v: false});
+        break;
+      }
+      case 1: {
+        this.setState({modal_edit_v: false});
+        break;
+      }
+      case 2: {
+        this.setState({modal_profile_v: false});
+        break;
+      }
+    }
+  };
+
+  asyncTask = async () => {
+    await save_bool_data(Constants.navigation_key, false);
+    await remove_with_multikeys([Constants.user_water_goals_key, Constants.user_account_key, Constants.user_macro_goals_key, Constants.user_soi_goals_key])
+  }
+
+  signOuty = () => {
+    this.asyncTask();
+  };
 
   render() {
-    
     return (
       <>
         <StatusBar barStyle={'light-content'} hidden={false} />
-        <CalcHomeComponent visibility={this.state.modal_calc_v} toggleModal={()=>this.unmountModal(0)}/>
-        <EditMainModal modal={this.state.modal_edit_v} toggleModal={()=>this.unmountModal(1)}/>
-        <ProfileSettings modal={this.state.modal_profile_v} toggleModal={()=>this.unmountModal(2)}/>
+        <CalcHomeComponent
+          visibility={this.state.modal_calc_v}
+          toggleModal={() => this.unmountModal(0)}
+        />
+        <EditMainModal
+          modal={this.state.modal_edit_v}
+          toggleModal={() => this.unmountModal(1)}
+        />
+        <ProfileSettings
+          modal={this.state.modal_profile_v}
+          toggleModal={() => this.unmountModal(2)}
+        />
         <SafeAreaView style={Styles.safeViewStyle1} />
         <app_context.Consumer>
-          {({User, selectImage}) => (
+          {({User, selectImage, toggleInitialStack}) => (
             <SafeAreaView style={Styles.safeViewStyle}>
               <View style={Styles.headerWrapper}>
                 <View style={Styles.headerContainer}>
-                  <Text  style={Styles.homeText}>Account</Text>
-                  <Text style={Styles.usernameText}>{"acc-user: " +User.username}</Text>
+                  <Text style={Styles.homeText}>Account</Text>
+                  <Text style={Styles.usernameText}>
+                    {'acc-user: ' + User.username}
+                  </Text>
                 </View>
               </View>
               <ScrollView>
@@ -111,26 +119,26 @@ class Profile extends Component {
                 </TouchableOpacity>
                 <View style={Styles.profileMain}>
                   {/* Profile */}
-                <TouchableOpacity onPress={()=>this.mountModal(2)}>
-                  <View style={Styles.listWrapper}>
-                    <View style={{flexDirection: 'row'}}>
-                      <Icon name={'user-o'} color={'white'} size={30} />
-                      <Text style={Styles.listText}>{'Profile '}</Text>
+                  <TouchableOpacity onPress={() => this.mountModal(2)}>
+                    <View style={Styles.listWrapper}>
+                      <View style={{flexDirection: 'row'}}>
+                        <Icon name={'user-o'} color={'white'} size={30} />
+                        <Text style={Styles.listText}>{'Profile '}</Text>
+                      </View>
+                      <Image source={Images.chevron} style={Styles.userImage} />
                     </View>
-                    <Image source={Images.chevron} style={Styles.userImage} />
-                  </View>
-                <View style={Styles.seperator} />
-                </TouchableOpacity>
+                    <View style={Styles.seperator} />
+                  </TouchableOpacity>
                   {/* Setting */}
-                  <TouchableOpacity onPress={()=>this.mountModal(1)}>
-                  <View style={Styles.listWrapper}>
-                    <View style={{flexDirection: 'row'}}>
-                      <Icon name={'cog'} color={'white'} size={30} />
-                      <Text style={Styles.listText}>{'Settings '}</Text>
+                  <TouchableOpacity onPress={() => this.mountModal(1)}>
+                    <View style={Styles.listWrapper}>
+                      <View style={{flexDirection: 'row'}}>
+                        <Icon name={'cog'} color={'white'} size={30} />
+                        <Text style={Styles.listText}>{'Settings '}</Text>
+                      </View>
+                      <Image source={Images.chevron} style={Styles.userImage} />
                     </View>
-                    <Image source={Images.chevron} style={Styles.userImage} />
-                  </View>
-                  <View style={Styles.seperator} />
+                    <View style={Styles.seperator} />
                   </TouchableOpacity>
                   {/* Goals */}
                   <View style={Styles.listWrapper}>
@@ -157,19 +165,19 @@ class Profile extends Component {
                       />
                     </View>
                     <View style={Styles.seperator} />
-                  </TouchableOpacity >
-                  <TouchableOpacity onPress={()=>this.mountModal(0)}>
-                  <View style={Styles.listWrapper}>
-                    <View style={{flexDirection: 'row'}}>
-                      <Icon name={'calculator'} color={'white'} size={30} />
-                      <Text style={Styles.listText}>{'Calculators '}</Text>
-                    </View>
-                    <Image source={Images.chevron} style={Styles.userImage} />
-                  </View>
-                  
-                  <View style={Styles.seperator} />
                   </TouchableOpacity>
-                
+                  <TouchableOpacity onPress={() => this.mountModal(0)}>
+                    <View style={Styles.listWrapper}>
+                      <View style={{flexDirection: 'row'}}>
+                        <Icon name={'calculator'} color={'white'} size={30} />
+                        <Text style={Styles.listText}>{'Calculators '}</Text>
+                      </View>
+                      <Image source={Images.chevron} style={Styles.userImage} />
+                    </View>
+
+                    <View style={Styles.seperator} />
+                  </TouchableOpacity>
+
                   {/* Remainder */}
                   <View style={Styles.listWrapper}>
                     <View style={{flexDirection: 'row'}}>
@@ -192,8 +200,8 @@ class Profile extends Component {
                   <TouchableOpacity
                     style={Styles.buttonContainer}
                     onPress={() => {
+                      toggleInitialStack(false);
                       this.signOuty();
-                      this.props.navigation.navigate('Login');
                     }}>
                     <Text style={Styles.buttonText}>{Constants.SIGNOUT}</Text>
                   </TouchableOpacity>

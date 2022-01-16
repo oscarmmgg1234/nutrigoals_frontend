@@ -1,14 +1,24 @@
 import React, {useEffect, useContext, createContext} from 'react';
 import Root from './Src/setup';
-import 'react-native-splash-screen';
-
+import { get_bool_data, save_bool_data } from './Src/Utilities/local_storage';
+import { navigation_key } from './Src/Constants';
 
 
 const App = () => {
+  const [initAPP, setInit] = React.useState(false)
+
+  React.useEffect(async ()=>{
+    let response = await get_bool_data(navigation_key);
+    if(response === true){
+      setInit(true)
+    }
+
+  }, [])
+
   return (
     <>
   
-      <Root />
+      <Root init={initAPP} setInitialS={setInit}/>
    
     </>
   );

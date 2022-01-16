@@ -1,26 +1,39 @@
 import React, {useEffect, useState, createContext, useRef} from 'react';
-import upload_image from './Services/image_upload';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {upload_image, local_upload_image} from './Services/image_upload';
+import {NavigationContainer} from '@react-navigation/native';
 import {View} from 'react-native';
 import moment from 'moment';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import RootNavigation from './Navigation/RootNavigation';
-import { APITokenCall } from './http_config/axios_config';
+import AuthStack from './Navigation/AuthStack';
+import UserStack from './Navigation/AppStack';
+import {APITokenCall} from './http_config/axios_config';
+import {navigation_key, USERNAME, user_account_key, user_macro_goals_key, user_soi_goals_key, user_water_goals_key} from './Constants';
+import {get_BOOLdata, get_bool_data, get_JSONdata, get_STRINGdata, save_bool_data, get_json_data} from './Utilities/local_storage';
+import ActivityScreen from './Components/appStartScreen';
+
+import { set } from 'react-native-reanimated';
 export const app_context = createContext();
 export const user_context = createContext();
 export const water_context = createContext();
 export const foodLog_context = createContext();
 
-
-const Root = () => {
-    {'Core App States'}
+const Root = (props) => {
+  {
+    ('Core App States');
+  }
   const [date, setDate] = useState('');
   const [DisplayDate, setDisplayText] = useState('');
-  const [waterTracker, setWaterT] = useState('')
+  const [waterTracker, setWaterT] = useState('');
   const [waterText, setWaterText] = useState('Drink Water');
-  const [APIT,setAPIT] = useState('');
+  const [APIT, setAPIT] = useState('');
   const [markedDate, setMarked] = useState({});
   const [ThemeStyle, setThemeStyle] = useState('dark');
+  const [actScreen, setActScreen] = useState(true);
+
+  const toggleInitialStack = (bool) =>{
+    props.setInitialS(bool);
+  }
 
   const [User, setUserInfo] = useState({
     name: '',
@@ -29,11 +42,11 @@ const Root = () => {
     height: 0,
     gender: '',
     username: '',
-    user_id: "",
-    profile_image: "",
-    email: "",
+    user_id: '',
+    profile_image: '',
+    email: '',
     fitnessLevel: 0,
-    weeklyLossGoal: 0
+    weeklyLossGoal: 0,
   });
   const [graphData, setGraphData] = useState({
     graphLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -104,7 +117,9 @@ const Root = () => {
   const [imagePath, setImagePath] = useState('');
   const [AuthStatus, setAuthStatus] = useState('1');
 
-  {'Core App Refs'}
+  {
+    ('Core App Refs');
+  }
 
   const BFLogRef = useRef([{name: 'add', id: Math.random() % 5000}]);
   const LunchLogRef = useRef([
@@ -126,19 +141,39 @@ const Root = () => {
     },
   ]);
 
-  {'useEffect functionailties'}
-
+  {
+    ('useEffect functionailties');
+  }
+  React.useEffect(()=>{
+    setTimeout(()=>{setActScreen(false)}, 1850)
+  }, [])
+  React.useEffect(async ()=>{
+    let USERresponse = await get_json_data(user_account_key);
+    let MACROresponse = await get_json_data(user_macro_goals_key);
+    let WATERresponse = await get_json_data(user_water_goals_key);
+    let SOIresponse = await get_json_data(user_soi_goals_key);
+    if(USERresponse !== null && USERresponse !== undefined){
+      setUserInfo(USERresponse);
+      setUserGoals({...userGoals, fatGoal: MACROresponse.fatGoal, carbGoal: MACROresponse.carbGoal, proteinGoal: MACROresponse.proteinGoal })
+      setWaterGoals({...waterGoals, waterGoal: WATERresponse.waterGoal})
+      setMissGoals({...missGoals, sugarGoal: SOIresponse.sugarGoal, sodiumGoal: SOIresponse.sodiumGoal})
+    }
+    else{
+      null;
+    }
+  }, [])
   
+  React.useEffect(async () => {
+    if (imagePath === '') {
+      const now = moment.now();
+      const cDate = moment(now).format('MMMM Do, YYYY');
+      
 
-  React.useEffect(async ()=>{if(imagePath === ''){
-    const response = await getData('@userImageURI')
-    const now = moment.now();
-    const cDate = moment(now).format('MMMM Do, YYYY')
-    setImagePath(response)
-    setDate(now);
-    setDisplayText(cDate);
-    
-  }})
+      setDate(now);
+      setDisplayText(cDate);
+    }
+  }, []);
+
   useEffect(() => {
     setMacroData({
       data: [
@@ -186,73 +221,55 @@ const Root = () => {
     });
   }, [userGoals]);
 
-  useEffect(async ()=>
-    {
-      let response = await APITokenCall.get('getFoodAccessToken');
-      setAPIT(response.data.access_token);
-    }
-  ,[])
+  useEffect(async () => {
+    let response = await APITokenCall.get('getFoodAccessToken');
+    setAPIT(response.data.access_token);
+  }, []);
 
-
-  {'Handler functions'}
-
-  async function getData(key){
-    let response = await AsyncStorage.getItem(key);
-    return response;
+  {
+    ('Handler functions');
   }
 
-
-
-  
-  const setMarkedDate = (day) =>{
+  const setMarkedDate = (day) => {
     const ccday = day.dateString;
-    setMarked({[ccday]: {selected: true}})
-}
-  const editMarkedDate = (day) =>{
+    setMarked({[ccday]: {selected: true}});
+  };
+  const editMarkedDate = (day) => {
     const nday = day;
-    setMarked({[nday]: {selected: true}})
-  }
+    setMarked({[nday]: {selected: true}});
+  };
 
-
-  
-  updateWaterTracker = () =>{
+  updateWaterTracker = () => {
     const dateTime = moment.now();
-    const dateTimeText = moment(dateTime).format('h:mm a')
+    const dateTimeText = moment(dateTime).format('h:mm a');
     setWaterT(dateTime);
     setWaterText(dateTimeText);
-    }
-   
-  
-  
+  };
 
   incrementDate = () => {
     let newDate = moment(date).add(1, 'days');
     let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
     let newMarked = moment(newDate).format('YYYY-MM-DD');
     editMarkedDate(newMarked);
-    
+
     setDate(newDate);
     setDisplayText(newDisplayDate);
- }
- decrementDate = () => {
-  let newDate = moment(date).subtract(1, 'days');
-  let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
-  let newMarked = moment(newDate).format('YYYY-MM-DD');
+  };
+  decrementDate = () => {
+    let newDate = moment(date).subtract(1, 'days');
+    let newDisplayDate = moment(newDate).format('MMMM Do, YYYY');
+    let newMarked = moment(newDate).format('YYYY-MM-DD');
     editMarkedDate(newMarked);
-  setDate(newDate);
-  setDisplayText(newDisplayDate);
-}
-editDate = (arg) =>{
-  const dateString = arg.dateString;
-  const date = moment(dateString).format();
-  const DisplayDate = moment(date).format('MMMM Do, YYYY');
-  setDate(date);
-  setDisplayText(DisplayDate);
-  
-}
-  
-  
-  
+    setDate(newDate);
+    setDisplayText(newDisplayDate);
+  };
+  editDate = (arg) => {
+    const dateString = arg.dateString;
+    const date = moment(dateString).format();
+    const DisplayDate = moment(date).format('MMMM Do, YYYY');
+    setDate(date);
+    setDisplayText(DisplayDate);
+  };
 
   function setLogQuantity(object, value) {
     console.log(`entry: will now begin to setValue with value ${value}`);
@@ -305,7 +322,7 @@ editDate = (arg) =>{
         soc += obj.sodium * parseFloat(obj.quantity);
       }
     });
-    
+
     LunchLogRef.current.map((obj, index) => {
       if (index > 0) {
         pc += obj.protein * obj.quantity;
@@ -337,8 +354,6 @@ editDate = (arg) =>{
   }
 
   function editBFLogData(value) {
-    
-    
     let newEntry = {
       name: value.food_name,
       id: Math.random(),
@@ -461,8 +476,6 @@ editDate = (arg) =>{
     }
   }
 
- 
-
   function setGoalsR(val, val2, val3, val4, val5) {
     setUserGoals({
       proteinGoal: val,
@@ -497,13 +510,7 @@ editDate = (arg) =>{
     });
   }
 
-async function saveData(key, value){
-  await AsyncStorage.setItem(key, value);
-
-}
-
-
-   const selectImage = () => {
+  const selectImage = () => {
     const options = {
       quality: 0.4,
       includeBase64: true,
@@ -517,8 +524,15 @@ async function saveData(key, value){
       } else if (response.error) {
       } else if (response.customButton) {
       } else {
-        setUserInfo({...User, profile_image: "data:image/jpg;base64,"+response.assets[0].base64}) 
-        upload_image({image: "data:image/jpg;base64,"+response.assets[0].base64, userID: User.user_id});
+        setUserInfo({
+          ...User,
+          profile_image: 'data:image/jpg;base64,' + response.assets[0].base64,
+        });
+        upload_image({
+          image: 'data:image/jpg;base64,' + response.assets[0].base64,
+          userID: User.user_id,
+        });
+        local_upload_image(user_account_key, {...User, profile_image: 'data:image/jpg;base64,' + response.assets[0].base64})
       }
     });
   };
@@ -536,24 +550,24 @@ async function saveData(key, value){
           waterGoals,
           setWaterGoals,
           missGoals,
-          setMissGoals
+          setMissGoals,
+          toggleInitialStack,
         }}>
         <user_context.Provider
           value={{
             macroData: macroData.data,
             graphData,
             userGoals,
+            missGoals,
             setGoalsR,
             date,
             DisplayDate,
             incrementDate,
             decrementDate,
-             editDate,
-             markedDate,
-             setMarkedDate,
-             User
-
-            
+            editDate,
+            markedDate,
+            setMarkedDate,
+            User,
           }}>
           <water_context.Provider
             value={{
@@ -563,7 +577,7 @@ async function saveData(key, value){
               setWaterGoal,
               updateWaterTracker,
               waterText,
-              User
+              User,
             }}>
             <foodLog_context.Provider
               value={{
@@ -582,9 +596,10 @@ async function saveData(key, value){
                 SnackLogRef,
               }}>
               <View style={{flex: 1}}>
-                
-                <RootNavigation /> 
-                
+                <ActivityScreen visibility={actScreen}/>
+                <NavigationContainer>
+                  {props.init === true ? <UserStack /> : <AuthStack />}
+                </NavigationContainer>
               </View>
             </foodLog_context.Provider>
           </water_context.Provider>
