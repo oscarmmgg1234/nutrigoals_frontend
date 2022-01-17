@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ResultsView from './resultsComponent';
 import PortionView from './portionComponent';
 import { APIBackend } from '../../../../http_config/axios_config';
-import { app_context } from '../../../../setup';
+import { app_context } from '../../../../core';
 import {Picker} from '@react-native-picker/picker';
 
 

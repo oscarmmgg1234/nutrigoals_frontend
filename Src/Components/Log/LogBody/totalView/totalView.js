@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {Styles} from './totalViewStyles';
 import ProgressMacro from './progressMacro';
-import {user_context} from '../../../../setup';
+import {user_context} from '../../../../core';
 
 const TotalView = () => {
   const {userGoals} = React.useContext(user_context);

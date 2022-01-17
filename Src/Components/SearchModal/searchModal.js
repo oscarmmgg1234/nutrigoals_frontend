@@ -12,8 +12,8 @@ import Styles from '../../Screens/NutrionLog/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ResultsViewSearch from './resultView';
 import PortionView from '../Log/LogBody/foodLog/portionComponent';
-import { app_context } from '../../setup';
-import { foodLog_context } from '../../setup';
+import { app_context } from '../../core';
+import { foodLog_context } from '../../core';
 import { APIBackend } from '../../http_config/axios_config';
 
 

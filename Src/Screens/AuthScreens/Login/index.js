@@ -16,7 +16,7 @@ import Styles from './Styles';
 import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
-import {app_context} from '../../../setup';
+import {app_context} from '../../../core';
 import {login_user} from '../../../http_config/server_call_func';
 import { validate_input } from '../../../Utilities/input_validation';
 import { user_account_key, navigation_key, user_macro_goals_key, user_water_goals_key, user_soi_goals_key } from '../../../Constants';

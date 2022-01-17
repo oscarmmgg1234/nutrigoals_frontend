@@ -3,7 +3,7 @@ import {View, Text, Dimensions} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 import Colors from '../../../Styles/Colors';
 import Styles from '../../../Screens/Home/Styles';
-import {user_context} from '../../../setup';
+import {user_context} from '../../../core';
 
 const ProgressChart = () => {
   const {graphData} = React.useContext(user_context);

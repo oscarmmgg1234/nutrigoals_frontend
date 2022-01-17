@@ -2,13 +2,13 @@ import React, {Component, useState} from 'react';
 import {View, TouchableOpacity, Text, Image} from 'react-native';
 import Styles from '../../../Screens/Home/Styles';
 import Images from '../../../Styles/Images';
-import {app_context} from '../../../setup';
+import {app_context} from '../../../core';
 import EditMainModal from '../../EditModal/editMainModal';
 import SearchModal from '../../SearchModal/searchModal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CalendarComponent from './dateComponent';
 import moment from 'moment';
-import {user_context} from '../../../setup';
+import {user_context} from '../../../core';
 
 class HomeHeader extends Component {
   constructor(props) {

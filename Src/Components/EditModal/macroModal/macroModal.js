@@ -6,7 +6,7 @@ import Colors from '../../../Styles/Colors';
 import * as Constants from '../../../Constants';
 import CustomForm from './macroCustom';
 import MacroRatio from './macroRatio';
-import {user_context} from '../../../setup';
+import {user_context} from '../../../core';
 
 const MacroModal = (props) => {
   const {setGoalsR, User, userGoals, missGoals} = React.useContext(user_context);

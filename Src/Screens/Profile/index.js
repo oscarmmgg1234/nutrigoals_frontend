@@ -13,7 +13,7 @@ import {
 import Styles from './Styles';
 import * as Constants from '../../Constants';
 import Images from '../../Styles/Images';
-import {app_context} from '../../setup';
+import {app_context} from '../../core';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CalcHomeComponent from '../../Components/EditModal/calculatorModal/calculatorHome';
 import EditMainModal from '../../Components/EditModal/editMainModal';

@@ -4,7 +4,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Styles from "../../../Screens/Profile/Styles";
 import { account_update } from "../../../Services/account_update";
-import { app_context } from "../../../setup";
+import { app_context } from "../../../core";
 import { validate_input } from "../../../Utilities/input_validation";
 import { local_account_update } from "../../../Services/account_update";
 import { user_account_key } from "../../../Constants";

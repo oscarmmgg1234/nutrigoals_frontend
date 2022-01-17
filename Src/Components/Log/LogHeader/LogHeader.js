@@ -5,7 +5,7 @@ import Images from '../../../Styles/Images';
 import EditMainModal from '../../EditModal/editMainModal';
 import SearchModal from '../../SearchModal/searchModal';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { user_context } from '../../../setup';
+import { user_context } from '../../../core';
 import { useState } from 'react/cjs/react.development';
 import CalendarComponent from '../../Home/HomeHeader/dateComponent';
 

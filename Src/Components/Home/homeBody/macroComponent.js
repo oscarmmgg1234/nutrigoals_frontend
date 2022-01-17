@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import {GradientCircularProgress} from 'react-native-circular-gradient-progress';
-import {user_context} from '../../../setup';
+import {user_context} from '../../../core';
 import Styles from '../../../Screens/Home/Styles';
 import Colors from '../../../Styles/Colors';
 

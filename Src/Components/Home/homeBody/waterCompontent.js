@@ -3,7 +3,7 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import * as Progress from 'react-native-progress';
 import Styles from '../../../Screens/Home/Styles';
 import Colors from '../../../Styles/Colors';
-import {water_context} from '../../../setup';
+import {water_context} from '../../../core';
 import Images from '../../../Styles/Images';
 
 const WaterProgress = () => {

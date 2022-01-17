@@ -1,5 +1,5 @@
 import React, {useEffect, useContext, createContext} from 'react';
-import Root from './Src/setup';
+import Root from './Src/core';
 import { get_bool_data, save_bool_data } from './Src/Utilities/local_storage';
 import { navigation_key } from './Src/Constants';
 

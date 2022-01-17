@@ -1,7 +1,7 @@
 import React, {useContext, Suspense} from 'react';
 import {View, Text, SafeAreaView, ScrollView, StatusBar} from 'react-native';
 import Styles from './Styles';
-import {foodLog_context} from '../../setup';
+import {foodLog_context} from '../../core';
 import LogHeader from '../../Components/Log/LogHeader/LogHeader';
 import TotalView from '../../Components/Log/LogBody/totalView/totalView';
 
