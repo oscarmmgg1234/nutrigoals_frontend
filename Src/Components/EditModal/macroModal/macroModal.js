@@ -9,7 +9,7 @@ import MacroRatio from './macroRatio';
 import {user_context} from '../../../core';
 
 const MacroModal = (props) => {
-  const {setGoalsR, User, userGoals, missGoals} = React.useContext(user_context);
+  const {setGoalsR, User, userGoals} = React.useContext(user_context);
 
   const [switchBool, setSwitch] = useState(false);
   return (
@@ -109,7 +109,6 @@ const MacroModal = (props) => {
             vis={props.setModalV}
             userID={User.user_id}
             userG={userGoals}
-            userM={missGoals}
           />
         ) : (
           <CustomForm
@@ -117,7 +116,6 @@ const MacroModal = (props) => {
             vis={props.setModalV}
             userID={User.user_id}
             userG={userGoals}
-            userM={missGoals}
           />
         )}
       </View>

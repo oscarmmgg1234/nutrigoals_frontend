@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ScrollPicker from 'react-native-wheely-simple-picker';
 import Styles from './Styles';
 import Colors from '../../../Styles/Colors';
-import {macroGoal_update, local_macroGoal_update, local_soiGoal_update} from '../../../Services/user_goal_update';
+import {macroGoal_update, local_macroGoal_update, local_soiGoal_update} from '../../../Services/authServices/user_goal_update';
 import { user_macro_goals_key, user_soi_goals_key } from '../../../Constants';
 
 const MacroRatio = (props) => {
@@ -80,7 +80,7 @@ const MacroRatio = (props) => {
         local_macroGoal_update(user_macro_goals_key,{...props.userG,proteinGoal: Protein,
           fatGoal: Fat,
           carbGoal: Carbs})
-        local_soiGoal_update(user_soi_goals_key,{...props.userM, sodiumGoal:  parseFloat(SOI),
+        local_soiGoal_update(user_soi_goals_key,{...props.userG, sodiumGoal:  parseFloat(SOI),
           sugarGoal:  parseFloat(SI)})
         props.vis(0);
       } else {

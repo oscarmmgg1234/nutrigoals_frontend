@@ -3,10 +3,10 @@ import { Modal, Text, TouchableOpacity, View, TextInput, Switch, KeyboardAvoidin
 import { ScrollView } from "react-native-gesture-handler";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Styles from "../../../Screens/Profile/Styles";
-import { account_update } from "../../../Services/account_update";
+import { account_update } from "../../../Services/authServices/account_update";
 import { app_context } from "../../../core";
 import { validate_input } from "../../../Utilities/input_validation";
-import { local_account_update } from "../../../Services/account_update";
+import { local_account_update } from "../../../Services/authServices/account_update";
 import { user_account_key } from "../../../Constants";
 
 const ProfileSettings = (props) => {
@@ -75,7 +75,7 @@ const ProfileSettings = (props) => {
               <View style={Styles.LongContainer}>
                 <TextInput style={[Styles.SettingsInnerText]} value={User.username} />
               </View>
-              <Text style={[Styles.AccountSettingsContainerHeaderText, {marginTop: 30}]}>{'User-id: '}</Text>
+              <Text style={[Styles.AccountSettingsContainerHeaderText, {marginTop: 30}]}>{'Account-ID: '}</Text>
               <View style={Styles.LongContainer}>
                 <TextInput style={[Styles.SettingsInnerText, {fontSize: 9}]} value={User.user_id} />
               </View>

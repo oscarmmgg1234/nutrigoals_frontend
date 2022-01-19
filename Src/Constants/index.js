@@ -54,3 +54,8 @@ export const navigation_key = "userkey1";
 export const user_macro_goals_key = "userkey2";
 export const user_water_goals_key = "userkey3";
 export const user_soi_goals_key = "userkey4";
+
+export const auth_server_publicIp_with_port = 'http://34.216.10.88:5000';
+export const api_server_publicIp_with_port = 'http://34.216.10.88:5001';
+export const access_server_publicIp_with_port = 'http://34.216.10.88:5002';
+export const calc_server_publicIp_with_port = 'http://34.216.10.88:5003';

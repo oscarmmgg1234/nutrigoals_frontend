@@ -4,9 +4,9 @@ import Styles from '../../../../Screens/NutrionLog/Styles'
 
 const PortionView = (props) => {
 
-  React.useEffect(()=>{
-    flatListRef.scrollToOffset({x: 0, animated: true})
-  }, [props.data])
+  // React.useEffect(()=>{
+  //   flatListRef.scrollToOffset({x: 0, animated: true})
+  // }, [props.data])
 
 
   function toggleFocus(value, index) {

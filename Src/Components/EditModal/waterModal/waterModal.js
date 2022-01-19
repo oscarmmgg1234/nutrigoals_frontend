@@ -5,8 +5,7 @@ import Styles from '../../../Screens/Home/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ScrollPicker from 'react-native-wheely-simple-picker';
 import {water_context} from '../../../core';
-import {waterGoal_update} from '../../../Services/user_goal_update';
-import { local_waterGoal_update } from '../../../Services/user_goal_update';
+import { local_waterGoal_update, waterGoal_update } from '../../../Services/authServices/user_goal_update';
 import { user_water_goals_key } from '../../../Constants';
 
 const WaterModal = (props) => {

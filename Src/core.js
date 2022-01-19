@@ -1,18 +1,23 @@
 import React, {useEffect, useState, createContext, useRef} from 'react';
-import {upload_image, local_upload_image} from './Services/image_upload';
+import {
+  upload_image,
+  local_upload_image,
+} from './Services/authServices/image_upload';
 import {NavigationContainer} from '@react-navigation/native';
 import {View} from 'react-native';
 import moment from 'moment';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
-import RootNavigation from './Navigation/RootNavigation';
 import AuthStack from './Navigation/AuthStack';
 import UserStack from './Navigation/AppStack';
 import {APITokenCall} from './http_config/axios_config';
-import {navigation_key, USERNAME, user_account_key, user_macro_goals_key, user_soi_goals_key, user_water_goals_key} from './Constants';
-import {get_BOOLdata, get_bool_data, get_JSONdata, get_STRINGdata, save_bool_data, get_json_data} from './Utilities/local_storage';
+import {
+  user_account_key,
+  user_macro_goals_key,
+  user_soi_goals_key,
+  user_water_goals_key,
+} from './Constants';
+import {get_json_data} from './Utilities/local_storage';
 import ActivityScreen from './Components/appStartScreen';
-
-import { set } from 'react-native-reanimated';
 export const app_context = createContext();
 export const user_context = createContext();
 export const water_context = createContext();
@@ -31,9 +36,9 @@ const Root = (props) => {
   const [ThemeStyle, setThemeStyle] = useState('dark');
   const [actScreen, setActScreen] = useState(true);
 
-  const toggleInitialStack = (bool) =>{
+  const toggleInitialStack = (bool) => {
     props.setInitialS(bool);
-  }
+  };
 
   const [User, setUserInfo] = useState({
     name: '',
@@ -59,17 +64,24 @@ const Root = (props) => {
     proteinCurrent: 0,
     fatCurrent: 0,
     carbCurrent: 0,
+    sodiumCurrent: 0,
+    sugarCurrent: 0,
+    sodiumGoal: 0,
+    sugarGoal: 0,
+    fiberGoal: 0,
+    fiberCurrent: 0,
+    potassiumGoal: 0,
+    potassiumCurrent: 0,
+    transfatGoal: 0,
+    transfatCurrent: 0,
+    saturatedfatGoal: 0,
+    saturatedfatCurrent: 0,
   });
   const [waterGoals, setWaterGoals] = useState({
     waterGoal: 15,
     waterCurrent: 0,
   });
-  const [missGoals, setMissGoals] = useState({
-    sodiumCurrent: 0,
-    sugarCurrent: 0,
-    sodiumGoal: 0,
-    sugarGoal: 0,
-  });
+
   const [macroData, setMacroData] = useState({
     data: [
       {
@@ -98,20 +110,44 @@ const Root = (props) => {
       },
       {
         name: 'Sugar',
-        macroGoal: missGoals.sugarGoal,
-        macroCurrent: missGoals.sugarCurrent,
+        macroGoal: userGoals.sugarGoal,
+        macroCurrent: userGoals.sugarCurrent,
         colorStart: '#74abdf',
         colorMiddle: '#6aaeee',
         colorEnd: '#4fa0ed',
       },
       {
         name: 'Sodium',
-        macroGoal: missGoals.sodiumGoal,
-        macroCurrent: missGoals.sodiumCurrent,
+        macroGoal: userGoals.sodiumGoal,
+        macroCurrent: userGoals.sodiumCurrent,
         colorStart: '#a064e0',
         colorMiddle: '#9754de',
         colorEnd: '#9046df',
       },
+      // {
+      //   name: 'Fiber',
+      //   macroGoal: userGoals.fiberGoal,
+      //   macroCurrent: userGoals.fiberCurrent,
+      //   colorStart: '#a064e0',
+      //   colorMiddle: '#9754de',
+      //   colorEnd: '#9046df',
+      // },
+      // {
+      //   name: 'Potassium',
+      //   macroGoal: userGoals.potassiumGoal,
+      //   macroCurrent: userGoals.potassiumCurrent,
+      //   colorStart: '#a064e0',
+      //   colorMiddle: '#9754de',
+      //   colorEnd: '#9046df',
+      // },
+      // {
+      //   name: 'Trans Fat',
+      //   macroGoal: userGoals.transfatGoal,
+      //   macroCurrent: userGoals.transfatCurrent,
+      //   colorStart: '#a064e0',
+      //   colorMiddle: '#9754de',
+      //   colorEnd: '#9046df',
+      // },
     ],
   });
   const [imagePath, setImagePath] = useState('');
@@ -144,30 +180,36 @@ const Root = (props) => {
   {
     ('useEffect functionailties');
   }
-  React.useEffect(()=>{
-    setTimeout(()=>{setActScreen(false)}, 1850)
-  }, [])
-  React.useEffect(async ()=>{
+  React.useEffect(() => {
+    setTimeout(() => {
+      setActScreen(false);
+    }, 1820);
+  }, []);
+  React.useEffect(async () => {
     let USERresponse = await get_json_data(user_account_key);
     let MACROresponse = await get_json_data(user_macro_goals_key);
     let WATERresponse = await get_json_data(user_water_goals_key);
     let SOIresponse = await get_json_data(user_soi_goals_key);
-    if(USERresponse !== null && USERresponse !== undefined){
+    if (USERresponse !== null && USERresponse !== undefined) {
       setUserInfo(USERresponse);
-      setUserGoals({...userGoals, fatGoal: MACROresponse.fatGoal, carbGoal: MACROresponse.carbGoal, proteinGoal: MACROresponse.proteinGoal })
-      setWaterGoals({...waterGoals, waterGoal: WATERresponse.waterGoal})
-      setMissGoals({...missGoals, sugarGoal: SOIresponse.sugarGoal, sodiumGoal: SOIresponse.sodiumGoal})
-    }
-    else{
+      setUserGoals({
+        ...userGoals,
+        fatGoal: MACROresponse.fatGoal,
+        carbGoal: MACROresponse.carbGoal,
+        proteinGoal: MACROresponse.proteinGoal,
+        sugarGoal: SOIresponse.sugarGoal,
+        sodiumGoal: SOIresponse.sodiumGoal,
+      });
+      setWaterGoals({...waterGoals, waterGoal: WATERresponse.waterGoal});
+    } else {
       null;
     }
-  }, [])
-  
+  }, []);
+
   React.useEffect(async () => {
     if (imagePath === '') {
       const now = moment.now();
       const cDate = moment(now).format('MMMM Do, YYYY');
-      
 
       setDate(now);
       setDisplayText(cDate);
@@ -203,16 +245,16 @@ const Root = (props) => {
         },
         {
           name: 'Sugar',
-          macroGoal: missGoals.sugarGoal,
-          macroCurrent: missGoals.sugarCurrent,
+          macroGoal: userGoals.sugarGoal,
+          macroCurrent: userGoals.sugarCurrent,
           colorStart: '#74abdf',
           colorMiddle: '#6aaeee',
           colorEnd: '#4fa0ed',
         },
         {
           name: 'Sodium',
-          macroGoal: missGoals.sodiumGoal,
-          macroCurrent: missGoals.sodiumCurrent,
+          macroGoal: userGoals.sodiumGoal,
+          macroCurrent: userGoals.sodiumCurrent,
           colorStart: '#a064e0',
           colorMiddle: '#9754de',
           colorEnd: '#9046df',
@@ -223,6 +265,7 @@ const Root = (props) => {
 
   useEffect(async () => {
     let response = await APITokenCall.get('getFoodAccessToken');
+    console.log(response.data.access_token);
     setAPIT(response.data.access_token);
   }, []);
 
@@ -272,7 +315,6 @@ const Root = (props) => {
   };
 
   function setLogQuantity(object, value) {
-    console.log(`entry: will now begin to setValue with value ${value}`);
     switch (object.logGroup) {
       case 'BF': {
         let temp = BFLogRef.current.map((obj) =>
@@ -353,17 +395,18 @@ const Root = (props) => {
     setGoals(pc, fc, cc, sc, soc);
   }
 
-  function editBFLogData(value) {
+  function editBFLogData(value, index) {
     let newEntry = {
-      name: value.food_name,
-      id: Math.random(),
-      protein: parseFloat(value.protein),
-      fat: parseFloat(value.fat),
-      carbohydrate: parseFloat(value.carbohydrates),
-      sugar: parseFloat(value.sugar),
-      sodium: parseFloat(value.sodium),
-      servingDescription: value.serving_description,
-      brand_name: value.brand_name,
+      name: value.food.food_name,
+      id: value.food.food_id,
+      protein: parseFloat(value.food.servings.serving[index].protein),
+      fat: parseFloat(value.food.servings.serving[index].fat),
+      carbohydrate: parseFloat(value.food.servings.serving[index].carbohydrate),
+      sugar: parseFloat(value.food.servings.serving[index].sugar),
+      sodium: parseFloat(value.food.servings.serving[index].sodium),
+      servingDescription:
+        value.food.servings.serving[index].serving_description,
+      brand_name: value.food.brand_name,
       quantity: '1',
       logGroup: 'BF',
     };
@@ -379,17 +422,18 @@ const Root = (props) => {
     BFLogRef.current = temp;
     update();
   }
-  function editLunchLogData(value) {
+  function editLunchLogData(value, index) {
     let newEntry = {
-      name: value.food_name,
-      id: Math.random(),
-      protein: parseFloat(value.protein),
-      fat: parseFloat(value.fat),
-      carbohydrate: parseFloat(value.carbohydrates),
-      sugar: parseFloat(value.sugar),
-      sodium: parseFloat(value.sodium),
-      servingDescription: value.serving_description,
-      brand_name: value.brand_name,
+      name: value.food.food_name,
+      id: value.food.food_id,
+      protein: parseFloat(value.food.servings.serving[index].protein),
+      fat: parseFloat(value.food.servings.serving[index].fat),
+      carbohydrate: parseFloat(value.food.servings.serving[index].carbohydrate),
+      sugar: parseFloat(value.food.servings.serving[index].sugar),
+      sodium: parseFloat(value.food.servings.serving[index].sodium),
+      servingDescription:
+        value.food.servings.serving[index].serving_description,
+      brand_name: value.food.brand_name,
       quantity: '1',
       logGroup: 'LN',
     };
@@ -405,17 +449,18 @@ const Root = (props) => {
     LunchLogRef.current = temp;
     update();
   }
-  function editDinnerLogData(value) {
+  function editDinnerLogData(value, index) {
     let newEntry = {
-      name: value.food_name,
-      id: Math.random(),
-      protein: parseFloat(value.protein),
-      fat: parseFloat(value.fat),
-      carbohydrate: parseFloat(value.carbohydrates),
-      sugar: parseFloat(value.sugar),
-      sodium: parseFloat(value.sodium),
-      servingDescription: value.serving_description,
-      brand_name: value.brand_name,
+      name: value.food.food_name,
+      id: value.food.food_id,
+      protein: parseFloat(value.food.servings.serving[index].protein),
+      fat: parseFloat(value.food.servings.serving[index].fat),
+      carbohydrate: parseFloat(value.food.servings.serving[index].carbohydrate),
+      sugar: parseFloat(value.food.servings.serving[index].sugar),
+      sodium: parseFloat(value.food.servings.serving[index].sodium),
+      servingDescription:
+        value.food.servings.serving[index].serving_description,
+      brand_name: value.food.brand_name,
       quantity: '1',
       logGroup: 'DN',
     };
@@ -431,17 +476,18 @@ const Root = (props) => {
     DinnerLogRef.current = temp;
     update();
   }
-  function editSnackLogData(value) {
+  function editSnackLogData(value, index) {
     let newEntry = {
-      name: value.food_name,
-      id: Math.random(),
-      protein: parseFloat(value.protein),
-      fat: parseFloat(value.fat),
-      carbohydrate: parseFloat(value.carbohydrates),
-      sugar: parseFloat(value.sugar),
-      sodium: parseFloat(value.sodium),
-      servingDescription: value.serving_description,
-      brand_name: value.brand_name,
+      name: value.food.food_name,
+      id: value.food.food_id,
+      protein: parseFloat(value.food.servings.serving[index].protein),
+      fat: parseFloat(value.food.servings.serving[index].fat),
+      carbohydrate: parseFloat(value.food.servings.serving[index].carbohydrate),
+      sugar: parseFloat(value.food.servings.serving[index].sugar),
+      sodium: parseFloat(value.food.servings.serving[index].sodium),
+      servingDescription:
+        value.food.servings.serving[index].serving_description,
+      brand_name: value.food.brand_name,
       quantity: '1',
       logGroup: 'SN',
     };
@@ -484,11 +530,9 @@ const Root = (props) => {
       proteinCurrent: userGoals.proteinCurrent,
       fatCurrent: userGoals.fatCurrent,
       carbCurrent: userGoals.carbCurrent,
-    });
-    setMissGoals({
-      sugarCurrent: missGoals.sugarCurrent,
+      sugarCurrent: userGoals.sugarCurrent,
       sugarGoal: val4,
-      sodiumCurrent: missGoals.sodiumCurrent,
+      sodiumCurrent: userGoals.sodiumCurrent,
       sodiumGoal: val5,
     });
   }
@@ -501,12 +545,10 @@ const Root = (props) => {
       proteinCurrent: val,
       fatCurrent: val2,
       carbCurrent: val3,
-    });
-    setMissGoals({
       sugarCurrent: val4,
-      sugarGoal: missGoals.sugarGoal,
       sodiumCurrent: val5,
-      sodiumGoal: missGoals.sodiumGoal,
+      sugarGoal: userGoals.sugarGoal,
+      sodiumGoal: userGoals.sodiumGoal,
     });
   }
 
@@ -532,7 +574,10 @@ const Root = (props) => {
           image: 'data:image/jpg;base64,' + response.assets[0].base64,
           userID: User.user_id,
         });
-        local_upload_image(user_account_key, {...User, profile_image: 'data:image/jpg;base64,' + response.assets[0].base64})
+        local_upload_image(user_account_key, {
+          ...User,
+          profile_image: 'data:image/jpg;base64,' + response.assets[0].base64,
+        });
       }
     });
   };
@@ -549,8 +594,6 @@ const Root = (props) => {
           setUserGoals,
           waterGoals,
           setWaterGoals,
-          missGoals,
-          setMissGoals,
           toggleInitialStack,
         }}>
         <user_context.Provider
@@ -558,7 +601,6 @@ const Root = (props) => {
             macroData: macroData.data,
             graphData,
             userGoals,
-            missGoals,
             setGoalsR,
             date,
             DisplayDate,
@@ -596,7 +638,7 @@ const Root = (props) => {
                 SnackLogRef,
               }}>
               <View style={{flex: 1}}>
-                <ActivityScreen visibility={actScreen}/>
+                <ActivityScreen visibility={actScreen} />
                 <NavigationContainer>
                   {props.init === true ? <UserStack /> : <AuthStack />}
                 </NavigationContainer>

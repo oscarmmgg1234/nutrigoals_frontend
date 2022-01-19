@@ -1,11 +1,23 @@
 import axios from 'axios';
+import {
+  access_server_publicIp_with_port,
+  api_server_publicIp_with_port,
+  auth_server_publicIp_with_port,
+  calc_server_publicIp_with_port,
+} from '../Constants';
 
 export const AuthSeverCall = axios.create({
-  baseURL: 'http://34.216.10.88:5000',
+  baseURL: auth_server_publicIp_with_port,
 });
 
-export const APITokenCall = axios.create({baseURL: 'http://34.216.10.88:5002'});
+export const APITokenCall = axios.create({
+  baseURL: access_server_publicIp_with_port,
+});
 
-export const APIBackend = axios.create({baseURL: 'http://34.216.10.88:5001'});
+export const APIServerCall = axios.create({
+  baseURL: api_server_publicIp_with_port,
+});
 
-export const CalcBackend = axios.create({baseURL: 'http://34.216.10.88:5003'});
+export const CalcBackend = axios.create({
+  baseURL: calc_server_publicIp_with_port,
+});

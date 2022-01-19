@@ -9,6 +9,7 @@ import {
   Image,
   ImageBackground,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 import Styles from './Styles';
 import * as Constants from '../../Constants';
@@ -19,6 +20,7 @@ import CalcHomeComponent from '../../Components/EditModal/calculatorModal/calcul
 import EditMainModal from '../../Components/EditModal/editMainModal';
 import ProfileSettings from '../../Components/EditModal/profileSettingsModal/profileSettings';
 import { remove_with_multikeys, save_bool_data } from '../../Utilities/local_storage';
+import ActivityComponent from '../../Components/activityIndicator';
 
 class Profile extends Component {
   constructor(props) {
@@ -27,8 +29,10 @@ class Profile extends Component {
       modal_calc_v: false,
       modal_edit_v: false,
       modal_profile_v: false,
+      delayIndicator: false,
     };
   }
+  
 
   static contextType = app_context;
   mountModal = (index) => {
@@ -78,6 +82,7 @@ class Profile extends Component {
     return (
       <>
         <StatusBar barStyle={'light-content'} hidden={false} />
+        <ActivityComponent visibility={this.state.delayIndicator}/>
         <CalcHomeComponent
           visibility={this.state.modal_calc_v}
           toggleModal={() => this.unmountModal(0)}
@@ -199,9 +204,9 @@ class Profile extends Component {
 
                   <TouchableOpacity
                     style={Styles.buttonContainer}
-                    onPress={() => {
-                      toggleInitialStack(false);
-                      this.signOuty();
+                    onPress={() => {this.setState({delayIndicator: true});
+                      setTimeout(()=>{ toggleInitialStack(false);
+                        this.signOuty();this.setState({delayIndicator: false})}, 1820)
                     }}>
                     <Text style={Styles.buttonText}>{Constants.SIGNOUT}</Text>
                   </TouchableOpacity>

@@ -9,12 +9,16 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../../Styles/Colors';
 import Styles from './Styles';
-import {local_macroGoal_update, local_soiGoal_update, macroGoal_update} from '../../../Services/user_goal_update';
+import {
+  local_macroGoal_update,
+  local_soiGoal_update,
+  macroGoal_update,
+} from '../../../Services/authServices/user_goal_update';
 import {
   validate_input,
   validation_input,
 } from '../../../Utilities/input_validation';
-import { user_macro_goals_key, user_soi_goals_key } from '../../../Constants';
+import {user_macro_goals_key, user_soi_goals_key} from '../../../Constants';
 
 const CustomForm = (props) => {
   const [PI, setPI] = useState('');
@@ -65,7 +69,7 @@ const CustomForm = (props) => {
         sodium: parseFloat(SOI),
         userID: props.userID,
       });
-      
+
       props.setG(
         parseFloat(PI),
         parseFloat(FI),
@@ -73,11 +77,17 @@ const CustomForm = (props) => {
         parseFloat(SI),
         parseFloat(SOI),
       );
-      local_macroGoal_update(user_macro_goals_key,{...props.userG,proteinGoal: parseFloat(PI),
+      local_macroGoal_update(user_macro_goals_key, {
+        ...props.userG,
+        proteinGoal: parseFloat(PI),
         fatGoal: parseFloat(FI),
-        carbGoal: parseFloat(CI)})
-      local_soiGoal_update(user_soi_goals_key,{...props.userM, sodiumGoal:  parseFloat(SOI),
-        sugarGoal:  parseFloat(SI)})
+        carbGoal: parseFloat(CI),
+      });
+      local_soiGoal_update(user_soi_goals_key, {
+        ...props.userG,
+        sodiumGoal: parseFloat(SOI),
+        sugarGoal: parseFloat(SI),
+      });
       props.vis(0);
     } else {
       null;

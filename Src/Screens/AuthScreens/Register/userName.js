@@ -12,7 +12,7 @@ import Styles from './Styles';
 import * as Constants from '../../../Constants';
 import Colors from '../../../Styles/Colors';
 import Images from '../../../Styles/Images';
-import {register_user} from '../../../Services/register_user';
+import {register_user} from '../../../Services/authServices/register_user';
 import {validate_input} from '../../../Utilities/input_validation';
 
 class RegisterUserName extends Component {
