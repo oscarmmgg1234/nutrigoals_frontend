@@ -2,7 +2,7 @@
 
 Nutrigoals is a Calorie Tracker App implemented in React-Native
 
-![IMG-0860](https://user-images.githubusercontent.com/45194139/150076655-bdebca5e-d03c-45ee-90ca-3303f4221721.PNG =250x250)
+![IMG-0860](https://user-images.githubusercontent.com/45194139/150076655-bdebca5e-d03c-45ee-90ca-3303f4221721.PNG)
 
 
 Installing and running application on android or ios
