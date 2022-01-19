@@ -1,4 +1,4 @@
-# NutriGoals-1
+# NutriGoals
 
 Nutrigoals is a Calorie Tracker App implemented in React-Native
 
